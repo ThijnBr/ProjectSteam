@@ -1,5 +1,5 @@
 # Project Steam
-
+Project Steam, Team members, Thijn, Dieu, Daan, Yverdon, Glenn.
 ## Description
 
 Project Steam is het eerste groepsproject van de opleiding HBO-ICT. Er zullen nog veel projecten volgen, waarvan de meeste ook groepsprojecten zullen zijn. Een belangrijk verschil met een individueel project, zoals je in periode A hebt uitgevoerd, is dat je 
