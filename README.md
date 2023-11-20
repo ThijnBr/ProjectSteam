@@ -8,7 +8,8 @@ besteden aan deze professional skills. Inhoudelijk is het een multidisciplinair 
 
 ## Features / TODOs
 
-- Design maken
+Planboard
+- https://trello.com/b/OnvAAMic/steam
 
 ## Getting Started
 
