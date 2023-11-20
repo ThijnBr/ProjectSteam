@@ -8,7 +8,7 @@ besteden aan deze professional skills. Inhoudelijk is het een multidisciplinair 
 
 ## Features / TODOs
 
-- dingen
+- Design maken
 
 ## Getting Started
 
