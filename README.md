@@ -33,7 +33,7 @@ Give examples
 
 ## Usage
 
-A few examples of useful commands or tasks.
+A few examples of useful commands or tasks..
 
 ```
 Give examples
