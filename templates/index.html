@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-<html>
-    <body>
-        'Click <a href="/?login=true">to log in</a>
-    </body>
-</html>
-
-=======
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -43,9 +35,9 @@
     />
   </head>
   <body>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
     <div>
-      <link href="./index.css" rel="stylesheet" />
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='index.css') }}">
 
       <div class="games-container">
         <div class="games-container01">
