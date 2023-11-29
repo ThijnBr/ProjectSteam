@@ -4,7 +4,13 @@
     <title>Display Data</title>
 </head>
 <body>
-    <h1>Displayed Data:</h1>
-    <p>The fetched data is: {{ steamID }}</p>
+    <h1>Friends Online</h1>
+        {%for x in friendsonline%}
+            <p>{{x.name}}, <img src='{{ x.avatar }}'>, {{x.info}}</p>
+        {%endfor%}
+    <h2>Friends Offline</h2>
+        {%for x in friendsoffline%}
+            <p>{{x.name}}, <img src='{{ x.avatar }}'>, {{x.info}}</p>
+        {%endfor%}
 </body>
 </html>

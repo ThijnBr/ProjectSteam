@@ -1,0 +1,27 @@
+{
+    "response": {
+        "players": [
+            {
+                "steamid": "76561198350551897",
+                "communityvisibilitystate": 3,
+                "profilestate": 1,
+                "personaname": "MO.Gamestreamerbeamer",
+                "commentpermission": 1,
+                "profileurl": "https://steamcommunity.com/profiles/76561198350551897/",
+                "avatar": "https://avatars.steamstatic.com/fc0bfb6267c154dc250f687b5e2e373860d7c220.jpg",
+                "avatarmedium": "https://avatars.steamstatic.com/fc0bfb6267c154dc250f687b5e2e373860d7c220_medium.jpg",
+                "avatarfull": "https://avatars.steamstatic.com/fc0bfb6267c154dc250f687b5e2e373860d7c220_full.jpg",
+                "avatarhash": "fc0bfb6267c154dc250f687b5e2e373860d7c220",
+                "lastlogoff": 1701265250,
+                "personastate": 1,
+                "realname": "ttv/gamestreamerbeamer",
+                "primaryclanid": "103582791429521408",
+                "timecreated": 1481446000,
+                "personastateflags": 0,
+                "gameextrainfo": "Blender",
+                "gameid": "365670",
+                "loccountrycode": "NL"
+            }
+        ]
+    }
+}
