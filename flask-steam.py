@@ -8,17 +8,13 @@ from pysteamsignin.steamsignin import SteamSignIn
 
 app = Flask(__name__)
 
-# @app.route('/')
-# def index():
-#     return render_template('data.html')
-
 @app.route('/')
 def main():
 	shouldLogin = request.args.get('login')
 	if shouldLogin is not None:
 		steamLogin = SteamSignIn()
 		# Flask expects an explicit return on the route.
-		return steamLogin.RedirectUser(steamLogin.ConstructURL('http://163.158.253.69:8080/processlogin'))
+		return steamLogin.RedirectUser(steamLogin.ConstructURL('http://localhost/processlogin'))
 
 	return render_template('index.html')
 
@@ -36,4 +32,4 @@ def process():
       
 if __name__ == '__main__':
 	os.environ['FLASK_ENV'] = 'development'
-	app.run(host = '192.168.1.199', port = 8080, debug = False)
+	app.run(host = 'localhost', port = 8080, debug = False)
