@@ -55,12 +55,12 @@
                   </div>
                   <div class="games-container05">
                     <svg viewBox="0 0 1024 1024" class="games-icon02">
-                      <path d="M426 726v-428l214 214z"></path></svg
-                    ><svg viewBox="0 0 1024 1024" class="games-icon04">
+                      <path d="M426 726v-428l214 214z"></path></svg>
+                      <svg viewBox="0 0 1024 1024" class="games-icon04">
                       <path
                         d="M298.667 85.333v42.667h-85.333c-35.328 0-67.413 14.379-90.496 37.504s-37.504 55.168-37.504 90.496v597.333c0 35.328 14.379 67.413 37.504 90.496s55.168 37.504 90.496 37.504h597.333c35.328 0 67.413-14.379 90.496-37.504s37.504-55.168 37.504-90.496v-597.333c0-35.328-14.379-67.413-37.504-90.496s-55.168-37.504-90.496-37.504h-85.333v-42.667c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v42.667h-256v-42.667c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667zM853.333 384h-682.667v-128c0-11.776 4.736-22.4 12.501-30.165s18.389-12.501 30.165-12.501h85.333v42.667c0 23.552 19.115 42.667 42.667 42.667s42.667-19.115 42.667-42.667v-42.667h256v42.667c0 23.552 19.115 42.667 42.667 42.667s42.667-19.115 42.667-42.667v-42.667h85.333c11.776 0 22.4 4.736 30.165 12.501s12.501 18.389 12.501 30.165zM170.667 469.333h682.667v384c0 11.776-4.736 22.4-12.501 30.165s-18.389 12.501-30.165 12.501h-597.333c-11.776 0-22.4-4.736-30.165-12.501s-12.501-18.389-12.501-30.165z"
-                      ></path></svg
-                    ><svg viewBox="0 0 1024 1024" class="games-icon06">
+                      ></path></svg>
+                     <svg viewBox="0 0 1024 1024" class="games-icon06">
                       <path
                         d="M101.803 350.336c-10.069 7.851-16.469 20.011-16.469 33.664v469.333c0 35.328 14.379 67.413 37.504 90.496s55.168 37.504 90.496 37.504h597.333c35.328 0 67.413-14.379 90.496-37.504s37.504-55.168 37.504-90.496v-469.333c-0.043-12.8-5.717-25.301-16.469-33.664l-384-298.667c-15.275-11.733-36.736-12.16-52.395 0zM682.667 896v-384c0-23.552-19.115-42.667-42.667-42.667h-256c-23.552 0-42.667 19.115-42.667 42.667v384h-128c-11.776 0-22.4-4.736-30.165-12.501s-12.501-18.389-12.501-30.165v-448.469l341.333-265.472 341.333 265.472v448.469c0 11.776-4.736 22.4-12.501 30.165s-18.389 12.501-30.165 12.501zM426.667 896v-341.333h170.667v341.333z"
                       ></path>
@@ -170,17 +170,17 @@
             src="https://images.unsplash.com/photo-1695653421371-cd48246a6200?ixid=M3w5MTMyMXwxfDF8YWxsfDE2fHx8fHx8Mnx8MTcwMTE4NTUxNnw&amp;ixlib=rb-4.0.3&amp;w=200"
             class="games-image09"
           />
-          <span class="games-text15">Lorem Ipsum</span>
-          <span class="games-text16">Lorem Ipsum</span>
+          <span class="games-text15">{{friendsonline[0].name}}</span>
+          <span class="games-text16">{{friendsonline[1].name}}</span>
           <span class="games-text17">1:34:56</span>
           <span class="games-text18">0:12:18</span>
           <span class="games-text19">Join game &gt;</span>
           <span class="games-text20">Join game &gt;</span>
-          <span class="games-text21">Playing {PlayingGame}</span>
-          <span class="games-text22">Playing {PlayingGame}</span>
+          <span class="games-text21">Playing {{friendsonline[0].info}}</span>
+          <span class="games-text22">Playing {{friendsonline[1].info}}</span>
           <img
             alt="profile"
-            src="https://images.unsplash.com/photo-1511208687438-2c5a5abb810c?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDJ8fGdlZXJ0JTIwd2lsZGVyc3xlbnwwfHx8fDE3MDExODU5OTZ8MA&amp;ixlib=rb-4.0.3&amp;w=200"
+            src={{friendsonline[0].avatar}}
             class="games-image10"
           />
           <img
@@ -199,16 +199,16 @@
         <svg viewBox="0 0 877.7142857142857 1024" class="games-icon14">
           <path
             d="M877.714 512c0 242.286-196.571 438.857-438.857 438.857s-438.857-196.571-438.857-438.857 196.571-438.857 438.857-438.857 438.857 196.571 438.857 438.857z"
-          ></path></svg
-        ><svg viewBox="0 0 877.7142857142857 1024" class="games-icon16">
+          ></path></svg>
+          <svg viewBox="0 0 877.7142857142857 1024" class="games-icon16">
           <path
             d="M877.714 512c0 242.286-196.571 438.857-438.857 438.857s-438.857-196.571-438.857-438.857 196.571-438.857 438.857-438.857 438.857 196.571 438.857 438.857z"
-          ></path></svg
-        ><svg viewBox="0 0 877.7142857142857 1024" class="games-icon18">
+          ></path></svg>
+          <svg viewBox="0 0 877.7142857142857 1024" class="games-icon18">
           <path
             d="M877.714 512c0 242.286-196.571 438.857-438.857 438.857s-438.857-196.571-438.857-438.857 196.571-438.857 438.857-438.857 438.857 196.571 438.857 438.857z"
-          ></path></svg
-        ><svg viewBox="0 0 877.7142857142857 1024" class="games-icon20">
+          ></path></svg>
+          <svg viewBox="0 0 877.7142857142857 1024" class="games-icon20">
           <path
             d="M877.714 512c0 242.286-196.571 438.857-438.857 438.857s-438.857-196.571-438.857-438.857 196.571-438.857 438.857-438.857 438.857 196.571 438.857 438.857z"
           ></path>
@@ -217,4 +217,3 @@
     </div>
   </body>
 </html>
->>>>>>> d2cdb2fc0324e931af1c7a1ac1eff2fe86e30872
