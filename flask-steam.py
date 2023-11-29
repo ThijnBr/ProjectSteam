@@ -14,7 +14,7 @@ def main():
 	if shouldLogin is not None:
 		steamLogin = SteamSignIn()
 		# Flask expects an explicit return on the route.
-		return steamLogin.RedirectUser(steamLogin.ConstructURL('http://localhost/processlogin'))
+		return steamLogin.RedirectUser(steamLogin.ConstructURL('http://localhost:8080/processlogin'))
 
 	return render_template('index.html')
 
