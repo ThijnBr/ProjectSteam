@@ -35,7 +35,7 @@ def process():
     friendsoffline = getOffline()
     
     if steamID is not False:
-        return render_template('data.html', friendsonline=friendsonline, friendsoffline=friendsoffline)
+        return render_template('login.html', friendsonline=friendsonline, friendsoffline=friendsoffline)
     else:
         return 'Failed to log in, bad details?'
 
