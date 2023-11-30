@@ -38,9 +38,9 @@
     />
   </head>
   <body>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}" />
     <div>
-      <link href="./activiteit.css" rel="stylesheet" />
+      <link href="{{ url_for('static',filename='activiteit.css') }}" rel="stylesheet" />
 
       <div class="activiteit-container">
         <div class="activiteit-container1">
@@ -55,22 +55,22 @@
             </div>
             <div class="activiteit-container3">
               <svg viewBox="0 0 1024 1024" class="activiteit-icon02">
-                <path d="M426 726v-428l214 214z"></path></svg
-              ><svg viewBox="0 0 1024 1024" class="activiteit-icon04">
+                <path d="M426 726v-428l214 214z"></path></svg>
+              <svg viewBox="0 0 1024 1024" class="activiteit-icon04">
                 <path
                   d="M298.667 85.333v42.667h-85.333c-35.328 0-67.413 14.379-90.496 37.504s-37.504 55.168-37.504 90.496v597.333c0 35.328 14.379 67.413 37.504 90.496s55.168 37.504 90.496 37.504h597.333c35.328 0 67.413-14.379 90.496-37.504s37.504-55.168 37.504-90.496v-597.333c0-35.328-14.379-67.413-37.504-90.496s-55.168-37.504-90.496-37.504h-85.333v-42.667c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v42.667h-256v-42.667c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667zM853.333 384h-682.667v-128c0-11.776 4.736-22.4 12.501-30.165s18.389-12.501 30.165-12.501h85.333v42.667c0 23.552 19.115 42.667 42.667 42.667s42.667-19.115 42.667-42.667v-42.667h256v42.667c0 23.552 19.115 42.667 42.667 42.667s42.667-19.115 42.667-42.667v-42.667h85.333c11.776 0 22.4 4.736 30.165 12.501s12.501 18.389 12.501 30.165zM170.667 469.333h682.667v384c0 11.776-4.736 22.4-12.501 30.165s-18.389 12.501-30.165 12.501h-597.333c-11.776 0-22.4-4.736-30.165-12.501s-12.501-18.389-12.501-30.165z"
-                ></path></svg
-              ><svg viewBox="0 0 1024 1024" class="activiteit-icon06">
+                ></path></svg>
+              <svg viewBox="0 0 1024 1024" class="activiteit-icon06">
                 <path
                   d="M101.803 350.336c-10.069 7.851-16.469 20.011-16.469 33.664v469.333c0 35.328 14.379 67.413 37.504 90.496s55.168 37.504 90.496 37.504h597.333c35.328 0 67.413-14.379 90.496-37.504s37.504-55.168 37.504-90.496v-469.333c-0.043-12.8-5.717-25.301-16.469-33.664l-384-298.667c-15.275-11.733-36.736-12.16-52.395 0zM682.667 896v-384c0-23.552-19.115-42.667-42.667-42.667h-256c-23.552 0-42.667 19.115-42.667 42.667v384h-128c-11.776 0-22.4-4.736-30.165-12.501s-12.501-18.389-12.501-30.165v-448.469l341.333-265.472 341.333 265.472v448.469c0 11.776-4.736 22.4-12.501 30.165s-18.389 12.501-30.165 12.501zM426.667 896v-341.333h170.667v341.333z"
                 ></path>
               </svg>
               <nav class="activiteit-nav">
-                <a href="index.html" class="activiteit-text1 button">Home</a>
-                <a href="vrienden.html" class="activiteit-text2 button">
+                <a href="/home" class="activiteit-text1 button">Home</a>
+                <a href="/vrienden" class="activiteit-text2 button">
                   Vrienden
                 </a>
-                <a href="activiteit.html" class="activiteit-text3 button">
+                <a href="/activiteit" class="activiteit-text3 button">
                   Activiteit
                 </a>
               </nav>

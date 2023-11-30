@@ -1,51 +1,60 @@
 import os, sys
 import flask
-from flask import Flask, request, render_template_string, render_template
+from flask import Flask, request, render_template, redirect
 
 import sys
 sys.path.append('Scripts')
 import getSteamUserData
 
-print()
-
-# Not ideal, but for the sake of an example
 sys.path.append(os.path.join(os.path.dirname(os.path.dirname(__file__))))
 from pysteamsignin.steamsignin import SteamSignIn
 
 app = Flask(__name__)
 
+#functie om offline en online vrienden op te halen
+def getFriends():
+    friendsonline = getSteamUserData.FriendsOnline()
+    friendsoffline = getSteamUserData.FriendsOffline()
+    return friendsonline, friendsoffline
+
+#functie die wordt uitgevoerd wanneer er met de ip:8080 wordt verbonden
 @app.route('/')
 def main():
+    #kijken of er al op inloggen is geklikt
 	shouldLogin = request.args.get('login')
 	if shouldLogin is not None:
 		steamLogin = SteamSignIn()
-		# Flask expects an explicit return on the route.
 		return steamLogin.RedirectUser(steamLogin.ConstructURL('http://localhost:8080/processlogin'))
 
 	return render_template('login.html')
 
+#functie die login processed
 @app.route('/processlogin')
 def process():
     returnData = request.values
+    print(returnData)
 
     steamLogin = SteamSignIn()
     steamID = steamLogin.ValidateResults(returnData)
-    
-    friendsonline = getOnline()
-    friendsoffline = getOffline()
-    
+
     if steamID is not False:
-        return render_template('index.html', friendsonline=friendsonline, friendsoffline=friendsoffline)
+        return redirect('/home')
     else:
         return 'Failed to log in, bad details?'
 
-def getOnline():
-    friends = getSteamUserData.FriendsOnline()
-    return friends
+@app.route('/home')
+def homepage():
+    friendsonline, friendsoffline = getFriends()
+    return render_template('index.html', friendsonline=friendsonline, friendsoffline=friendsoffline)
 
-def getOffline():
-    friends = getSteamUserData.FriendsOffline()
-    return friends
+@app.route('/vrienden')
+def vriendenpage():
+    friendsonline, friendsoffline = getFriends()
+    return render_template('vrienden.html', friendsonline=friendsonline, friendsoffline=friendsoffline)
+
+@app.route('/activiteit')
+def activiteitpage():
+    return render_template('activiteit.html')
       
 if __name__ == '__main__':
 	os.environ['FLASK_ENV'] = 'development'

@@ -35,12 +35,13 @@
     />
   </head>
   <body>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
     <div>
-      <link href="./vrienden.css" rel="stylesheet" />
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='vrienden.css') }}">
 
       <div class="vrienden-container">
         <div class="vrienden-container1">
+          <p>test</p>
           <div class="vrienden-sidebar">
             <svg viewBox="0 0 1024 1024" class="vrienden-icon">
               <path
@@ -63,11 +64,11 @@
                 ></path>
               </svg>
               <nav class="vrienden-nav">
-                <a href="index.html" class="vrienden-text1 button">Home</a>
-                <a href="vrienden.html" class="vrienden-text2 button">
+                <a href="/home" class="vrienden-text1 button">Home</a>
+                <a href="/vrienden" class="vrienden-text2 button">
                   Vrienden
                 </a>
-                <a href="activiteit.html" class="vrienden-text3 button">
+                <a href="/activiteit" class="vrienden-text3 button">
                   Activiteit
                 </a>
               </nav>

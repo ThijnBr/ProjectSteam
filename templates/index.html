@@ -66,11 +66,11 @@
                       ></path>
                     </svg>
                     <nav class="games-nav">
-                      <a href="index.html" class="games-text01 button">Home</a>
-                      <a href="vrienden.html" class="games-text02 button">
+                      <a href="/home" class="games-text01 button">Home</a>
+                      <a href="/vrienden" class="games-text02 button">
                         Vrienden
                       </a>
-                      <a href="activiteit.html" class="games-text03 button">
+                      <a href="/activiteit" class="games-text03 button">
                         Activiteit
                       </a>
                     </nav>
@@ -162,12 +162,12 @@
         <div class="games-vrienden">
           <img
             alt="profile"
-            src="https://images.unsplash.com/photo-1561580425-68f0b7cfc4ca?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE0fHxyZWQlMjBidWxsfGVufDB8fHx8MTcwMTE4NTc2MHww&amp;ixlib=rb-4.0.3&amp;w=200"
+            src={{friendsonline[0].avatar}}
             class="games-image08"
           />
           <img
             alt="profile"
-            src="https://images.unsplash.com/photo-1695653421371-cd48246a6200?ixid=M3w5MTMyMXwxfDF8YWxsfDE2fHx8fHx8Mnx8MTcwMTE4NTUxNnw&amp;ixlib=rb-4.0.3&amp;w=200"
+            src={{friendsonline[1].avatar}}
             class="games-image09"
           />
           <span class="games-text15">{{friendsonline[0].name}}</span>
@@ -180,20 +180,20 @@
           <span class="games-text22">Playing {{friendsonline[1].info}}</span>
           <img
             alt="profile"
-            src={{friendsonline[0].avatar}}
+            src={{friendsonline[2].avatar}}
             class="games-image10"
           />
           <img
             alt="profile"
-            src="https://images.unsplash.com/photo-1595442770112-a6bb516b043b?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDJ8fG5lZGVybGFuZHxlbnwwfHx8fDE3MDExODYwNDV8MA&amp;ixlib=rb-4.0.3&amp;w=200"
+            src={{friendsonline[3].avatar}}
             class="games-image11"
           />
-          <span class="games-text23">Lorem Ipsum</span>
-          <span class="games-text24">Lorem Ipsum</span>
-          <span class="games-text25">Last seen online {offlineTime} ago</span>
-          <span class="games-text26">Last seen online {offlineTime} ago</span>
+          <span class="games-text23">{{friendsonline[2].name}}</span>
+          <span class="games-text24">{{friendsonline[3].name}}</span>
+          <span class="games-text25">Playing {{friendsonline[2].info}}</span>
+          <span class="games-text26">Playing {{friendsonline[3].info}}</span>
         </div>
-        <a href="vrienden.html" class="games-navlink">See all &gt;</a>
+        <a href="/vrienden" class="games-navlink">See all &gt;</a>
         <a href="games1.html" class="games-navlink1">See more &gt;</a>
         <a href="games1.html" class="games-navlink2">See more &gt;</a>
         <svg viewBox="0 0 877.7142857142857 1024" class="games-icon14">
