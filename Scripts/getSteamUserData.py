@@ -3,6 +3,21 @@ import requests
 apikey = '14B0152189C811A5DE80FE50EB4DA7CC'
 steamID = 76561198401205997
 
+#sort Friends on playing game -> online -> Offline
+def sortFriends(lst):
+    
+    for i in range(len(lst)):
+        minindex = i
+        for j in range(i+1, len(lst)):
+            info = lst[j]['info']
+            if info != 'Online' and info != 'Offline' or (info == 'Online' and lst[minindex]['info'] == 'Offline'):
+                minindex = j
+        lst[minindex], lst[i] = lst[i], lst[minindex]
+
+    print(lst)
+    
+    return lst
+
 #get user ids of friends
 def getFriendUserIDs(steamid):
     apilink = f'http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key={apikey}&steamid={steamid}&relationship=friend'
@@ -30,31 +45,23 @@ def playerDictionary(name, avatar, info):
     }
 
 #getting friends online
-def FriendsOnline():
+
+def getFriendsData():
     friendList = getFriendSummary()
     players = []
     for x in friendList['response']['players']:
+        
+        name = x['personaname']
+        avatar = x['avatarmedium']
         state = x['personastate']
         if state != 0:
-            name = x['personaname']
-            avatar = x['avatarmedium']
             try:
-                info = x['gameextrainfo']
+                info = 'Playing '+x['gameextrainfo']
             except KeyError:
                 info = 'Online'
-            players.append(playerDictionary(name,avatar,info))
-    return players
-
-#get which friends are offline
-def FriendsOffline():
-    friendList = getFriendSummary()
-    players = []
-    for x in friendList['response']['players']:
-        state = x['personastate']
-        if state == 0:
-            name = x['personaname']
-            avatar = x['avatarmedium']
+        else:
             info = 'Offline'
-            players.append(playerDictionary(name,avatar,info))
-    return players
+        players.append(playerDictionary(name,avatar,info))
+    sorted = sortFriends(players)
+    return sorted
 

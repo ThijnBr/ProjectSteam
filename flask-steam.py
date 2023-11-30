@@ -11,12 +11,6 @@ from pysteamsignin.steamsignin import SteamSignIn
 
 app = Flask(__name__)
 
-#functie om offline en online vrienden op te halen
-def getFriends():
-    friendsonline = getSteamUserData.FriendsOnline()
-    friendsoffline = getSteamUserData.FriendsOffline()
-    return friendsonline, friendsoffline
-
 #functie die wordt uitgevoerd wanneer er met de ip:8080 wordt verbonden
 @app.route('/')
 def main():
@@ -44,13 +38,13 @@ def process():
 
 @app.route('/home')
 def homepage():
-    friendsonline, friendsoffline = getFriends()
-    return render_template('index.html', friendsonline=friendsonline, friendsoffline=friendsoffline)
+    friends = getSteamUserData.getFriendsData()
+    return render_template('index.html', friends=friends)
 
 @app.route('/vrienden')
 def vriendenpage():
-    friendsonline, friendsoffline = getFriends()
-    return render_template('vrienden.html', friendsonline=friendsonline, friendsoffline=friendsoffline)
+    friends = getSteamUserData.getFriendsData()
+    return render_template('vrienden.html', friends=friends)
 
 @app.route('/activiteit')
 def activiteitpage():
