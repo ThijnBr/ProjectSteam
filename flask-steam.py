@@ -11,6 +11,8 @@ from pysteamsignin.steamsignin import SteamSignIn
 
 app = Flask(__name__)
 
+steamID = None
+
 #functie die wordt uitgevoerd wanneer er met de ip:8080 wordt verbonden
 @app.route('/')
 def main():
@@ -25,6 +27,7 @@ def main():
 #functie die login processed
 @app.route('/processlogin')
 def process():
+    global steamID
     returnData = request.values
     print(returnData)
 
@@ -38,12 +41,13 @@ def process():
 
 @app.route('/home')
 def homepage():
-    friends = getSteamUserData.getFriendsData()
+    print(steamID)
+    friends = getSteamUserData.getFriendsData(steamID)
     return render_template('index.html', friends=friends)
 
 @app.route('/vrienden')
 def vriendenpage():
-    friends = getSteamUserData.getFriendsData()
+    friends = getSteamUserData.getFriendsData(steamID)
     return render_template('vrienden.html', friends=friends)
 
 @app.route('/activiteit')

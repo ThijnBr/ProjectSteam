@@ -1,7 +1,7 @@
 import requests
 
 apikey = '14B0152189C811A5DE80FE50EB4DA7CC'
-steamID = 76561198401205997
+# steamID = 76561198401205997
 
 #sort Friends on playing game -> online -> Offline
 def sortFriends(lst):
@@ -29,7 +29,7 @@ def getFriendUserIDs(steamid):
     return playerIDs
 
 #json data of all friends
-def getFriendSummary():
+def getFriendSummary(steamID):
     steamIDs = getFriendUserIDs(steamID)
     apilink =  f'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={apikey}&steamids={steamIDs}'
     data = requests.get(apilink)
@@ -46,8 +46,8 @@ def playerDictionary(name, avatar, info):
 
 #getting friends online
 
-def getFriendsData():
-    friendList = getFriendSummary()
+def getFriendsData(steamID):
+    friendList = getFriendSummary(steamID)
     players = []
     for x in friendList['response']['players']:
         
