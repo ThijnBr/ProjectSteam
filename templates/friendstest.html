@@ -5,6 +5,8 @@
 </head>
 <body>
     <h1>Displayed Data:</h1>
-    <p>The fetched data is: <img src={{friendsonline[0].avatar}}></p>
+    {%for x in friends%}
+    <p>{{x.name}}</p>
+    {%endfor%}
 </body>
 </html>
