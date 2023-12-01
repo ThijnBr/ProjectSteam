@@ -4,7 +4,7 @@ from flask import Flask, request, render_template, redirect
 
 import sys
 sys.path.append('Scripts')
-import getSteamUserData
+import getSteamUserFriends as getFriends
 
 sys.path.append(os.path.join(os.path.dirname(os.path.dirname(__file__))))
 from pysteamsignin.steamsignin import SteamSignIn
@@ -42,12 +42,12 @@ def process():
 @app.route('/home')
 def homepage():
     print(steamID)
-    friends = getSteamUserData.getFriendsData(steamID)
+    friends = getFriends.getFriendsData(steamID)
     return render_template('index.html', friends=friends)
 
 @app.route('/vrienden')
 def vriendenpage():
-    friends = getSteamUserData.getFriendsData(steamID)
+    friends = getFriends.getFriendsData(steamID)
     return render_template('vrienden.html', friends=friends)
 
 @app.route('/activiteit')
