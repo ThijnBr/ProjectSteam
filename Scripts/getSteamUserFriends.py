@@ -1,6 +1,9 @@
 import requests
+import pandas as pd
 
-apikey = '14B0152189C811A5DE80FE50EB4DA7CC'
+df = pd.read_csv('..\ApiCsv\ApiKeys.csv')
+apikey = df.iloc[0, 0]
+
 # steamID = 76561198401205997
 
 #sort Friends on playing game -> online -> Offline
