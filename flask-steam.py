@@ -21,7 +21,7 @@ def main():
 		steamLogin = SteamSignIn()
 		return steamLogin.RedirectUser(steamLogin.ConstructURL('http://localhost:8080/processlogin'))
 
-	return render_template('login.html')
+	return render_template('index.html')
 
 #functie die login processed
 @app.route('/processlogin')
