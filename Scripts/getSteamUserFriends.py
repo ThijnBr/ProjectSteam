@@ -1,8 +1,8 @@
 import requests
 import pandas as pd
 
-df = pd.read_csv('..\ApiCsv\ApiKeys.csv')
-apikey = df.iloc[0, 0]
+df = pd.read_csv(r'C:\Users\jacob\source\repos\ThijnBr\ProjectSteam\Api\ApiKeys.csv')
+apikey = df.iloc[0, 1]
 
 # steamID = 76561198401205997
 
