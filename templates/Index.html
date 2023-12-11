@@ -17,25 +17,27 @@
             <label class="logo">
                 <img src="{{ url_for('static', filename='/resources/logo.png') }}" alt="Logo" id="logo-img">
             </label>
-            <div class="user-profile dropdown" onclick="toggleMenu()">
-                <img src="{{ url_for('static', filename='/resources/profile.jpg') }}" alt="Profile Picture">
-                <p class="name">Username</p>
+            <div class="user-profile dropdown">
+                <img id="userProfilePicture" src="{{ url_for('static', filename='/resources/profile.jpg') }}" alt="Profile Picture">
+                <p class="name" id="username">Username</p>
                 <div class="arrow"></div>
-                <div class="dropdown-content">
-                  <a href="login.php">Login</a>
-                  <a href="https://store.steampowered.com/join">Sign Up</a>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <a href="{{ url_for('login') }}" id="loginLink">Login</a>
+                    <a href="https://store.steampowered.com/join" id="signupLink">Sign Up</a>
+                    <a href="#" id="viewAccountLink" style="display: none;">View Account</a>
+                    <a href="#" id="signOutLink" style="display: none;">Sign Out</a>
                 </div>
             </div>
             <ul>
-                <li><a class="active" href="/templates/index.html">Home</a></li>
-                <li><a href="/templates/games.html">Games</a></li>
-                <li><a href="/templates/friends.html">Friends</a></li>
-                <li><a href="/templates/aa.html">AA</a></li>
+                <li><a class="active" href="/home">Home</a></li>
+                <li><a href="/games">Games</a></li>
+                <li><a href="/friends">Friends</a></li>
+                <li><a href="/aa">AA</a></li>
             </ul>
             <span id="clock"></span>
         </nav>
         <section> 
-            <!-- vrienden ding hier -->
+            <!-- Content here -->
         </section>
         <script src="{{ url_for('static', filename='index.js') }}"></script>
     </body>
