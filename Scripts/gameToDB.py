@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+import time
 
 gameIdLocation = r'C:\Users\jacob\source\repos\ThijnBr\ProjectSteam\Api\gameIds.json'
 df = pd.read_json(gameIdLocation)
@@ -13,19 +14,18 @@ def insertGameDetails():
     pass
 
 def getGameDetails(df):
-    
-    # print(df.to_string())
     numRows = len(df["applist"]["apps"])
     gameDetailsList = []
-    
     for row in range(numRows):
         gameId = df["applist"]["apps"][row]["appid"]
         gameDetailsList.append(getGameDetailApi(gameId))
-        print(gameDetailsList[row][str(gameId)]['data']['type'])
-        
-        if gameDetailsList[row][str(gameId)]['data']['type'] == 'game':    
-            insertGameDetails()
-            gameDetailsList[row][str(gameId)]['data']['name']    
+        print(f"{gameId} {gameDetailsList[row][str(gameId)]['success']}")
+        time.sleep(1)
+        if gameDetailsList[row][str(gameId)]['success'] == 'True':
+            print('success == true')    
+            if gameDetailsList[row][str(gameId)]['data']['type'] == 'game':
+                print('Game == true')
+                insertGameDetails()
+                gameDetailsList[row][str(gameId)]['data']['name']
 
 getGameDetails(df)
-
