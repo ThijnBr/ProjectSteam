@@ -91,6 +91,10 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 * Daan Hessen (Software Development)
 ```
 
+## Logboek
+https://hogeschoolutrecht-my.sharepoint.com/:w:/g/personal/dieu-merci_tandu_student_hu_nl/EdEoIEX3xLdIoeWjM_UhK2cBsyKhBrKkcINjRJT1FUzE9A?e=BNOd4E
+
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

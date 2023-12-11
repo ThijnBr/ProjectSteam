@@ -6,7 +6,6 @@ import sys
 sys.path.append('Scripts')
 import getSteamUserFriends as getFriends
 
-sys.path.append(os.path.join(os.path.dirname(os.path.dirname(__file__))))
 from pysteamsignin.steamsignin import SteamSignIn
 
 app = Flask(__name__)
@@ -22,14 +21,13 @@ def main():
 		steamLogin = SteamSignIn()
 		return steamLogin.RedirectUser(steamLogin.ConstructURL('http://localhost:8080/processlogin'))
 
-	return render_template('login.html')
+	return render_template('index.html')
 
 #functie die login processed
 @app.route('/processlogin')
 def process():
     global steamID
     returnData = request.values
-    print(returnData)
 
     steamLogin = SteamSignIn()
     steamID = steamLogin.ValidateResults(returnData)
@@ -41,7 +39,6 @@ def process():
 
 @app.route('/home')
 def homepage():
-    print(steamID)
     friends = getFriends.getFriendsData(steamID)
     return render_template('index.html', friends=friends)
 
