@@ -1,44 +1,174 @@
 <!DOCTYPE html>
+<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>SteamDeck2.0</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    </head>
-    <body>
-        <nav>
-            <input type="checkbox" id="check">
-            <label for="check" class="checkbtn">
-                <i class="fas fa-bars"></i>
-            </label>
-            <label class="logo">
-                <img src="{{ url_for('static', filename='/resources/logo.png') }}" alt="Logo" id="logo-img">
-            </label>
-            <div class="user-profile dropdown">
-                <img id="userProfilePicture" src="{{ url_for('static', filename='/resources/profile.jpg') }}" alt="Profile Picture">
-                <p class="name" id="username">Username</p>
-                <div class="arrow"></div>
-                <div class="dropdown-content" id="dropdownMenu">
-                    <a href="{{ url_for('login') }}" id="loginLink">Login</a>
-                    <a href="https://store.steampowered.com/join" id="signupLink">Sign Up</a>
-                    <a href="#" id="viewAccountLink" style="display: none;">View Account</a>
-                    <a href="#" id="signOutLink" style="display: none;">Sign Out</a>
-                </div>
+  <head>
+    <meta charset="UTF-8">
+    <title>SteamDeck</title>
+    <link rel="stylesheet" href="static\style.css">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+        <i class='bx bxl-steam' ></i>
+        <div class="logo_name">Steam</div>
+        <i class='bx bx-menu' id="btn" ></i>
+        <div class="friends-toggle">⮞</div>
+    </div>
+    <ul class="nav-list">
+      <li>
+          <i class='bx bx-search' ></i>
+         <input type="text" placeholder="Search...">
+         <span class="tooltip">Search</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+         <span class="tooltip">Dashboard</span>
+      </li>
+      <li>
+       <a href="#">
+         <i class='bx bx-user' ></i>
+         <span class="links_name">Friends</span>
+       </a>
+       <span class="tooltip">Friends</span>
+     </li>
+     <li>
+       <a href="#">
+         <i class='bx bx-library'></i>
+         <span class="links_name">Games</span>
+       </a>
+       <span class="tooltip">Games</span>
+       <li class="profile">
+        <div class="profile-details">
+            <!-- Dynamic Profile Image -->
+            <img src="{{ session['user_info'].get('avatar', 'static/profile.jpg') }}" alt="Profile Image">
+            <div class="name_job">
+                <!-- Dynamic Username -->
+                <div class="name">{{ session['user_info'].get('personaname', 'Myguy24') }}</div>
+                <div class="job">Online</div>
             </div>
-            <ul>
-                <li><a class="active" href="/home">Home</a></li>
-                <li><a href="/games">Games</a></li>
-                <li><a href="/friends">Friends</a></li>
-                <li><a href="/aa">AA</a></li>
-            </ul>
-            <span id="clock"></span>
-        </nav>
-        <section> 
-            <!-- Content here -->
-        </section>
-        <script src="{{ url_for('static', filename='index.js') }}"></script>
-    </body>
+        </div>
+        <i class='bx bx-log-out' id="log_out" ></i>
+    </li>    
+    </ul>
+    </div>
+    <section class="home-section">
+      <div class="text">Popular between friends</div>
+      <section class="raster-container">
+        <!-- description wordt nu niet gebruikt -->
+        <div class="image-container">
+          <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Image Description 1">
+          <div class="image-title">Sample Text</div>
+          <div class="image-description">Korte uitleg over dit spel.</div>
+        </div>
+      
+        <div class="image-container">
+          <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Image Description 2">
+          <div class="image-title">Sample Text</div>
+          <div class="image-description">Korte uitleg over dit spel.</div>
+        </div>
+
+        <div class="image-container">
+          <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Image Description 1">
+          <div class="image-title">Sample Text</div>
+          <div class="image-description">Korte uitleg over dit spel.</div>
+        </div>
+
+        <div class="image-container">
+          <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Image Description 1">
+          <div class="image-title">Sample Text</div>
+          <div class="image-description">Korte uitleg over dit spel.</div>
+        </div>
+
+        <div class="image-container">
+          <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Image Description 1">
+          <div class="image-title">Sample Text</div>
+          <div class="image-description">Korte uitleg over dit spel.</div>
+        </div>
+
+        <div class="image-container">
+          <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Image Description 1">
+          <div class="image-title">Sample Text</div>
+          <div class="image-description">Korte uitleg over dit spel.</div>
+        </div>
+      </section>
+        <div class="text">Achievements</div>
+    </section>
+    <div class="friends-section">
+      <div class="friends-title">Friends</div>
+    
+      <!-- Online Friends Group -->
+      <div class="friends-group">
+        <div class="friends-group-title">
+          <span>{{ online_friends|length if online_friends else '0' }} Online</span>
+          <i class='bx bx-chevron-down'></i>
+        </div>
+        <div class="friends-list" style="display: none;">
+          {% for friend in online_friends %}
+          <div class="friend">
+            <img src="{{ friend['avatar'] }}" alt="{{ friend['personaname'] }}">
+            <div class="friend-info">
+              <div class="friend-name">{{ friend['personaname'] }}</div>
+              <div class="friend-status">{{ friend['gameextrainfo'] or 'Idle' }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    
+      <!-- Offline Friends Group -->
+      <div class="friends-group">
+        <div class="friends-group-title">
+          <span>{{ offline_friends|length if offline_friends else '0' }} Offline</span>
+          <i class='bx bx-chevron-down'></i>
+        </div>
+        <div class="friends-list" style="display: none;">
+          {% for friend in offline_friends %}
+          <div class="friend">
+            <img src="{{ friend['avatar'] }}" alt="{{ friend['personaname'] }}">
+            <div class="friend-info">
+              <div class="friend-name">{{ friend['personaname'] }}</div>
+              <div class="friend-status">Offline</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    
+    
+      
+      
+       
+    <script>
+      let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+
+  closeBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("open");
+    menuBtnChange();//calling the function(optional)
+  });
+
+  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+
+  // following are the code to change sidebar button(optional)
+  function menuBtnChange() {
+   if(sidebar.classList.contains("open")){
+     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+   }else {
+     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+   }
+  }
+  </script>
+  <script src="/static/togglemenu.js"></script>
+</body>
 </html>
