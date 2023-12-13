@@ -251,36 +251,35 @@
 }
 
 /* what friends are playng*/
-/* Main container setup for a library look */
 .home-section .raster-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(525px, 1fr)); /* Increased minimum width for larger images */
-  gap: 20px; /* Space between games */
-  padding: 20px; /* Padding around the whole section */
-  background-color: #000000; /* Black background for a gaming feel */
+  grid-template-columns: repeat(auto-fit, minmax(525px, 1fr)); 
+  gap: 20px; 
+  padding: 20px; 
+  background-color: #000000; 
 }
 
-/* Card-like container for each game, keeping a wider aspect ratio */
+
 .home-section .image-container {
-  width: 100%; /* Take up full width of the grid column */
-  height: 225px; /* Increase height while maintaining the aspect ratio */
-  border-radius: 10px; /* Rounded corners for card effect */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
+  width: 100%; 
+  height: 225px; 
+  border-radius: 10px; 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
   position: relative;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for hover effects */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 
-/* Styling for game images */
+
 .home-section .image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px; /* Match the container's border-radius */
+  border-radius: 10px; 
   transition: transform 0.3s ease;
 }
 
-/* Overlay and title styling */
+
 .home-section .image-container::after {
   content: '';
   position: absolute;
@@ -288,8 +287,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); /* Gradient overlay */
-  border-radius: 10px; /* Match the container's border-radius */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); 
+  border-radius: 10px; 
   transition: opacity 0.3s ease;
 }
 
@@ -301,56 +300,55 @@
   font-family: 'Arial', sans-serif;
   font-size: 18px;
   font-weight: bold;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Enhanced text shadow for better readability */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); 
   z-index: 2;
 }
 
-/* Hover effects */
+
 .home-section .image-container:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Slightly more pronounced hover effect */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); 
   &::after {
-    opacity: 0.85; /* Darken the overlay on hover for focus */
+    opacity: 0.85; 
   }
 }
 
-/* Responsive design adjustments */
+
 @media (max-width: 768px) {
   .home-section .raster-container {
-    grid-template-columns: 1fr; /* Single column for mobile devices */
+    grid-template-columns: 1fr; 
   }
-  
-  /* Adjusting image container height for mobile to maintain aspect ratio */
+
   .home-section .image-container {
-    height: 150px; /* Slightly reduced height for mobile screens */
+    height: 150px; 
   }
 }
 
 
 /* Friends */
 .friends-section {
-  background: #1d1b31; /* Matching the sidebar color */
+  background: #1d1b31; 
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Consistent shadow with the sidebar */
-  color: #FFF; /* White text color */
-  position: fixed; /* Fixed position to overlay the website */
-  top: 15px; /* 15px from the top of the screen */
-  right: 15px; /* 15px from the right of the screen */
-  z-index: 100; /* High z-index to make sure it's above other elements */
-  width: 300px; /* Adjust width as needed */
-  max-height: 90vh; /* Max height to avoid overlapping the bottom edge */
-  overflow-y: auto; /* Scroll inside the section if content is too long */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
+  color: #FFF; 
+  position: fixed; 
+  top: 15px; 
+  right: 15px; 
+  z-index: 100; 
+  width: 300px; 
+  max-height: 90vh; 
+  overflow-y: auto; 
 }
 
 .friends-title {
   font-size: 22px;
   font-weight: 600;
-  margin-bottom: 15px; /* Spacing before the group list starts */
+  margin-bottom: 15px; 
 }
 
 .friends-group {
-  margin-bottom: 20px; /* Spacing between groups */
+  margin-bottom: 20px; 
 }
 
 .friends-group-title {
@@ -359,38 +357,38 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer; /* To indicate the title is clickable */
+  cursor: pointer; 
   font-size: 18px;
   font-weight: 500;
-  margin-bottom: 10px; /* Spacing between title and list */
+  margin-bottom: 10px; 
 }
 
 .friends-group-title i {
   font-size: 16px;
-  transition: transform 0.3s ease; /* Smooth rotation of the icon */
+  transition: transform 0.3s ease; 
 }
 
 .friends-group-title i.bx-chevron-up {
-  transform: rotate(180deg); /* Flip icon when list is expanded */
+  transform: rotate(180deg); 
 }
 
 .friends-list {
-  display: none; /* Hidden by default */
+  display: none; 
   list-style: none;
-  padding-left: 0; /* Remove default padding */
+  padding-left: 0; 
 }
 
 .friend {
   display: flex;
   align-items: center;
-  margin-bottom: 10px; /* Spacing between friends */
+  margin-bottom: 10px; 
 }
 
 .friend img {
-  width: 40px; /* Adjust size as needed */
+  width: 40px; 
   height: 40px;
-  border-radius: 20px; /* Circular avatar */
-  margin-right: 10px; /* Spacing between image and text */
+  border-radius: 20px; 
+  margin-right: 10px; 
 }
 
 .friend-info {
@@ -405,5 +403,5 @@
 
 .friend-status {
   font-size: 14px;
-  color: #a9a9a9; /* Grey color for status */
+  color: #a9a9a9; 
 }

@@ -3,7 +3,7 @@ from flask import Flask, redirect, url_for, session, render_template
 from flask_openid import OpenID
 
 app = Flask(__name__)
-app.secret_key = '3f6F9E3cFb4B6aD7c8E5fA2e4D9cB8aF'  # Replace with your secret key
+app.secret_key = '3f6F9E3cFb4B6aD7c8E5fA2e4D9cB8aF'  # sessie toke
 oid = OpenID(app)
 
 def get_steam_userinfo(steam_id, api_key):
@@ -27,11 +27,10 @@ def get_friends_details(api_key, steam_ids):
 def index():
     user_info = session.get('user_info')
     if user_info:
-        api_key = '591D0EBE4F58FD3539E9016C628B72E0'  # Replace with your actual API key
+        api_key = '591D0EBE4F58FD3539E9016C628B72E0'  # steam api 
         steam_id = user_info['steamid']
         friend_ids = get_friends_steam_ids(steam_id, api_key)
         friends_details = get_friends_details(api_key, friend_ids)
-        # Separate online and offline friends
         online_friends = [f for f in friends_details if f['personastate'] != 0]
         offline_friends = [f for f in friends_details if f['personastate'] == 0]
         return render_template('index.html', user_info=user_info, online_friends=online_friends, offline_friends=offline_friends)
@@ -50,7 +49,7 @@ def auth_steam():
 @oid.after_login
 def create_or_login(resp):
     steam_id = resp.identity_url.split('/')[-1]
-    user_info = get_steam_userinfo(steam_id, '591D0EBE4F58FD3539E9016C628B72E0')  # Replace with your Steam API key
+    user_info = get_steam_userinfo(steam_id, '591D0EBE4F58FD3539E9016C628B72E0')  # steam api
     session['user_info'] = user_info
     return redirect(url_for('index'))
 
