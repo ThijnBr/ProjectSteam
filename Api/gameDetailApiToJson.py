@@ -16,14 +16,20 @@ def getGameDetailsApi(gameId):
 
 def insertGameDetailsJson(record):
     df = pd.DataFrame(record)
-    return df.to_json(r"gameDetail.json", mode='a', lines=True, orient='records', indent=2, index=False)    
+    return df.to_json(r"gameDetail.json", mode='a', lines=True, orient='records', indent=2)    
 
 def getGameDetails(df):
     numRows = len(df["applist"]["apps"])
-    currentRow = 41
+    currentRow = 16684
     for row in range(currentRow, numRows):
         gameId = df["applist"]["apps"][row]["appid"]
-        gameDetail= getGameDetailsApi(gameId)
+        try:
+            gameDetail= getGameDetailsApi(gameId)
+        except Exception as E:
+            with open ('errorIds.json', 'a')as f:
+                f.write(str(gameId)+',')
+            print(E)
+            continue
         print(gameId)
         
         try:
@@ -31,10 +37,12 @@ def getGameDetails(df):
                 if str(gameDetail[str(gameId)]['success']) == 'True' and str(gameDetail[str(gameId)]['data']['type']) == 'game':
                     # print(gameDetail)
                     insertGameDetailsJson(gameDetail)
-        except:
+                    
+        except Exception as E:
             with open ('errorIds.json', 'a')as f:
                 f.write(str(gameId)+',')
-            print('error')
+            print(E)
+        time.sleep(1.5)
         currentRow += 1
         print(currentRow)
     print("It's done!!!")
