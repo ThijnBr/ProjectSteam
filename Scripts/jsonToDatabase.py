@@ -190,25 +190,25 @@ for x in range(row, len(data)):
 
         # print(x, ' ', value)  
     # print(gametoInsert)
-    # try:
-    insertGame(gametoInsert)
-    if requirementsToInsert != None:
-        insertRequirements(requirementsToInsert)
-    insertPlatforms(platformstoInsert, gameId)
-    insertSupportinfo(supportInfoToInsert, gameId)
-    if categoriestoInsert != None:
-        for x in categoriestoInsert:
-            insertGameCategory(gameId, x['id'])
-    if genrestoInsert != None:
-        for x in genrestoInsert:
-            insertGameGenre(gameId, x['id'])
-    if screenshotsToInsert != None:
-        for x in screenshotsToInsert:
-            insertScreenshots(x, gameId)
-    # except Exception as e:
-    #     with open('ERRORDS.TXT', 'a', encoding='utf-8') as f:
-    #         error = str(e) + ' with gameid ' + str(gameId) + '\n'
-    #         f.write(error)
+    try:
+        insertGame(gametoInsert)
+        if requirementsToInsert != None:
+            insertRequirements(requirementsToInsert)
+        insertPlatforms(platformstoInsert, gameId)
+        insertSupportinfo(supportInfoToInsert, gameId)
+        if categoriestoInsert != None:
+            for x in categoriestoInsert:
+                insertGameCategory(gameId, x['id'])
+        if genrestoInsert != None:
+            for x in genrestoInsert:
+                insertGameGenre(gameId, x['id'])
+        if screenshotsToInsert != None:
+            for x in screenshotsToInsert:
+                insertScreenshots(x, gameId)
+    except Exception as e:
+        with open('ERRORDS.TXT', 'a', encoding='utf-8') as f:
+            error = str(e) + ' with gameid ' + str(gameId) + '\n'
+            f.write(error)
 
     currentRow += 1
     print(currentRow)
