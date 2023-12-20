@@ -6,9 +6,8 @@ apikey = df.iloc[0, 1]
 
 # steamID = 76561198401205997
 
-#sort Friends on playing game -> online -> Offline
+#sort Friends on Playing Game -> online -> Offline
 def sortFriends(lst):
-    
     for i in range(len(lst)):
         minindex = i
         for j in range(i+1, len(lst)):
@@ -16,9 +15,6 @@ def sortFriends(lst):
             if info != 'Online' and info != 'Offline' or (info == 'Online' and lst[minindex]['info'] == 'Offline'):
                 minindex = j
         lst[minindex], lst[i] = lst[i], lst[minindex]
-
-    print(lst)
-    
     return lst
 
 #get user ids of friends
@@ -47,8 +43,7 @@ def playerDictionary(name, avatar, info):
         'info': info
     }
 
-#getting friends online
-
+#getting data friends online
 def getFriendsData(steamID):
     friendList = getFriendSummary(steamID)
     players = []

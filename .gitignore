@@ -1,3 +1,7 @@
 .vscode/
 Scripts/__pycache__
+<<<<<<< HEAD
 .vs/
+=======
+.vs
+>>>>>>> main
