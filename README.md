@@ -17,20 +17,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them.
-
-```
-Give examples
-```
+pip install flask==2.2.5
+pip install werkzeug==2.3.8
+pip install flask_openid
 
 ### Installation
-
-A step by step series of examples that tell you how to get a development environment running.
-
-```
-Give examples
-```
-
+By running app2.py. A development server is run on localhost. For production enviroment you should use a WSGI server.
 ## Usage
 
 A few examples of useful commands or tasks..
