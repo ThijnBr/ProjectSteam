@@ -1,10 +1,20 @@
 import requests
 import pandas as pd
 
-df = pd.read_csv(r'C:\Users\jacob\source\repos\ThijnBr\ProjectSteam\Api\ApiKeys.csv')
+import os
+script_directory = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_directory)
+
+df = pd.read_csv('..\Api\ApiKeys.csv')
 apikey = df.iloc[0, 1]
 
 # steamID = 76561198401205997
+
+def getUserInfo(steamid):
+    url = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={apikey}&steamids={steamid}"
+    response = requests.get(url)
+    data = response.json()
+    return data['response']['players'][0]  # Returns user info
 
 #sort Friends on Playing Game -> online -> Offline
 def sortFriends(lst):
@@ -62,4 +72,3 @@ def getFriendsData(steamID):
         players.append(playerDictionary(name,avatar,info))
     sorted = sortFriends(players)
     return sorted
-
