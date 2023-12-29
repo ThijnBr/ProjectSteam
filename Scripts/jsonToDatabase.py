@@ -1,6 +1,11 @@
 import json
 import databaseConnection
 
+import os
+
+script_directory = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_directory)
+
 conn = databaseConnection.connect()
 
 jsonValues = ['steam_appid', 
@@ -137,7 +142,7 @@ def insertScreenshots(lst, gameId):
 row = 0
 currentRow = row
 
-with open('gameIds.txt', 'r') as f:
+with open('../gameIds.txt', 'r') as f:
     datax = f.read()
     datax = datax.replace('{', '')
     datax = datax.replace('}', '')
