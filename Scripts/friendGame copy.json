@@ -1,0 +1,19 @@
+{
+    "response": {
+        "game_count": 25,
+        "games": [
+            {
+                "appid": 11020,
+                "name": "TrackMania Nations Forever",
+                "playtime_2weeks": 2000,
+                "playtime_forever": 197,
+                "img_icon_url": "a422db7cb704324da48741b9e0a0cc193b566eb0",
+                "playtime_windows_forever": 197,
+                "playtime_mac_forever": 0,
+                "playtime_linux_forever": 0,
+                "rtime_last_played": 1703192534,
+                "playtime_disconnected": 0
+            }
+        ]
+    }
+}
