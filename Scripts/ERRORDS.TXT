@@ -1,3 +1,0 @@
-duplicate key value violates unique constraint "game_pkey"
-DETAIL:  Key (steam_appid)=(524290) already exists.
- with gameid 524290
