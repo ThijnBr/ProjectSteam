@@ -1,4 +1,3 @@
-import pandas as pd
 import getSteamUserFriends
 import getSteamUserGameData
 import os
@@ -7,21 +6,14 @@ import databaseConnection
 script_directory = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_directory)
 
-df = pd.read_csv('..\Api\ApiKeys.csv')
-apikey = df.iloc[0, 1]
-
 conn = databaseConnection.connect()
-
-# steamID = 76561198401205997
 
 import asyncio
 
-def getPlayTime(steamID):
-    api_key = '14B0152189C811A5DE80FE50EB4DA7CC'  # Replace with your API key
+async def getPlayTime(steamID):
     friendIdList = getSteamUserFriends.getFriendUserIDs(steamID)
     
-    loop = asyncio.get_event_loop()
-    friend_games_data = loop.run_until_complete(getSteamUserGameData.get_friend_games_async(friendIdList, api_key))
+    friend_games_data = await getSteamUserGameData.get_friend_games_async(friendIdList)
 
     gamesList = []
 
@@ -62,9 +54,10 @@ def insertToDatabase(lst):
         playtime = x[1][0][1]
         gameid = x[1][0][0]
         userid = x[0]
+        print(userid)
         insertQueries(playtime, gameid, userid)
 
-insertToDatabase(getPlayTime(76561198401205997))
+insertToDatabase(asyncio.run(getPlayTime(76561198401205997)))
 conn.commit()
 
 

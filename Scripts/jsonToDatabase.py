@@ -160,7 +160,7 @@ def getGameDetail(appid):
         return False
     
     return data
-
+data = ['295110']
 for x in range(row, len(data)):
     innerJson = getGameDetail(data[x])
     if innerJson == False:
