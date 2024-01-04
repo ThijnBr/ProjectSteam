@@ -19,7 +19,12 @@
     <ul class="nav-list">
       <li>
           <i class='bx bx-search' ></i>
-         <input type="text" placeholder="Search...">
+          <input type="text" id="search" placeholder="Search by title">
+          <div class="overlay" id="overlay">
+            <div class="overlay-content" id="overlay-content">
+                <!--hier komen plaatjes-->>
+            </div>
+        </div>
          <span class="tooltip">Search</span>
       </li>
       <li>
@@ -169,5 +174,26 @@
   }
   </script>
   <script src="/static/togglemenu.js"></script>
-</body>
-</html>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#search').on('input', function(){
+                let query = $(this).val().trim(); // Trim leading/trailing spaces
+                
+                if (query !== '') {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/search',
+                        data: {'search': query},
+                        success: function(response) {
+                            $('#overlay').show();
+                            $('#overlay-content').html(response);
+                        }
+                    });
+                } else {
+                    $('#overlay').hide(); // Hide the overlay when query is empty
+                }
+            });
+        });
+    </script>
+    
