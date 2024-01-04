@@ -1,12 +1,12 @@
 import json
+import databaseConnection
 
-import psycopg2
+import os
 
-conn = psycopg2.connect(
-    host="192.168.1.98",
-    database="Project Steam",
-    user="postgres",
-    password="sTEAM.pROJECT")
+script_directory = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_directory)
+
+conn = databaseConnection.connect()
 
 jsonValues = ['steam_appid', 
               'name', 
@@ -53,13 +53,11 @@ def getGenres():
 
 descriptions = getDescriptions()
 genres = getGenres()
-print(descriptions)
-print(genres)
 
-with open('correctData.json', 'r') as f:
-    data = json.load(f)
 
-length = len(data)
+# with open('correctData.json', 'r') as f:
+#     data = json.load(f)
+
 current = 0
 
 def insertCategory(id, description):
@@ -143,8 +141,31 @@ def insertScreenshots(lst, gameId):
 
 row = 0
 currentRow = row
+
+with open('../gameIds.txt', 'r') as f:
+    datax = f.read()
+    datax = datax.replace('{', '')
+    datax = datax.replace('}', '')
+    datax = datax.replace(' ', '')
+    data = datax.split(',')
+    # print(data)
+
+import requests
+def getGameDetail(appid):
+    data = requests.get(f'http://store.steampowered.com/api/appdetails?appids={appid}').json()
+    try:
+        data = list(data.values())[0]['data']
+    except:
+        print(data)
+        return False
+    
+    return data
+
+
 for x in range(row, len(data)):
-    obj = data[x]
+    innerJson = getGameDetail(data[x])
+    if innerJson == False:
+        continue
     cursor = conn.cursor()
     gametoInsert = []
     categoriestoInsert = None
@@ -154,7 +175,6 @@ for x in range(row, len(data)):
     screenshotsToInsert = None
     supportInfoToInsert = None
     dlcToInsert = None
-    innerJson = list(obj.values())[0]
     if isinstance(innerJson, bool):
         continue
     gameId = innerJson['steam_appid']

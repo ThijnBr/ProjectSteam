@@ -32,9 +32,9 @@ def getFriendUserIDs(steamid):
     apilink = f'http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key={apikey}&steamid={steamid}&relationship=friend'
     data = requests.get(apilink)
     jsonData = data.json()
-    playerIDs = ''
+    playerIDs = []
     for playerID in jsonData['friendslist']['friends']:
-        playerIDs += ','+playerID['steamid']
+        playerIDs.append(playerID['steamid'])
     return playerIDs
 
 #json data of all friends
