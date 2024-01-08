@@ -15,13 +15,6 @@ app = Flask(__name__)
 app.secret_key = '3f6F9E3cFb4B6aD7c8E5fA2e4D9cB8aF'  # sessie toke
 oid = OpenID(app)
 
-books = [
-    {"id": 1, "title": "Book 1", "author": "Author 1"},
-    {"id": 2, "title": "Book 2", "author": "Author 2"},
-    {"id": 3, "title": "Book 3", "author": "Author 3"},
-    # Add more books as needed
-]
-
 @app.route('/')
 def index():
     user_info = session.get('user_info')
