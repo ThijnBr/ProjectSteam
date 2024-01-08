@@ -151,19 +151,38 @@ with open('../gameIds.txt', 'r') as f:
     # print(data)
 
 import requests
+import time
+
 def getGameDetail(appid):
-    data = requests.get(f'http://store.steampowered.com/api/appdetails?appids={appid}').json()
     try:
-        data = list(data.values())[0]['data']
+        response = requests.get(f'http://store.steampowered.com/api/appdetails?appids={appid}')
+        data = response.json()
+        return data
     except:
-        print(data)
-        return False
+        return None
     
-    return data
-data = ['295110']
+with open("notGame.txt", 'r') as f:
+    steamids = f.readlines()
+    steamids = [x.replace('\n', '') for x in steamids]
+    print(steamids)
+
+
 for x in range(row, len(data)):
+    if data[x] in steamids:
+        continue
     innerJson = getGameDetail(data[x])
-    if innerJson == False:
+    innerJson = next(iter(innerJson.values()))
+    time.sleep(1.5)
+    print(innerJson)
+    if innerJson['success'] == False or innerJson == None:
+        with open ('notGame.txt', 'a') as f:
+            f.write(data[x]+'\n')
+        print('not game')
+        continue
+    if innerJson['data']['type'] != 'game':
+        with open ('notGame.txt', 'a') as f:
+            f.write(data[x]+'\n')
+        print('not game')
         continue
     cursor = conn.cursor()
     gametoInsert = []
@@ -176,7 +195,7 @@ for x in range(row, len(data)):
     dlcToInsert = None
     if isinstance(innerJson, bool):
         continue
-    gameId = innerJson['steam_appid']
+    gameId = data[x]
     gametoInsert.append(gameId)
     requirementsToInsert.append(gameId)
     currentGame = 0

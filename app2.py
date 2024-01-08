@@ -53,7 +53,7 @@ def search():
     
     html = ''
     for x in results:
-        html += f'<img src="{x[0]}" width="1000" height="200">'
+        html += f'<img src="{x[0]}">'
     
     return html
 

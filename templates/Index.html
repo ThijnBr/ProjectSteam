@@ -115,9 +115,9 @@
         <div class="friends-list" style="display: none;">
           {% for friend in online_friends %}
           <div class="friend">
-            <img src="{{ friend['avatar'] }}" alt="{{ friend['personaname'] }}">
+            <img src="{{ friend['avatar'] }}" alt="{{ friend['name'] }}">
             <div class="friend-info">
-              <div class="friend-name">{{ friend['personaname'] }}</div>
+              <div class="friend-name">{{ friend['name'] }}</div>
               <div class="friend-status">{{ friend['gameextrainfo'] or 'Idle' }}</div>
             </div>
           </div>
@@ -134,9 +134,9 @@
         <div class="friends-list" style="display: none;">
           {% for friend in offline_friends %}
           <div class="friend">
-            <img src="{{ friend['avatar'] }}" alt="{{ friend['personaname'] }}">
+            <img src="{{ friend['avatar'] }}" alt="{{ friend['name'] }}">
             <div class="friend-info">
-              <div class="friend-name">{{ friend['personaname'] }}</div>
+              <div class="friend-name">{{ friend['name'] }}</div>
               <div class="friend-status">Offline</div>
             </div>
           </div>
