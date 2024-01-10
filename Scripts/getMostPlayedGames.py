@@ -10,10 +10,10 @@ conn = databaseConnection.connect()
 
 import asyncio
 
-async def getPlayTime(steamID):
+def getPlayTime(steamID):
     friendIdList = getSteamUserFriends.getFriendUserIDs(steamID)
     
-    friend_games_data = await getSteamUserGameData.get_friend_games_async(friendIdList)
+    friend_games_data = asyncio.run(getSteamUserGameData.get_friend_games_async(friendIdList))
 
     gamesList = []
 
@@ -26,6 +26,8 @@ async def getPlayTime(steamID):
                 try:
                     gameId = game.get('appid')
                     playtime_2weeks = int(game.get('playtime_2weeks', 0))
+                    if playtime_2weeks == 0:
+                        continue
                     friend_games.append([gameId, playtime_2weeks])
                 except (KeyError, ValueError):
                     continue
@@ -57,7 +59,7 @@ def insertToDatabase(lst):
         print(userid)
         insertQueries(playtime, gameid, userid)
 
-insertToDatabase(asyncio.run(getPlayTime(76561198401205997)))
+print(getPlayTime(76561198401205997))
 conn.commit()
 
 
