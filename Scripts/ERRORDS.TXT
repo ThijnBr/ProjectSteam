@@ -1,0 +1,14 @@
+insertGame(gametoInsert)
+        if requirementsToInsert != None:
+            insertRequirements(requirementsToInsert)
+        insertPlatforms(platformstoInsert, gameId)
+        insertSupportinfo(supportInfoToInsert, gameId)
+        if categoriestoInsert != None:
+            for x in categoriestoInsert:
+                insertGameCategory(gameId, x['id'])
+        if genrestoInsert != None:
+            for x in genrestoInsert:
+                insertGameGenre(gameId, x['id'])
+        if screenshotsToInsert != None:
+            for x in screenshotsToInsert:
+                insertScreenshots(x, gameId)

@@ -405,3 +405,33 @@
   font-size: 14px;
   color: #a9a9a9; 
 }
+
+.overlay {
+  display: none;
+  position: absolute;
+  top: 100%; 
+  left: 0;
+  width: calc(100% - 40px); 
+  background-color: transparent; 
+  z-index: 999;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.overlay-content {
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Align images in a column */
+  align-items: center; /* Center items horizontally */
+  position: relative;
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.overlay-content img {
+  width: 10000%; /* Ensures the image takes the full width of its container */
+  height: 10000%; /* Allows image to maintain aspect ratio */
+  object-fit: cover; /* Fits the image inside the container, preserving aspect ratio */
+  margin-bottom: 15px; /* Add space between images */
+}
+

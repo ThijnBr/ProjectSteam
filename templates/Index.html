@@ -19,7 +19,12 @@
     <ul class="nav-list">
       <li>
           <i class='bx bx-search' ></i>
-         <input type="text" placeholder="Search...">
+          <input type="text" id="search" placeholder="Search by title">
+          <div class="overlay" id="overlay">
+            <div class="overlay-content" id="overlay-content">
+                <!--hier komen plaatjes-->>
+            </div>
+        </div>
          <span class="tooltip">Search</span>
       </li>
       <li>
@@ -110,9 +115,9 @@
         <div class="friends-list" style="display: none;">
           {% for friend in online_friends %}
           <div class="friend">
-            <img src="{{ friend['avatar'] }}" alt="{{ friend['personaname'] }}">
+            <img src="{{ friend['avatar'] }}" alt="{{ friend['name'] }}">
             <div class="friend-info">
-              <div class="friend-name">{{ friend['personaname'] }}</div>
+              <div class="friend-name">{{ friend['name'] }}</div>
               <div class="friend-status">{{ friend['gameextrainfo'] or 'Idle' }}</div>
             </div>
           </div>
@@ -129,9 +134,9 @@
         <div class="friends-list" style="display: none;">
           {% for friend in offline_friends %}
           <div class="friend">
-            <img src="{{ friend['avatar'] }}" alt="{{ friend['personaname'] }}">
+            <img src="{{ friend['avatar'] }}" alt="{{ friend['name'] }}">
             <div class="friend-info">
-              <div class="friend-name">{{ friend['personaname'] }}</div>
+              <div class="friend-name">{{ friend['name'] }}</div>
               <div class="friend-status">Offline</div>
             </div>
           </div>
@@ -169,5 +174,26 @@
   }
   </script>
   <script src="/static/togglemenu.js"></script>
-</body>
-</html>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#search').on('input', function(){
+                let query = $(this).val().trim(); // Trim leading/trailing spaces
+                
+                if (query !== '') {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/search',
+                        data: {'search': query},
+                        success: function(response) {
+                            $('#overlay').show();
+                            $('#overlay-content').html(response);
+                        }
+                    });
+                } else {
+                    $('#overlay').hide(); // Hide the overlay when query is empty
+                }
+            });
+        });
+    </script>
+    

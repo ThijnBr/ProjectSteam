@@ -51,6 +51,21 @@ def getGenres():
     cursor.close()
     return list
 
+def getGameIds():
+    cursor = conn.cursor()
+    sql = 'SELECT steam_appid from game'
+    cursor.execute(sql)
+    gameids = cursor.fetchall()
+    list = []
+    for x in gameids:
+        list.append(str(x[0]))
+    cursor.close()
+    return list
+
+gameIds = getGameIds()
+for x in gameIds:
+    if x == 100:
+        print('yes')
 descriptions = getDescriptions()
 genres = getGenres()
 
@@ -151,20 +166,49 @@ with open('../gameIds.txt', 'r') as f:
     # print(data)
 
 import requests
+import time
+
 def getGameDetail(appid):
-    data = requests.get(f'http://store.steampowered.com/api/appdetails?appids={appid}').json()
     try:
-        data = list(data.values())[0]['data']
+        response = requests.get(f'http://store.steampowered.com/api/appdetails?appids={appid}')
+        data = response.json()
+        return data
     except:
-        print(data)
-        return False
+        return None
     
+<<<<<<< HEAD:Scripts/jsonToDatabase.py
     return data
 
+=======
+with open("notGame.txt", 'r') as f:
+    steamids = f.readlines()
+    steamids = [x.replace('\n', '') for x in steamids]
+
+response = requests.get('http://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=STEAMKEY&format=json')
+req = response.json()
+data = []
+for x in req['applist']['apps']:
+    data.append(str(x['appid']))
+>>>>>>> Thijn_game_search_function:Scripts/gamesToDatabase.py
 
 for x in range(row, len(data)):
+    if data[x] in steamids or data[x] in gameIds:
+        continue
     innerJson = getGameDetail(data[x])
-    if innerJson == False:
+    if innerJson == None:
+        continue
+    innerJson = next(iter(innerJson.values()))
+    time.sleep(1.5)
+    print(data[x])
+    if innerJson['success'] == False:
+        with open ('notGame.txt', 'a') as f:
+            f.write(data[x]+'\n')
+        print('no succes')
+        continue
+    if innerJson['data']['type'] != 'game':
+        with open ('notGame.txt', 'a') as f:
+            f.write(data[x]+'\n')
+        print('not game')
         continue
     cursor = conn.cursor()
     gametoInsert = []
@@ -177,7 +221,7 @@ for x in range(row, len(data)):
     dlcToInsert = None
     if isinstance(innerJson, bool):
         continue
-    gameId = innerJson['steam_appid']
+    gameId = data[x]
     gametoInsert.append(gameId)
     requirementsToInsert.append(gameId)
     currentGame = 0
@@ -226,9 +270,9 @@ for x in range(row, len(data)):
             for x in screenshotsToInsert:
                 insertScreenshots(x, gameId)
     except Exception as e:
-        with open('ERRORDS.TXT', 'a', encoding='utf-8') as f:
-            error = str(e) + ' with gameid ' + str(gameId) + '\n'
-            f.write(error)
+        with open ('notGame.txt', 'a') as f:
+            f.write(gameId+'\n')
+        print(e)
 
     currentRow += 1
     print(currentRow)
