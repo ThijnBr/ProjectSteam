@@ -176,10 +176,6 @@ def getGameDetail(appid):
     except:
         return None
     
-<<<<<<< HEAD:Scripts/jsonToDatabase.py
-    return data
-
-=======
 with open("notGame.txt", 'r') as f:
     steamids = f.readlines()
     steamids = [x.replace('\n', '') for x in steamids]
@@ -189,7 +185,6 @@ req = response.json()
 data = []
 for x in req['applist']['apps']:
     data.append(str(x['appid']))
->>>>>>> Thijn_game_search_function:Scripts/gamesToDatabase.py
 
 for x in range(row, len(data)):
     if data[x] in steamids or data[x] in gameIds:
