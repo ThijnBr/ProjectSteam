@@ -32,7 +32,14 @@ for appid in gameIds:
     data = makeRequest(appid)
 
     if data[appid]['data']['type'] != 'game':
-        delete_sql = f"DELETE FROM game WHERE steam_appid = {appid};"
+        delete_sql = f"""
+                        DELETE FROM platforms WHERE gamesteam_appid = {appid};
+                        DELETE FROM game_categorie WHERE gamesteam_appid = {appid};
+                        DELETE FROM game_genre WHERE gamesteam_appid = {appid};
+                        DELETE FROM requirements WHERE gamesteam_appid = {appid};
+                        DELETE FROM screenshot WHERE gamesteam_appid = {appid};
+                        DELETE FROM support_info WHERE gamesteam_appid = {appid};
+                        DELETE FROM game WHERE steam_appid = {appid};"""
     else:
         try:
             discount = data[appid]['data']['price_overview']['discount_percent']
