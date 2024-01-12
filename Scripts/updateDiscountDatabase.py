@@ -25,19 +25,30 @@ def makeRequest(appid):
 gameIds = getGameIds()
 
 row = 0
+
 for appid in gameIds:
     print(row)
     print(appid)
     data = makeRequest(appid)
-    try:
-        discount = data[appid]['data']['price_overview']['discount_percent']
-    except (KeyError, TypeError):
-        discount = 'NULL'
+
+    if data[appid]['data']['type'] != 'game':
+        delete_sql = f"DELETE FROM game WHERE steam_appid = {appid};"
+    else:
+        try:
+            discount = data[appid]['data']['price_overview']['discount_percent']
+        except (KeyError, TypeError):
+            discount = 'NULL'
+        update_sql = f"UPDATE game SET discount = {discount} WHERE steam_appid = {appid};"
 
     cursor = conn.cursor()
-    update_sql = f"UPDATE game SET discount = {discount} WHERE steam_appid = {appid};"
-    cursor.execute(update_sql)
+    
+    if data[appid]['data']['type'] != 'game':
+        cursor.execute(delete_sql)
+    else:
+        cursor.execute(update_sql)
+    
     conn.commit()
     cursor.close()
+    
     row += 1
     time.sleep(1.5)
