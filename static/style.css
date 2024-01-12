@@ -429,9 +429,9 @@
 }
 
 .overlay-content img {
-  width: 10000%; /* Ensures the image takes the full width of its container */
-  height: 10000%; /* Allows image to maintain aspect ratio */
-  object-fit: cover; /* Fits the image inside the container, preserving aspect ratio */
-  margin-bottom: 15px; /* Add space between images */
+  width: 100% !important; /* Ensures the image takes the full width of its container */
+  height: 100% !important; /* Allows the image to maintain its aspect ratio */
+  object-fit: cover !important; /* Fits the image inside the container, preserving aspect ratio */
+  margin-bottom: 15px !important; /* Add space between images */
 }
 

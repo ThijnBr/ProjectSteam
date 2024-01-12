@@ -157,14 +157,6 @@ def insertScreenshots(lst, gameId):
 row = 0
 currentRow = row
 
-with open('../gameIds.txt', 'r') as f:
-    datax = f.read()
-    datax = datax.replace('{', '')
-    datax = datax.replace('}', '')
-    datax = datax.replace(' ', '')
-    data = datax.split(',')
-    # print(data)
-
 import requests
 import time
 
@@ -187,6 +179,7 @@ for x in req['applist']['apps']:
     data.append(str(x['appid']))
 
 for x in range(row, len(data)):
+    print(data[x])
     if data[x] in steamids or data[x] in gameIds:
         continue
     innerJson = getGameDetail(data[x])
@@ -194,7 +187,6 @@ for x in range(row, len(data)):
         continue
     innerJson = next(iter(innerJson.values()))
     time.sleep(1.5)
-    print(data[x])
     if innerJson['success'] == False:
         with open ('notGame.txt', 'a') as f:
             f.write(data[x]+'\n')
