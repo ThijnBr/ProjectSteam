@@ -31,21 +31,24 @@ for appid in gameIds:
     print(appid)
     data = makeRequest(appid)
 
-    if data[appid]['data']['type'] != 'game':
-        delete_sql = f"""
-                        DELETE FROM platforms WHERE gamesteam_appid = {appid};
-                        DELETE FROM game_categorie WHERE gamesteam_appid = {appid};
-                        DELETE FROM game_genre WHERE gamesteam_appid = {appid};
-                        DELETE FROM requirements WHERE gamesteam_appid = {appid};
-                        DELETE FROM screenshot WHERE gamesteam_appid = {appid};
-                        DELETE FROM support_info WHERE gamesteam_appid = {appid};
-                        DELETE FROM game WHERE steam_appid = {appid};"""
-    else:
-        try:
-            discount = data[appid]['data']['price_overview']['discount_percent']
-        except (KeyError, TypeError):
-            discount = 'NULL'
-        update_sql = f"UPDATE game SET discount = {discount} WHERE steam_appid = {appid};"
+    try:
+        if data[appid]['data']['type'] != 'game':
+            delete_sql = f"""
+                            DELETE FROM platforms WHERE gamesteam_appid = {appid};
+                            DELETE FROM game_categorie WHERE gamesteam_appid = {appid};
+                            DELETE FROM game_genre WHERE gamesteam_appid = {appid};
+                            DELETE FROM requirements WHERE gamesteam_appid = {appid};
+                            DELETE FROM screenshot WHERE gamesteam_appid = {appid};
+                            DELETE FROM support_info WHERE gamesteam_appid = {appid};
+                            DELETE FROM game WHERE steam_appid = {appid};"""
+        else:
+            try:
+                discount = data[appid]['data']['price_overview']['discount_percent']
+            except (KeyError, TypeError):
+                discount = 'NULL'
+            update_sql = f"UPDATE game SET discount = {discount} WHERE steam_appid = {appid};"
+    except:
+        continue
 
     cursor = conn.cursor()
     
