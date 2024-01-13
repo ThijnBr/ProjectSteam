@@ -10,6 +10,7 @@ import sys
 sys.path.append('Scripts')
 import getSteamUserFriends as getDetails
 import gameSearch
+import predictConcurrentPlayers
 
 app = Flask(__name__)
 app.secret_key = '3f6F9E3cFb4B6aD7c8E5fA2e4D9cB8aF'  # sessie toke
@@ -23,7 +24,8 @@ def index():
         friends_details = getDetails.getFriendsData(steam_id)
         online_friends = [x for x in friends_details if x['info'] != 'Offline']
         offline_friends = [x for x in friends_details if x['info'] == 'Offline']
-        return render_template('index.html', user_info=user_info, online_friends=online_friends, offline_friends=offline_friends)
+        chart_data = predictConcurrentPlayers.getAllChartData()
+        return render_template('chart.html', user_info=user_info, online_friends=online_friends, offline_friends=offline_friends, chart_data=chart_data)
     else:
         return redirect(url_for('login'))
 

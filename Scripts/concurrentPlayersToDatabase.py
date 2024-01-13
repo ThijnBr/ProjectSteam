@@ -57,11 +57,11 @@ def getConcurrentPlayers():
 def executeFunction():
     while True:
         now = datetime.now()
-        if now.hour in list(range(0,24)) and now.minute in list(range(0,60)):
+        if now.hour in list(range(0,24)) and now.minute == 0:
             getConcurrentPlayers()
             print('executed')
 
-        time.sleep(5)
+        time.sleep(60)
 
 executeFunction()
     

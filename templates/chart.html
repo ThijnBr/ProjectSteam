@@ -1,0 +1,21 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="static\style.css">
+{% for chart in chart_data %}
+    <canvas id="myChart{{loop.index0}}" width="800" height="400"></canvas>
+    <script>
+        const chart{{ loop.index0 }} = document.getElementById('myChart{{loop.index0}}');
+        new Chart(chart{{ loop.index0 }}, {
+            type: 'line',
+            data: {
+                labels: {{ chart[0] | tojson | safe }},
+                datasets: [{
+                    label: 'concurrent players',
+                    data: {{ chart[1] | tojson | safe }},
+                }]
+            },
+            options: {
+                responsive: false,
+            },
+        });
+    </script>
+{% endfor %}
