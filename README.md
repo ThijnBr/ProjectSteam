@@ -86,6 +86,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Logboek
 https://hogeschoolutrecht-my.sharepoint.com/:w:/g/personal/dieu-merci_tandu_student_hu_nl/EdEoIEX3xLdIoeWjM_UhK2cBsyKhBrKkcINjRJT1FUzE9A?e=BNOd4E
 
+## TEMPLATE SPRINT RELEASE, REVIEW, RETRO 
+https://hogeschoolutrecht-my.sharepoint.com/:w:/g/personal/dieu-merci_tandu_student_hu_nl/EVmx9wdjq9ZKphiyygrT9zIBfd8eCOD9SBRRE-3o-outJA?e=p77WBh
 
 ## License
 
