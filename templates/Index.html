@@ -101,7 +101,32 @@
           <div class="image-description">Korte uitleg over dit spel.</div>
         </div>
       </section>
-        <div class="text">Achievements</div>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <link rel="stylesheet" href="static\style.css">
+      {% for chart in chart_data %}
+        <div class="image-container-predict">
+          <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Image Description 1">
+          <div class="image-title">{{chart[1]}}</div>
+          <div class="image-description">Korte uitleg over dit spel.</div>
+        </div>
+          <canvas id="myChart{{loop.index0}}" width="800" height="400"></canvas>
+          <script>
+              const chart{{ loop.index0 }} = document.getElementById('myChart{{loop.index0}}');
+              new Chart(chart{{ loop.index0 }}, {
+                  type: 'line',
+                  data: {
+                      labels: {{ chart[0][0] | tojson | safe }},
+                      datasets: [{
+                          label: {{ chart[1] | tojson | safe }},
+                          data: {{ chart[0][1] | tojson | safe }},
+                      }]
+                  },
+                  options: {
+                      responsive: false,
+                  },
+              });
+          </script>
+      {% endfor %}
     </section>
     <div class="friends-section">
       <div class="friends-title">Friends</div>

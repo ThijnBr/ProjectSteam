@@ -44,7 +44,7 @@ def getGamePlayers(appid, cursor):
 
 def getAllChartData():
     cursor = conn.cursor()
-    sql = "SELECT gamesteam_appid FROM concurrentPlayers LIMIT 50"
+    sql = "SELECT gamesteam_appid FROM concurrentPlayers LIMIT 20"
     cursor.execute(sql)
     data = cursor.fetchall()
 
@@ -53,8 +53,7 @@ def getAllChartData():
         sql2 = f"SELECT name FROM game WHERE steam_appid = {x[0]}"
         cursor.execute(sql2)
         name = cursor.fetchall()
-        print(name[0])
-        chart_data.append([getGamePlayers(x[0], cursor), name[0]])
+        chart_data.append([getGamePlayers(x[0], cursor), name[0][0]])
     cursor.close()
     return chart_data
 
