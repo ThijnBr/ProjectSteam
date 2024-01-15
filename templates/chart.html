@@ -7,10 +7,10 @@
         new Chart(chart{{ loop.index0 }}, {
             type: 'line',
             data: {
-                labels: {{ chart[0] | tojson | safe }},
+                labels: {{ chart[0][0] | tojson | safe }},
                 datasets: [{
-                    label: 'concurrent players',
-                    data: {{ chart[1] | tojson | safe }},
+                    label: {{ chart[1] | tojson | safe }},
+                    data: {{ chart[0][1] | tojson | safe }},
                 }]
             },
             options: {

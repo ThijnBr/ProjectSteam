@@ -25,7 +25,7 @@ def index():
         online_friends = [x for x in friends_details if x['info'] != 'Offline']
         offline_friends = [x for x in friends_details if x['info'] == 'Offline']
         chart_data = predictConcurrentPlayers.getAllChartData()
-        return render_template('chart.html', user_info=user_info, online_friends=online_friends, offline_friends=offline_friends, chart_data=chart_data)
+        return render_template('index.html', user_info=user_info, online_friends=online_friends, offline_friends=offline_friends, chart_data=chart_data)
     else:
         return redirect(url_for('login'))
 
