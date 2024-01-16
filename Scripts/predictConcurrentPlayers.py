@@ -4,22 +4,25 @@ from datetime import datetime, timedelta
 
 conn = databaseConnection.connect()
 
-def voorspelFunctie(lst):
-    gemiddelde = sum(lst)/len(lst)
-    waarnemingen = 0
-    for x in lst:
-        waarnemingen += (x-gemiddelde)**2
-    variantie = waarnemingen/len(lst)
-    deviatie = variantie**0.5
+def calculateGraph(yList):
+    num_iterations = 10000
+    learning_rate = 0.0001
+    a, b = 0, 0
 
-    print(deviatie)
+    lst = []
+    for x in range(len(yList)):
+        lst.append((x,yList[x]))
 
-    lstrange = len(lst)
-    for x in range(lstrange):
-        newPoint = lst[(lstrange+x)//2] + random.uniform(0.0,deviatie)
-        lst.append(newPoint)
-    return lst
-    
+    for _ in range(num_iterations):
+        for point in lst:
+            x, y = point
+            error = (a + b * x)- y
+            a = a - error * learning_rate
+            b = b - x * error * learning_rate
+    return a, b
+
+def predict(a, b, x):
+    return a + b * x
 
 def getGamePlayers(appid, cursor):
     sql = f"SELECT time FROM concurrentPlayers WHERE gamesteam_appid = {appid} ORDER BY time ASC"
@@ -35,7 +38,9 @@ def getGamePlayers(appid, cursor):
         newTime.append(timelist[x][0])
         newAmount.append(amount[x][0])
     
-    newAmount = voorspelFunctie(newAmount)
+    a, b = calculateGraph(newAmount)
+    for x in range(len(newAmount), len(newAmount)*2):
+        newAmount.append(predict(a,b,x))
 
     timeRange = len(newTime)
     for x in range(timeRange-1):
@@ -44,7 +49,7 @@ def getGamePlayers(appid, cursor):
 
 def getAllChartData():
     cursor = conn.cursor()
-    sql = "SELECT gamesteam_appid FROM concurrentPlayers LIMIT 20"
+    sql = "SELECT gamesteam_appid FROM concurrentPlayers LIMIT 10"
     cursor.execute(sql)
     data = cursor.fetchall()
 
