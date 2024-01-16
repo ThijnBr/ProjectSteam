@@ -16,62 +16,18 @@ Planboard
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
-
 pip install flask==2.2.5
 pip install werkzeug==2.3.8
 pip install flask_openid
 
 ### Installation
-By running app2.py. A development server is run on localhost. For production enviroment you should use a WSGI server.
+By running app2.py.
 ## Usage
-
-A few examples of useful commands or tasks..
-
-```
-Give examples
-```
-
-## Running Tests
-
-Explain how to run the automated tests for this system.
-
-```
-Give examples
-```
-
-### Break down into end to end tests
-
-Explain what these tests test and why.
-
-```
-Give examples
-```
-
-### Coding style tests
-
-Explain what these tests test and why.
-
-```
-Give examples
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system.
-
+After installing the dependecies you can run app2.py. A development server is run on localhost. You can open the website at ip: 127.0.0.1:5000 in your browser.
 ## Built With
 
-* [Tool1](http://website.com) - The web framework used
-* [Tool2](http://website.com) - Dependency Management
-* [Tool3](http://website.com) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](http://website.com) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](http://website.com). 
+* [Tool1](https://flask.palletsprojects.com/en/3.0.x/) - The web framework used
+* [Tool2](postgresql.org) - Database
 
 ## Authors
 
@@ -88,15 +44,3 @@ https://hogeschoolutrecht-my.sharepoint.com/:w:/g/personal/dieu-merci_tandu_stud
 
 ## TEMPLATE SPRINT RELEASE, REVIEW, RETRO 
 https://hogeschoolutrecht-my.sharepoint.com/:w:/g/personal/dieu-merci_tandu_student_hu_nl/EVmx9wdjq9ZKphiyygrT9zIBfd8eCOD9SBRRE-3o-outJA?e=p77WBh
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc.
-
-
