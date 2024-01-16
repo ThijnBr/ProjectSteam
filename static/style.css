@@ -450,9 +450,9 @@
 }
 
 .overlay-content {
-  display: flex; /* Use flexbox */
-  flex-direction: column; /* Align images in a column */
-  align-items: center; /* Center items horizontally */
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; /* Center horizontally */
   position: relative;
   background-color: white;
   padding: 20px;
@@ -460,8 +460,51 @@
 }
 
 .overlay-content img {
-  width: 100% !important; /* Ensures the image takes the full width of its container */
-  height: 100% !important; /* Allows the image to maintain its aspect ratio */
-  object-fit: cover !important; /* Fits the image inside the container, preserving aspect ratio */
-  margin-bottom: 15px !important; /* Add space between images */
+  width: 100% !important; 
+  height: 100% !important; 
+  object-fit: cover !important; 
+  margin-bottom: 15px !important; 
 }
+
+/* Predicte games */
+.content-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; 
+}
+
+
+.image-container-predict {
+  flex: 0 0 auto; 
+  width: calc((100% - 78px) / 4);
+  margin-right: 5px; 
+}
+
+.graph-container {
+flex-grow: 1;
+padding-left: 0; 
+}
+
+canvas {
+max-width: 100%;
+height: auto;
+}
+
+/* kleinere schermen, misschien overbodig? */
+@media screen and (max-width: 767px) {
+.content-container {
+flex-direction: column;
+}
+
+.image-container-predict,
+.graph-container {
+max-width: 100%;
+flex-basis: auto;
+}
+
+.home-section {
+padding-left: 0;
+}
+}
+
+/* waarom die ruimte tusseen de navbar en de graph/image? */
