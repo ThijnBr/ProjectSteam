@@ -39,26 +39,31 @@ def getGamePlayers(appid, cursor):
         newAmount.append(amount[x][0])
     
     a, b = calculateGraph(newAmount)
-    for x in range(len(newAmount), len(newAmount)*2):
-        newAmount.append(predict(a,b,x))
+
+    predictLine = []
+    for x in range(len(newAmount)):
+        predictLine.append(predict(a,b,x))
 
     timeRange = len(newTime)
     for x in range(timeRange-1):
-        newTime.append(str(datetime.strptime(newTime[(timeRange+x)//2], "%m/%d/%y:%H:%M:%S") + timedelta(hours=1))+"voorspelling")
-    return newTime, newAmount
+        newTime.append('')
+    return newTime, newAmount, predictLine, b
 
 def getAllChartData():
     cursor = conn.cursor()
-    sql = "SELECT gamesteam_appid FROM concurrentPlayers LIMIT 10"
+    sql = """SELECT gamesteam_appid, SUM(amount) AS total_amount
+                FROM concurrentPlayers
+                GROUP BY gamesteam_appid
+                ORDER BY total_amount DESC LIMIT 10"""
     cursor.execute(sql)
     data = cursor.fetchall()
 
     chart_data = []
     for x in data:
-        sql2 = f"SELECT name FROM game WHERE steam_appid = {x[0]}"
+        sql2 = f"SELECT name, header_image FROM game WHERE steam_appid = {x[0]}"
         cursor.execute(sql2)
         name = cursor.fetchall()
-        chart_data.append([getGamePlayers(x[0], cursor), name[0][0]])
+        chart_data.append([getGamePlayers(x[0], cursor), name[0][0], name[0][1]])
     cursor.close()
     return chart_data
 

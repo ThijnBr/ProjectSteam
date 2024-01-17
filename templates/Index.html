@@ -107,25 +107,31 @@
         {% for chart in chart_data %}
         <div class="content-container">
           <div class="image-container-predict">
-            <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Game Image">           <!--{{ chart[2] }}-->
+            <img src="{{chart[2]}}" alt="Game Image">           <!--{{ chart[2] }}-->
             <div class="image-title">{{ chart[1] }}</div>
             <div class="image-description">Short description of the game.</div>
           </div>
           <div class="graph-container">
-            <canvas id="myChart{{ loop.index0 }}" width="400" height="400"></canvas>
+            <canvas id="myChart{{ loop.index0 }}" width="300" height="300"></canvas>
             <script>
                 const ctx{{ loop.index0 }} = document.getElementById('myChart{{ loop.index0 }}').getContext('2d');
                 new Chart(ctx{{ loop.index0 }}, {
                     type: 'line',
                     data: {
-                        labels: {{ chart[0][0] | tojson | safe }},
+                        labels: {{ chart[0][0] | tojson | safe }}, 
                         datasets: [{
-                            label: {{ chart[1] | tojson | safe }},
-                            data: {{ chart[0][1] | tojson | safe }},
-                            fill: false,
-                            borderColor: 'rgb(75, 192, 192)',
-                            tension: 0.1
-                        }]
+                          label: {{ chart[1] | tojson | safe }},
+                          data: {{ chart[0][1] | tojson | safe }},
+                          fill: false,
+                          borderColor: 'rgb(75, 192, 192)',
+                          tension: 0.1
+                      }, {
+                          label: {% if chart[0][3] < 0 %}'Expected Fall'{% else %}'Expected Rise'{% endif %},
+                          data: {{ chart[0][2] | tojson | safe }},
+                          fill: false,
+                          borderColor: {% if chart[0][3] < 0 %}'rgb(255, 0, 0)'{% else %}'rgb(0, 255, 0)'{% endif %},
+                          tension: 0.1
+                      }]
                     },
                     options: {
                         responsive: true,
