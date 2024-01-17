@@ -4,8 +4,7 @@ con = databaseConnection.connect()
 
 def selectPlayTime(con):
     cursor = con.cursor()
-    cursor.execute("select gamesteam_appid, SUM(playtimelast2weeks) from playtime group by gamesteam_appid")
-
+    cursor.execute("select gamesteam_appid, SUM(playtimelast2weeks), steamusersteamid from playtime group by gamesteam_appid, steamusersteamid")
     return cursor.fetchall()
 
 playerTimeList = selectPlayTime(con)

@@ -51,13 +51,12 @@ def insertQueries(playtime, gameid, userid):
     sql = "INSERT INTO playtime values (%s, %s, %s)"
     cursor.execute(sql,(playtime, gameid,userid))
 
-def insertToDatabase(lst):
+def insertToDatabase(steamId):
+    lst = getPlayTime(steamId)
     for x in lst:  
         playtime = x[1][0][1]
         gameid = x[1][0][0]
         userid = x[0]
         print(userid)
         insertQueries(playtime, gameid, userid)
-
-print(getPlayTime(76561198401205997))
-conn.commit()
+        conn.commit()

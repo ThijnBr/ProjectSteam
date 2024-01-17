@@ -8,6 +8,7 @@ os.chdir(script_directory)
 
 import sys
 sys.path.append('Scripts')
+import insertPlaytime
 import getSteamUserFriends as getDetails
 
 app = Flask(__name__)
@@ -19,6 +20,7 @@ def index():
     user_info = session.get('user_info')
     if user_info:
         steam_id = user_info['steamid']
+        insertPlaytime.insertToDatabase(steam_id)
         friends_details = getDetails.getFriendsData(steam_id)
         online_friends = [x for x in friends_details if x['info'] != 'Offline']
         offline_friends = [x for x in friends_details if x['info'] == 'Offline']
