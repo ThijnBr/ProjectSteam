@@ -61,21 +61,3 @@ def insertToDatabase(lst):
 
 print(getPlayTime(76561198401205997))
 conn.commit()
-
-
-# def insertion_sort(arr):
-#     for i in range(1, len(arr)):
-#         current = arr[i]
-#         j = i - 1
-
-#         while j >= 0 and arr[j][1] < current[1]:
-#             arr[j + 1] = arr[j]
-#             j -= 1
-
-#         arr[j + 1] = current
-
-#     return arr
-
-
-# sorted_data = insertion_sort(getPlayTime())
-# print(sorted_data)
