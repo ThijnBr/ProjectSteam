@@ -112,7 +112,7 @@
             <div class="image-description">Short description of the game.</div>
           </div>
           <div class="graph-container">
-            <canvas id="myChart{{ loop.index0 }}" width="300" height="300"></canvas>
+            <canvas id="myChart{{ loop.index0 }}" width="10" height="300"></canvas>
             <script>
                 const ctx{{ loop.index0 }} = document.getElementById('myChart{{ loop.index0 }}').getContext('2d');
                 new Chart(ctx{{ loop.index0 }}, {
@@ -120,7 +120,7 @@
                     data: {
                         labels: {{ chart[0][0] | tojson | safe }}, 
                         datasets: [{
-                          label: {{ chart[1] | tojson | safe }},
+                          label: 'Players',
                           data: {{ chart[0][1] | tojson | safe }},
                           fill: false,
                           borderColor: 'rgb(75, 192, 192)',
