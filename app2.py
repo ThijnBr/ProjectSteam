@@ -34,6 +34,18 @@ def index():
 def login():
     return render_template('login.html')
 
+@app.route('/library')
+def library():
+    return renter_template('library.html')
+
+@app.route('/sales')
+def sales():
+    return render_template('sales.html')
+
+@app.route('/gameinfo')
+def gameinfo():
+    return render_template('gameinfo.html')
+
 @app.route('/auth/steam')
 @oid.loginhandler
 def auth_steam():
