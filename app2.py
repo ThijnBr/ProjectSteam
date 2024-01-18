@@ -11,6 +11,7 @@ sys.path.append('Scripts')
 import getSteamUserFriends as getDetails
 import gameSearch
 import predictConcurrentPlayers
+import getSales
 
 app = Flask(__name__)
 app.secret_key = '3f6F9E3cFb4B6aD7c8E5fA2e4D9cB8aF'  # sessie toke
@@ -71,8 +72,16 @@ def search():
     
     return html
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/sales')
+def sales():
+    user_info = session.get('user_info')
+    if user_info:
+        steam_id = user_info['steamid']
+        salesData = getSales.getSalesOnWishlist(steam_id)
+        popularSales = getSales.getSalesInPopular()
+    else:
+        return redirect(url_for('login'))
+    return render_template('Sales.html', sales=salesData, popular=popularSales)
 
 if __name__ == '__main__':
     app.run(debug=True)

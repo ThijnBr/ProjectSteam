@@ -327,27 +327,7 @@ body {
   font-family: 'Arial', sans-serif;
   font-size: 18px;
   font-weight: bold;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  z-index: 2;
-  transition: bottom 0.3s ease;
 }
-
-
-.home-section .image-container .image-description {
-  position: absolute;
-  left: 10px;
-  bottom: -20px; 
-  color: white;
-  font-family: 'Arial', sans-serif;
-  font-size: 14px;
-  font-weight: normal;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  z-index: 1;
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.3s linear, bottom 0.3s ease;
-}
-
 
 .home-section .image-container:hover .image-title {
   bottom: 40px; 
