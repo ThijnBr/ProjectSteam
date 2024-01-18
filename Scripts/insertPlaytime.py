@@ -36,8 +36,13 @@ def getPlayTime(steamID):
                 gamesList.append([friend_id, friend_games])
     
     return gamesList
-               
-def insertQueries(playtime, gameid, userid):
+    
+def truncateTable(conn):
+    cursor = conn.cursor()
+    cursor.execute("truncate table playtime")
+
+def insertQueries(playtime, gameid, userid):    
+    truncateTable(conn)
     userid = str(userid)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM steamuser WHERE steamid = %s", (userid,))
