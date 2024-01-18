@@ -36,11 +36,7 @@ def login():
 
 @app.route('/library')
 def library():
-    return renter_template('library.html')
-
-@app.route('/sales')
-def sales():
-    return render_template('sales.html')
+    return render_template('library.html')
 
 @app.route('/gameinfo')
 def gameinfo():
