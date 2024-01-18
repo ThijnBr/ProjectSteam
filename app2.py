@@ -41,6 +41,10 @@ def library():
 def sales():
     return render_template('sales.html')
 
+@app.route('/gameinfo')
+def gameinfo():
+    return render_template('gameinfo.html')
+
 @app.route('/auth/steam')
 @oid.loginhandler
 def auth_steam():
