@@ -1,0 +1,28 @@
+{"271590":
+{"name":"Grand Theft Auto V",
+"capsule":"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/271590\/header_292x136.jpg?t=1695060909",
+"review_score":8,
+"review_desc":"Very Positive",
+"reviews_total":"1,569,700",
+"reviews_percent":87,
+"release_date":"1428966000",
+"release_string":"14 Apr, 2015",
+"platform_icons":"<span class=\"platform_img win\"><\/span>",
+"subs":[{"packageid":null,
+"bundleid":5699,
+"discount_block":"<div class=\"discount_block discount_block_large no_discount\" data-price-final=\"1479\" data-bundlediscount=\"63\" data-discount=\"63\"><div class=\"bundle_base_discount\">-63%<\/div><div class=\"discount_pct\">-63%<\/div><div class=\"discount_prices\"><div class=\"discount_original_price\">39,98\u20ac<\/div><div class=\"discount_final_price\">14,79\u20ac<\/div><\/div><\/div>",
+"discount_pct":0,"price":"1479"}],
+"type":"Game",
+"screenshots":["ss_1487c2c7ddd9a1ae6b55f7e50d5d63ada6915921.jpg","ss_e929649b2b98ad76795d92d8489470bc5dbffddb.jpg","ss_62a2f95c1784f138c3abbecf376c5cc99cc94a57.jpg","ss_a5ca40b51e95d5c592e5eb77b3d78d5149ea5fd6.jpg"],
+"review_css":"positive",
+"priority":0,
+"added":1705581783,
+"background":"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/271590\/page_bg_generated_v6b.jpg?t=1695060909",
+"rank":66,
+"tags":["Open World","Action","Multiplayer","Crime","Automobile Sim"],
+"is_free_game":false,
+"deck_compat":"2",
+"win":1}
+,
+
+"2195250":{"name":"EA SPORTS FC\u2122 24","capsule":"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/2195250\/header_292x136.jpg?t=1705478125","review_score":5,"review_desc":"Mixed","reviews_total":"33,272","reviews_percent":57,"release_date":"1695938400","release_string":"29 Sep, 2023","platform_icons":"<span class=\"platform_img win\"><\/span>","subs":[{"packageid":785934,"bundleid":null,"discount_block":"<div class=\"discount_block discount_block_large\" data-price-final=\"2099\" data-bundlediscount=\"0\" data-discount=\"70\"><div class=\"discount_pct\">-70%<\/div><div class=\"discount_prices\"><div class=\"discount_original_price\">69,99\u20ac<\/div><div class=\"discount_final_price\">20,99\u20ac<\/div><\/div><\/div>","discount_pct":70,"price":"2099"}],"type":"Game","screenshots":["ss_f3d31c7cffc2a6ab42fb76aaac2bc9d5258bc142.jpg","ss_6c1ef918ffe94050e72dcb2cfad3a95ee3d69f08.jpg","ss_eb8f5def662f28726c875e641cd5faff75e6b16d.jpg","ss_96496b17bd35a97ceb926231e963762d3b86c3c8.jpg"],"review_css":"mixed","priority":0,"added":1705582135,"background":"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/271590\/page_bg_generated_v6b.jpg?t=1695060909","rank":-20,"tags":["Football (Soccer)","Sports","Controller","PvP","Competitive"],"is_free_game":false,"deck_compat":"1","win":1}}

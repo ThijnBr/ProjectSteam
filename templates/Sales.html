@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>SteamDeck</title>
+    <link rel="stylesheet" href="static\style.css">
+    <!-- Boxicons voor iconen -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+        <i class='bx bxl-steam' ></i>
+        <div class="logo_name">Steam</div>
+        <i class='bx bx-menu' id="btn" ></i>
+        <div class="friends-toggle">⮞</div>
+    </div>
+    <ul class="nav-list">
+      <li>
+          <i class='bx bx-search' ></i>
+          <input type="text" id="search" placeholder="Search by title">
+          <div class="overlay" id="overlay">
+            <div class="overlay-content" id="overlay-content">
+                <!--hier komen plaatjes-->
+            </div>
+        </div>
+         <span class="tooltip">Search</span>
+      </li>
+      <li>
+        <a href="/">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+         <span class="tooltip">Dashboard</span>
+      </li>
+      <li>
+       <a href="#">
+         <i class='bx bx-user' ></i>
+         <span class="links_name">Sales</span>
+       </a>
+       <span class="tooltip">Sales</span>
+     </li>
+     <li>
+       <a href="#">
+         <i class='bx bx-library'></i>
+         <span class="links_name">Games</span>
+       </a>
+       <span class="tooltip">Games</span>
+       <li class="profile">
+        <div class="profile-details">
+            <!-- Dynamic Profile Image -->
+            <img src="{{ session['user_info'].get('avatar', 'static/profile.jpg') }}" alt="Profile Image">
+            <div class="name_job">
+                <!-- Dynamic Username -->
+                <div class="name">{{ session['user_info'].get('personaname', 'Myguy24') }}</div>
+                <div class="job">Online</div>
+            </div>
+        </div>
+        <i class='bx bx-log-out' id="log_out" ></i>
+    </li>    
+    </ul>
+    </div>
+    <section class="home-section">
+      <div class="text">Sales on your wishlist</div>
+      <section class="raster-container">
+        {%for x in sales%}
+        <section>
+            <div class="image-container">
+                <img src="{{x[2][0]}}" alt="Image Description 1">
+                <div class="image-title">{{x[2][1]}}</div>
+                <div class="image-description">Korte uitleg over dit spel.</div>
+            </div>
+            <div class="image-discount">{{x[1]}}% Discount</div>
+        </section>
+            
+        {%endfor%}
+      </section>
+      <div class="text">Popular Game in Sale</div>
+      <section class="raster-container">
+        {%for x in popular%}
+        <section>
+            <div class="image-container">
+                <img src="{{x[2]}}" alt="Image Description 1">
+                <div class="image-title">{{x[1]}}</div>
+                <div class="image-description">Korte uitleg over dit spel.</div>
+            </div>
+            <div class="image-discount">{{x[0]}}% Discount</div>
+        </section>
+            
+        {%endfor%}
+      </section>
+    <script> //sidebar functie met anim
+      let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+
+  closeBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("open");
+    menuBtnChange();
+  });
+
+  searchBtn.addEventListener("click", ()=>{ 
+    sidebar.classList.toggle("open");
+    menuBtnChange(); 
+  });
+
+ 
+  function menuBtnChange() {
+   if(sidebar.classList.contains("open")){
+     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+   }else {
+     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//
+   }
+  }
+  </script>
+  <script src="/static/togglemenu.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#search').on('input', function(){
+                let query = $(this).val().trim(); // Trim leading/trailing spaces
+                
+                if (query !== '') {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/search',
+                        data: {'search': query},
+                        success: function(response) {
+                            $('#overlay').show();
+                            $('#overlay-content').html(response);
+                        }
+                    });
+                } else {
+                    $('#overlay').hide(); // Hide the overlay when query is empty
+                }
+            });
+        });
+    </script>
+    
