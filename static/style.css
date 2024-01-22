@@ -704,8 +704,15 @@ body {
 
 }
 
-.game-tab h3 {
-  color: #ff0000;
+.game-tab h4 {
+  color: #ffffff;
+  font-size: 30px;
   margin-bottom: 20px;
   text-transform: uppercase;
+}
+
+.game-tab p {
+  color: #ffffff;
+  font-size: 18px;
+  margin-bottom: 20px;
 }
