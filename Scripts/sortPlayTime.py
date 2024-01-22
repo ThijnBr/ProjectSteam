@@ -1,9 +1,10 @@
-from multiprocessing.reduction import duplicate
 import databaseConnection
 import getSteamUserFriends
 import getSteamUserGameData
+import os
 
-con = databaseConnection.connect()
+script_directory = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_directory)
 
 import asyncio
 
@@ -37,14 +38,6 @@ def getPlayTime(steamID):
 
     return gamesList
 
-def findOriginalIndex(stringArr, keyString): 
-    for i in range(len(stringArr)):
-        for j in range(len(stringArr[i])):
-            # print(stringArr[i][j])
-            if stringArr[i][j] == keyString:
-                return i
- 
-
 def combineGamePlaytime(steamID):
     playtimeList = getPlayTime(steamID)
     duplicatesdictSum = {}
@@ -68,6 +61,22 @@ def insertion_sort(arr):
         while arr[j - 1][1] < arr[j][1] and j > 0:
             arr[j - 1], arr[j] = arr[j], arr[j - 1]
             j -= 1
-    return arr
+    return arr[0:6]
 
-print(insertion_sort(combineGamePlaytime(76561198401205997)))
+
+def getGameDatabase(lst):
+    conn = databaseConnection.connect()
+    cursor = conn.cursor()
+    game_data = []
+    for x in lst:
+        sql2 = f"SELECT name, header_image, detailed_description FROM game WHERE steam_appid = {x[0]}"
+        cursor.execute(sql2)
+        name = cursor.fetchall()
+        print(name)
+        game_data.append([name[0][0], name[0][1]])
+    cursor.close()
+    return game_data
+
+# print(insertion_sort(combineGamePlaytime(76561198401205997)))
+
+print(getGameDatabase(insertion_sort(combineGamePlaytime(76561198401205997))))

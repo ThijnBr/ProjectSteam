@@ -66,41 +66,14 @@
       <div class="text">Popular between friends</div>
       <section class="raster-container">
         <!-- description wordt nu niet gebruikt -->
+    {%for x in popfriends%}
         <div class="image-container">
-          <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Image Description 1">
-          <div class="image-title">Sample Text</div>
-          <div class="image-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+          <img src="{{x[1]}}" alt="Image Description 1">
+          <div class="image-title">{{x[0]}}</div>
+          <div class="image-description">{{x[2]}}</div>
         </div>
+    {%endfor%}
       
-        <div class="image-container">
-          <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Image Description 2">
-          <div class="image-title">Sample Text</div>
-          <div class="image-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </div>
-        </div>
-
-        <div class="image-container">
-          <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Image Description 1">
-          <div class="image-title">Sample Text</div>
-          <div class="image-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-        </div>
-
-        <div class="image-container">
-          <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Image Description 1">
-          <div class="image-title">Sample Text</div>
-          <div class="image-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-        </div>
-
-        <div class="image-container">
-          <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Image Description 1">
-          <div class="image-title">Sample Text</div>
-          <div class="image-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-        </div>
-
-        <div class="image-container">
-          <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Image Description 1">
-          <div class="image-title">Sample Text</div>
-          <div class="image-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-        </div>
       </section>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <section class="home-section">
