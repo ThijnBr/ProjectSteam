@@ -12,7 +12,10 @@ def getSalesOnWishlist(steamID):
     jsonData = data.json()
     wishlist = []
     for x in jsonData:
-        discountPct = jsonData[x]['subs'][0]['discount_pct']
+        try:
+            discountPct = jsonData[x]['subs'][0]['discount_pct']
+        except:
+            continue
         if discountPct != 0:
             query = f'SELECT header_image, name FROM game WHERE steam_appid = {x}'
             cursor.execute(query)

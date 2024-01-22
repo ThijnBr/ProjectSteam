@@ -1,6 +1,4 @@
 import databaseConnection
-import random
-from datetime import datetime, timedelta
 
 conn = databaseConnection.connect()
 
@@ -25,8 +23,8 @@ def predict(a, b, x):
     return a + b * x
 
 def getGamePlayers(appid, cursor):
-    sql = f"SELECT time FROM concurrentPlayers WHERE gamesteam_appid = {appid} ORDER BY time ASC"
-    sql2 = f"SELECT amount FROM concurrentPlayers WHERE gamesteam_appid = {appid}"
+    sql = f"SELECT time FROM concurrentPlayers WHERE gamesteam_appid = {appid} ORDER BY time ASC LIMIT 96"
+    sql2 = f"SELECT amount FROM concurrentPlayers WHERE gamesteam_appid = {appid} LIMIT 96"
     cursor.execute(sql)
     timelist = cursor.fetchall()
     cursor.execute(sql2)
