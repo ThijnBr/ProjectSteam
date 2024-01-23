@@ -1,6 +1,7 @@
 import json
 import databaseConnection
-
+import requests
+import time
 import os
 
 script_directory = os.path.dirname(os.path.abspath(__file__))
@@ -8,6 +9,7 @@ os.chdir(script_directory)
 
 conn = databaseConnection.connect()
 
+#every values that needs to inserted in database.
 jsonValues = ['steam_appid', 
               'name', 
               'required_age', 
@@ -62,16 +64,9 @@ def getGameIds():
     cursor.close()
     return list
 
+#check if genre or gameids is already inserted.
 gameIds = getGameIds()
-for x in gameIds:
-    if x == 100:
-        print('yes')
-descriptions = getDescriptions()
 genres = getGenres()
-
-
-# with open('correctData.json', 'r') as f:
-#     data = json.load(f)
 
 current = 0
 
@@ -97,6 +92,7 @@ def insertSupportinfo(dict, gameId):
     email = dict['email']
     cursor.execute(sql, (url, email, gameId))
 
+#match to get values of json file
 def getValue(innerJson, arg, gameId):
     global descriptions
     global genres
@@ -154,12 +150,7 @@ def insertScreenshots(lst, gameId):
     path_full = lst['path_full']
     cursor.execute(sql, (id, path_thumbnail, path_full, gameId))
 
-row = 0
-currentRow = row
-
-import requests
-import time
-
+#get all gameids on steam
 def getGameDetail(appid):
     try:
         response = requests.get(f'http://store.steampowered.com/api/appdetails?appids={appid}')
@@ -167,7 +158,8 @@ def getGameDetail(appid):
         return data
     except:
         return None
-    
+
+#games which are previously checked as type not game or not a real game.
 with open("notGame.txt", 'r') as f:
     steamids = f.readlines()
     steamids = [x.replace('\n', '') for x in steamids]
@@ -178,14 +170,25 @@ data = []
 for x in req['applist']['apps']:
     data.append(str(x['appid']))
 
-for x in range(row, len(data)):
+#loop through all gameids
+for x in range(len(data)):
     print(data[x])
+
+    #check if steamgameid is in steamIds (notGame) or gameIds(already inserted)
     if data[x] in steamids or data[x] in gameIds:
         continue
+
+    #make request and get game details
     innerJson = getGameDetail(data[x])
+
+    #check if valid json file
     if innerJson == None:
         continue
+
+    #go to next json object. like this 35938595:{here}
     innerJson = next(iter(innerJson.values()))
+
+    #rate limit bypass
     time.sleep(1.5)
     if innerJson['success'] == False:
         with open ('notGame.txt', 'a') as f:
@@ -238,9 +241,6 @@ for x in range(row, len(data)):
                 screenshotsToInsert = value
             elif x == 'support_info':
                 supportInfoToInsert = value
-
-        # print(x, ' ', value)  
-    # print(gametoInsert)
     try:
         insertGame(gametoInsert)
         if requirementsToInsert != None:
@@ -260,12 +260,5 @@ for x in range(row, len(data)):
         with open ('notGame.txt', 'a') as f:
             f.write(gameId+'\n')
         print(e)
-
-    currentRow += 1
-    print(currentRow)
     cursor.close()
     conn.commit()
-    
-"""INSERT INTO categorie values (2, 'test');
-INSERT INTO game values (10, 'test2', 0, False, 'nee', 'NL', 'ding', '2000', NULL, 't','f');
-INSERT INTO game_categorie values (10, 2);"""

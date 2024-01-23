@@ -3,7 +3,7 @@ import databaseConnection
 
 conn = databaseConnection.connect()
 
-
+#returns games on wishlist with a discountpercentage > 0
 def getSalesOnWishlist(steamID):    
     cursor = conn.cursor()
 
@@ -26,6 +26,7 @@ def getSalesOnWishlist(steamID):
     cursor.close()
     return wishlist
 
+#check if there is a sale in a game from the concurrentPlayer database.
 def getSalesInPopular():
     cursor = conn.cursor()
     sql = """SELECT gamesteam_appid, SUM(amount) AS total_amount

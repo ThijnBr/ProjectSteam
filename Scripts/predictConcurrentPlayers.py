@@ -2,6 +2,7 @@ import databaseConnection
 
 conn = databaseConnection.connect()
 
+#berekend richtingscofficient en startYPositie van lijn.
 def calculateGraph(yList):
     num_iterations = 10000
     learning_rate = 0.0001
@@ -19,9 +20,11 @@ def calculateGraph(yList):
             b = b - x * error * learning_rate
     return a, b
 
+#creates points for line
 def predict(a, b, x):
     return a + b * x
 
+#get concurrentPlayers for the past 96 hours, returns date, player amount, points, richtingscoefficient
 def getGamePlayers(appid, cursor):
     sql = f"SELECT time FROM concurrentPlayers WHERE gamesteam_appid = {appid} ORDER BY time ASC LIMIT 96"
     sql2 = f"SELECT amount FROM concurrentPlayers WHERE gamesteam_appid = {appid} LIMIT 96"
@@ -47,6 +50,7 @@ def getGamePlayers(appid, cursor):
         newTime.append('')
     return newTime, newAmount, predictLine, b
 
+#returns all chart data used in html. [[time, amount, linepoints, richtingscoeffienct,name, imagelink]]
 def getAllChartData():
     cursor = conn.cursor()
     sql = """SELECT gamesteam_appid, SUM(amount) AS total_amount
