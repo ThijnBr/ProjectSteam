@@ -3,19 +3,22 @@ from flask import Flask, redirect, url_for, session, render_template, request
 from flask_openid import OpenID
 import os
 
-script_directory = os.path.dirname(os.path.abspath(__file__))
-os.chdir(script_directory)
+#script_directory = os.path.dirname(os.path.abspath(__file__))
+#os.chdir(script_directory)
 
 import sys
-sys.path.append('Scripts')
-import getSteamUserFriends as getDetails
+sys.path.append('.')
+#sys.path.append('Scripts')
+from Scripts import getSteamUserFriends,gameSearch,predictConcurrentPlayers,getSales,sortPlayTime,getSteamUserGameData,getGameFromDatabase
+"""getSteamUserFriends as getDetails
 import gameSearch
 import predictConcurrentPlayers
 import getSales
 import sortPlayTime
 import getSteamUserGameData
+
+import getGameFromDatabase"""
 import asyncio
-import getGameFromDatabase
 
 app = Flask(__name__)
 app.secret_key = '3f6F9E3cFb4B6aD7c8E5fA2e4D9cB8aF'  # sessie toke
@@ -26,7 +29,7 @@ def index():
     user_info = session.get('user_info')
     if user_info:
         steam_id = user_info['steamid']
-        friends_details = getDetails.getFriendsData(steam_id)
+        friends_details =getSteamUserFriends.getFriendsData(steam_id)
         online_friends = [x for x in friends_details if x['info'] != 'Offline']
         print(online_friends)
         offline_friends = [x for x in friends_details if x['info'] == 'Offline']
@@ -45,7 +48,10 @@ def library():
     user_info = session.get('user_info')
     if session.get('user_info'):
         steam_id = user_info['steamid']
-        gameCount = asyncio.run(getSteamUserGameData.fetch_friend_games(steam_id, None))["response"]["games"]
+        print("steamid",steam_id)
+        gameCount = asyncio.run(getSteamUserGameData.fetch_friend_games(steam_id, None))#["response"]["games"]
+        
+        print(gameCount)
         gameList = []
         for x in gameCount:
             gameId = x['appid']
@@ -68,7 +74,7 @@ def auth_steam():
 @oid.after_login
 def create_or_login(resp):
     steam_id = resp.identity_url.split('/')[-1]
-    user_info = getDetails.getUserInfo(steam_id)
+    user_info = getSteamUserFriends.getUserInfo(steam_id)
     session['user_info'] = user_info
     return redirect(url_for('index'))
 

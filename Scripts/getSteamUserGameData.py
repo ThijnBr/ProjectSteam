@@ -34,5 +34,5 @@ async def fetch_friend_games(friend_id, session):
                 return await response.json()
             else:
                 return None
-                
-# print(asyncio.run(fetch_friend_games(76561198401205997, None))["response"]["game_count"])
+
+print(asyncio.run(fetch_friend_games(76561198401205997, None))["response"]["game_count"])
