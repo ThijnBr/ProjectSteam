@@ -1,5 +1,5 @@
 import databaseConnection
-
+from psycopg2.errors import IntegrityError
 conn = databaseConnection.connect()
 
 #creates points for line
@@ -52,7 +52,7 @@ def getConcurrentPlayersFromDatabase():
     sql = """SELECT gamesteam_appid, SUM(amount) AS total_amount
                 FROM concurrentPlayers
                 GROUP BY gamesteam_appid
-                ORDER BY total_amount DESC LIMIT 10"""
+                ORDER BY total_amount DESC LIMIT 100"""
     cursor.execute(sql)
     data = cursor.fetchall()
     return data
@@ -71,6 +71,7 @@ def getAllChartData(data):
 
 #berekend richtingscofficient en startYPositie van lijn.
 def calculateGraph(steamID):
+    print('calculating')
     yList = getPlayersGame(steamID)[0]
 
     num_iterations = 10000
@@ -88,12 +89,19 @@ def calculateGraph(steamID):
             a = a - error * learning_rate
             b = b - x * error * learning_rate
     
-    query = "INSERT INTO graphRC values (%s, %s, %s)"
+    query_insert = "INSERT INTO graphRC (gamesteam_appid, a, b) VALUES (%s, %s, %s)"
+    query_update = "UPDATE graphRC SET a = %s, b = %s WHERE gamesteam_appid = %s"
 
     cursor = conn.cursor()
-    cursor.execute(query, (steamID, a, b))
-    cursor.close()
-    conn.commit()
+
+    try:
+        cursor.execute(query_insert, (steamID, a, b))
+    except IntegrityError:
+        conn.rollback()  # Roll back the transaction in case of an exception
+        cursor.execute(query_update, (a, b, steamID))
+    finally:
+        cursor.close()
+        conn.commit()
 
 # data = getConcurrentPlayersFromDatabase()
 # for x in data:

@@ -2,6 +2,7 @@ import requests
 from datetime import datetime
 import time
 import databaseConnection
+import predictConcurrentPlayers
 
 conn = databaseConnection.connect()
 
@@ -65,6 +66,9 @@ def executeFunction():
         now = datetime.now()
         if now.hour in list(range(0,24)) and now.minute == 0:
             getConcurrentPlayers()
+            data = predictConcurrentPlayers.getConcurrentPlayersFromDatabase()
+            for x in data:
+                predictConcurrentPlayers.calculateGraph(x[0])
             print('executed')
 
         time.sleep(60)
