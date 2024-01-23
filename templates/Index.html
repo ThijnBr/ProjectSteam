@@ -134,7 +134,7 @@
             <img src="{{ friend['avatar'] }}" alt="{{ friend['name'] }}">
             <div class="friend-info">
               <div class="friend-name">{{ friend['name'] }}</div>
-              <div class="friend-status">{{ friend['gameextrainfo'] or 'Idle' }}</div>
+              <div class="friend-status">{{ friend['info'] or 'Online' }}</div>
             </div>
           </div>
           {% endfor %}

@@ -11,7 +11,6 @@ def getAB(appid):
     cursor = conn.cursor()
     cursor.execute(sql)
     data = cursor.fetchall()
-    print(data)
     a = data[0][0]
     b = data[0][1]
     return a, b
