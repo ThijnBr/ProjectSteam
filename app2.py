@@ -28,8 +28,9 @@ def index():
         steam_id = user_info['steamid']
         friends_details = getDetails.getFriendsData(steam_id)
         online_friends = [x for x in friends_details if x['info'] != 'Offline']
+        print(online_friends)
         offline_friends = [x for x in friends_details if x['info'] == 'Offline']
-        chart_data = predictConcurrentPlayers.getAllChartData()
+        chart_data = predictConcurrentPlayers.getAllChartData(predictConcurrentPlayers.getConcurrentPlayersFromDatabase(True))
         popfriends = sortPlayTime.getGameDatabase(sortPlayTime.insertion_sort(sortPlayTime.combineGamePlaytime(steam_id)))
         return render_template('index.html', user_info=user_info, online_friends=online_friends, offline_friends=offline_friends, chart_data=chart_data, popfriends=popfriends)
     else:

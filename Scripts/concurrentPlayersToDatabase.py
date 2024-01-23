@@ -2,17 +2,21 @@ import requests
 from datetime import datetime
 import time
 import databaseConnection
+import predictConcurrentPlayers
 
 conn = databaseConnection.connect()
 
+#get current game players top 100
 def concurrentPlayersRequest():
     request = 'https://api.steampowered.com/ISteamChartsService/GetGamesByConcurrentPlayers/v1/?'
     response = requests.get(request)
     return response.json()['response']['ranks']
 
+#sets string to datetime
 def stringtodatetime(time_str):
     return datetime.strptime(time_str, "%m/%d/%y:%H:%M:%S")
 
+#insert return from concurrentPlayersRequest by given appid.
 def insertConcurrentPlayers(appid, amount, time):
     cursor = conn.cursor()
     checkSQL = 'SELECT time FROM concurrentPlayers WHERE gamesteam_appid = %s'
@@ -20,7 +24,9 @@ def insertConcurrentPlayers(appid, amount, time):
     lst = cursor.fetchall()
     
     insertSQL = "INSERT INTO concurrentPlayers (gamesteam_appid, amount, time) values (%s, %s, %s)"
-    if len(lst) < 10:
+
+    #96 is max data in database per game. when it exceeds the first inserted player amount is removed
+    if len(lst) < 96:
         try:
             cursor.execute(insertSQL, (appid, amount, time))
         except:
@@ -42,6 +48,7 @@ def insertConcurrentPlayers(appid, amount, time):
     conn.commit()
     cursor.close()
 
+#loop through appids and execute other functions.
 def getConcurrentPlayers():
     data = concurrentPlayersRequest()
     now = datetime.now()
@@ -53,12 +60,15 @@ def getConcurrentPlayers():
         insertConcurrentPlayers(appid, currentPlayers, current_time)
 
     
-
+#every hour there is a check if getConcurrentPlayers need to be executed. Runs on server.
 def executeFunction():
     while True:
         now = datetime.now()
         if now.hour in list(range(0,24)) and now.minute == 0:
             getConcurrentPlayers()
+            data = predictConcurrentPlayers.getConcurrentPlayersFromDatabase()
+            for x in data:
+                predictConcurrentPlayers.calculateGraph(x[0])
             print('executed')
 
         time.sleep(60)

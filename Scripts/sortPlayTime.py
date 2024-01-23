@@ -8,7 +8,8 @@ os.chdir(script_directory)
 
 import asyncio
 
-
+#returns a gameList [friendid,[gameid,playtime last 2 weeks]]
+#async function to improve speed
 def getPlayTime(steamID):
     #Deze functie verwijst naar het ophalen van Ids van je vrienden op Steam
     friendIdList = getSteamUserFriends.getFriendUserIDs(steamID)
@@ -40,7 +41,7 @@ def getPlayTime(steamID):
 
     return gamesList
 
-#Deze functie combineert de playtime van de games die meer dan een keer voorkomen
+#returns playtime from all players combined per game.
 def combineGamePlaytime(steamID):
     playtimeList = getPlayTime(steamID)
     duplicatesdictSum = {}
@@ -57,7 +58,7 @@ def combineGamePlaytime(steamID):
 
     return [[playTime, duplicatesdictSum[playTime]] for playTime in duplicatesdictSum]
 
-#Deze functie soorteerd de lijst op de top 6 meest gespeelde games in de afgelopen 2 weken
+#sort playtime from high to low with insertion sort. returns a max of 6 games.
 def insertion_sort(arr):
     for i in range(1, len(arr)):
         j = i
@@ -67,7 +68,7 @@ def insertion_sort(arr):
             j -= 1
     return arr[0:6]
 
-#Deze functie haalt de afbeelding en de naam van de game op uit de database
+#get name image link and description from database
 def getGameDatabase(lst):
     conn = databaseConnection.connect()
     cursor = conn.cursor()
