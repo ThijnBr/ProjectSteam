@@ -77,7 +77,6 @@ def getGameDatabase(lst):
         sql2 = f"SELECT name, header_image FROM game WHERE steam_appid = {x[0]}"
         cursor.execute(sql2)
         name = cursor.fetchall()
-        print(name)
         game_data.append([name[0][0], name[0][1]])
     cursor.close()
     return game_data

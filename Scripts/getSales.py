@@ -20,7 +20,6 @@ def getSalesOnWishlist(steamID):
             query = f'SELECT header_image, name FROM game WHERE steam_appid = {x}'
             cursor.execute(query)
             image = cursor.fetchone()
-            print(image)
             wishlist.append((x,discountPct, image))
 
     cursor.close()
