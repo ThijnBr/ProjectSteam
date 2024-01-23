@@ -11,14 +11,16 @@ import asyncio
 #returns a gameList [friendid,[gameid,playtime last 2 weeks]]
 #async function to improve speed
 def getPlayTime(steamID):
+    #Deze functie verwijst naar het ophalen van Ids van je vrienden op Steam
     friendIdList = getSteamUserFriends.getFriendUserIDs(steamID)
 
+    #Deze functie verwijst naar het ophalen van de gamedata van je vrienden op Steam
     friend_games_data = asyncio.run(
         getSteamUserGameData.get_friend_games_async(friendIdList)
     )
 
     gamesList = []
-
+    #Dit gedeelte haalt alleen de playtime van de afgelopen 2 weken uit de opgehaalde gamedata
     for friend_id, data in zip(friendIdList, friend_games_data):
         if data is not None and "response" in data and "games" in data["response"]:
             games = data["response"]["games"]
@@ -72,7 +74,7 @@ def getGameDatabase(lst):
     cursor = conn.cursor()
     game_data = []
     for x in lst:
-        sql2 = f"SELECT name, header_image, detailed_description FROM game WHERE steam_appid = {x[0]}"
+        sql2 = f"SELECT name, header_image FROM game WHERE steam_appid = {x[0]}"
         cursor.execute(sql2)
         name = cursor.fetchall()
         print(name)
