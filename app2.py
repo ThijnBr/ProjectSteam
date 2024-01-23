@@ -15,6 +15,7 @@ import getSales
 import sortPlayTime
 import getSteamUserGameData
 import asyncio
+import getGameFromDatabase
 
 app = Flask(__name__)
 app.secret_key = '3f6F9E3cFb4B6aD7c8E5fA2e4D9cB8aF'  # sessie toke
@@ -40,8 +41,19 @@ def login():
 
 @app.route('/library')
 def library():
-    libraryGames = asyncio.run(getSteamUserGameData.fetch_friend_games(76561198401205997, None))
-    return render_template('library.html', libraryGames)
+    user_info = session.get('user_info')
+    if session.get('user_info'):
+        steam_id = user_info['steamid']
+        gameCount = asyncio.run(getSteamUserGameData.fetch_friend_games(steam_id, None))["response"]["game_count"]
+        print(gameCount)
+        gameList = []
+        for x in range(gameCount):
+            gameId = asyncio.run(getSteamUserGameData.fetch_friend_games(steam_id, None))["response"]["games"][x]["appid"]
+            gameList.append(getGameFromDatabase.getLibraryGames(gameId))
+        
+        return render_template('library.html', gameCount=gameCount, gameList=gameList)
+    else:
+        return redirect(url_for('login'))
     
 
 @app.route('/gameinfo')
