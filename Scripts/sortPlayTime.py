@@ -10,14 +10,16 @@ import asyncio
 
 
 def getPlayTime(steamID):
+    #Deze functie verwijst naar het ophalen van Ids van je vrienden op Steam
     friendIdList = getSteamUserFriends.getFriendUserIDs(steamID)
 
+    #Deze functie verwijst naar het ophalen van de gamedata van je vrienden op Steam
     friend_games_data = asyncio.run(
         getSteamUserGameData.get_friend_games_async(friendIdList)
     )
 
     gamesList = []
-
+    #Dit gedeelte haalt alleen de playtime van de afgelopen 2 weken uit de opgehaalde gamedata
     for friend_id, data in zip(friendIdList, friend_games_data):
         if data is not None and "response" in data and "games" in data["response"]:
             games = data["response"]["games"]
@@ -38,6 +40,7 @@ def getPlayTime(steamID):
 
     return gamesList
 
+#Deze functie combineert de playtime van de games die meer dan een keer voorkomen
 def combineGamePlaytime(steamID):
     playtimeList = getPlayTime(steamID)
     duplicatesdictSum = {}
@@ -54,6 +57,7 @@ def combineGamePlaytime(steamID):
 
     return [[playTime, duplicatesdictSum[playTime]] for playTime in duplicatesdictSum]
 
+#Deze functie soorteerd de lijst op de top 6 meest gespeelde games in de afgelopen 2 weken
 def insertion_sort(arr):
     for i in range(1, len(arr)):
         j = i
@@ -63,20 +67,16 @@ def insertion_sort(arr):
             j -= 1
     return arr[0:6]
 
-
+#Deze functie haalt de afbeelding en de naam van de game op uit de database
 def getGameDatabase(lst):
     conn = databaseConnection.connect()
     cursor = conn.cursor()
     game_data = []
     for x in lst:
-        sql2 = f"SELECT name, header_image, detailed_description FROM game WHERE steam_appid = {x[0]}"
+        sql2 = f"SELECT name, header_image FROM game WHERE steam_appid = {x[0]}"
         cursor.execute(sql2)
         name = cursor.fetchall()
         print(name)
         game_data.append([name[0][0], name[0][1]])
     cursor.close()
     return game_data
-
-# print(insertion_sort(combineGamePlaytime(76561198401205997)))
-
-print(getGameDatabase(insertion_sort(combineGamePlaytime(76561198401205997))))

@@ -17,7 +17,7 @@ async def get_friend_games_async(friend_ids):
         return await asyncio.gather(*tasks)
     
 async def fetch_friend_games(friend_id, session):
-    url = f'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={api_key}&steamid={friend_id}&format=json&include_appinfo=true'
+    url = f'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={api_key}&steamid={friend_id}&format=json&include_appinfo=false'
 
     if session is None:
         async with aiohttp.ClientSession() as session:
@@ -34,5 +34,3 @@ async def fetch_friend_games(friend_id, session):
                 return None
                 
 print(asyncio.run(fetch_friend_games(76561198401205997, None)))
-
-    
