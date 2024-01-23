@@ -47,12 +47,16 @@ def getGamePlayers(appid):
         newTime.append('')
     return newTime, newAmount, predictLine, b
 
-def getConcurrentPlayersFromDatabase():
+def getConcurrentPlayersFromDatabase(web):
     cursor = conn.cursor()
-    sql = """SELECT gamesteam_appid, SUM(amount) AS total_amount
+    if web == False:
+        limit = 100
+    else:
+        limit = 10
+    sql = f"""SELECT gamesteam_appid, SUM(amount) AS total_amount
                 FROM concurrentPlayers
                 GROUP BY gamesteam_appid
-                ORDER BY total_amount DESC LIMIT 100"""
+                ORDER BY total_amount DESC LIMIT {limit}"""
     cursor.execute(sql)
     data = cursor.fetchall()
     return data
