@@ -13,7 +13,7 @@ async def get_friend_games_async(friend_ids):
     
 #getowned games of a single steam user.
 async def fetch_friend_games(friend_id, session):
-    url = f'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={api_key}&steamid={friend_id}&format=json&include_appinfo=false'
+    url = f'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={api_key}&steamid={friend_id}&include_played_free_games=true&format=json'
 
     if session is None:
         async with aiohttp.ClientSession() as session:

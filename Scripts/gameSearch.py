@@ -14,8 +14,8 @@ def getGames(name):
 
     return names
 
-conn = db.connect()
-def getGames():
-    cursor = conn.cursor()
+# conn = db.connect()
+# def getGames():
+#     cursor = conn.cursor()
 
-    sql = f"SELECT name FROM game"
+#     sql = f"SELECT name FROM game"

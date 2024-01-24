@@ -1,10 +1,13 @@
 from . import databaseConnection as db
 from . import normalDescription
 from . import gamesToDatabase
+import asyncio
 
-def getLibraryGames(steam_id):
+async def getLibraryGames(steam_id, time=0):
     conn = db.connect()
     cursor = conn.cursor()
+
+    print(steam_id)
 
     sql = """SELECT name, header_image, detailed_description, steam_appid FROM game WHERE steam_appid = %s;"""
 
@@ -20,8 +23,9 @@ def getLibraryGames(steam_id):
                 data.append(html)
             else:
                 data.append(LibraryGames[0][x])
-    else:
-        gamesToDatabase.idsToDatabase([steam_id], None, None)          
+    elif time==0:
+        gamesToDatabase.idsToDatabase([steam_id], None, None)
+        return await getLibraryGames(steam_id, 1)       
 
     cursor.close()
     conn.close()

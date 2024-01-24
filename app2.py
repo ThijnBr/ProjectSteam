@@ -25,7 +25,7 @@ def index():
         online_friends = [x for x in friends_details if x['info'] != 'Offline']
         print(online_friends)
         offline_friends = [x for x in friends_details if x['info'] == 'Offline']
-        chart_data = predictConcurrentPlayers.getAllChartData(predictConcurrentPlayers.getConcurrentPlayersFromDatabase(True))
+        chart_data = predictConcurrentPlayers.getAllChartData(predictConcurrentPlayers.getConcurrentPlayersFromDatabase(True, None))
         popfriends = sortPlayTime.getGameDatabase(sortPlayTime.insertion_sort(sortPlayTime.combineGamePlaytime(steam_id)))
         return render_template('index.html', user_info=user_info, online_friends=online_friends, offline_friends=offline_friends, chart_data=chart_data, popfriends=popfriends)
     else:
@@ -44,9 +44,8 @@ def library():
         gameList = []
         for x in gameData:
             gameId = x['appid']
-            print(getGameFromDatabase.getLibraryGames(gameId)[0])
-            gameList.append(getGameFromDatabase.getLibraryGames(gameId))
-        # print(gameList)
+            data = asyncio.run(getGameFromDatabase.getLibraryGames(gameId))
+            gameList.append(data)
         return render_template('library.html', gameList=gameList)
     else:
         return redirect(url_for('login'))
