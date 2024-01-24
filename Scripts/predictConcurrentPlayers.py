@@ -47,6 +47,8 @@ def getGamePlayers(appid):
     return newTime, newAmount, predictLine, b
 
 def getConcurrentPlayersFromDatabase(web, conn):
+    if conn == None:
+        conn = databaseConnection.connect()
     cursor = conn.cursor()
     if web == False:
         limit = 100
