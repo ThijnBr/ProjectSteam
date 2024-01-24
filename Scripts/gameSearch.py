@@ -1,6 +1,4 @@
-import databaseConnection as db
-import gamesToDatabase
-gamesToDatabase.idsToDatabase([12100], None, None)
+from . import databaseConnection as db
 
 def getGames(name):
     conn = db.connect()

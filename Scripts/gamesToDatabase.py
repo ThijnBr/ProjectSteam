@@ -1,5 +1,5 @@
 import json
-import databaseConnection
+from . import databaseConnection
 import requests
 import time
 
@@ -250,7 +250,7 @@ def idsToDatabase(data, steamIds, gameIds):
             if screenshotsToInsert is not None and screenshotsToInsert:
                 for x in screenshotsToInsert:
                     insertScreenshots(x, gameId)
-        except:
+        except Exception as e:
             if steamIds is not None:
                 with open ('notGame.txt', 'a') as f:
                     f.write(gameId+'\n')
