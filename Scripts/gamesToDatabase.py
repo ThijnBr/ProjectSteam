@@ -4,7 +4,7 @@ import requests
 import time
 
 conn = databaseConnection.connect()
-
+cursor = conn.cursor()
 #every values that needs to inserted in database.
 jsonValues = ['steam_appid', 
               'name', 
@@ -61,7 +61,7 @@ def getGameIds():
     return list
 
 #check if genre or gameids is already inserted.
-gameIds = getGameIds()
+
 genres = getGenres()
 
 current = 0
@@ -117,7 +117,11 @@ def getValue(innerJson, arg, gameId):
         case 'publishers':
             return value[0]
         case 'price_overview':
-            return value['initial']
+            try:
+                return value['initial']
+            except:
+                return None
+            
         case 'recommendations':
             return value['total']
         case _:
@@ -155,106 +159,116 @@ def getGameDetail(appid):
     except:
         return None
 
-#games which are previously checked as type not game or not a real game.
-with open("notGame.txt", 'r') as f:
-    steamids = f.readlines()
-    steamids = [x.replace('\n', '') for x in steamids]
+def idsToDatabase(data, steamIds, gameIds):
+    #loop through all gameids
+    for x in range(len(data)):
+        print(data[x])
 
-response = requests.get('http://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=STEAMKEY&format=json')
-req = response.json()
-data = []
-for x in req['applist']['apps']:
-    data.append(str(x['appid']))
+        #check if steamgameid is in steamIds (notGame) or gameIds(already inserted)
+        if steamIds != None and gameIds != None:
+            if data[x] in steamids or data[x] in gameIds:
+                continue
 
-#loop through all gameids
-for x in range(len(data)):
-    print(data[x])
+        #make request and get game details
+        innerJson = getGameDetail(data[x])
+        
 
-    #check if steamgameid is in steamIds (notGame) or gameIds(already inserted)
-    if data[x] in steamids or data[x] in gameIds:
-        continue
-
-    #make request and get game details
-    innerJson = getGameDetail(data[x])
-
-    #check if valid json file
-    if innerJson == None:
-        continue
-
-    #go to next json object. like this 35938595:{here}
-    innerJson = next(iter(innerJson.values()))
-
-    #rate limit bypass
-    time.sleep(1.5)
-    if innerJson['success'] == False:
-        with open ('notGame.txt', 'a') as f:
-            f.write(data[x]+'\n')
-        print('no succes')
-        continue
-    if innerJson['data']['type'] != 'game':
-        with open ('notGame.txt', 'a') as f:
-            f.write(data[x]+'\n')
-        print('not game')
-        continue
-    cursor = conn.cursor()
-    gametoInsert = []
-    categoriestoInsert = None
-    requirementsToInsert = []
-    platformstoInsert = None
-    genrestoInsert = None
-    screenshotsToInsert = None
-    supportInfoToInsert = None
-    dlcToInsert = None
-    if isinstance(innerJson, bool):
-        continue
-    gameId = data[x]
-    gametoInsert.append(gameId)
-    requirementsToInsert.append(gameId)
-    currentGame = 0
-    for x in jsonValues:
-        currentGame += 1
-        if x == 'steam_appid':
+        #check if valid json file
+        if innerJson == None:
             continue
+
+        #go to next json object. like this 35938595:{here}
+        innerJson = next(iter(innerJson.values()))
+        
+
+        #rate limit bypass
+        time.sleep(1.5)
+        if innerJson['success'] == False:
+            with open ('notGame.txt', 'a') as f:
+                f.write(data[x]+'\n')
+            print('no succes')
+            continue
+        if innerJson['data']['type'] != 'game':
+            with open ('notGame.txt', 'a') as f:
+                f.write(data[x]+'\n')
+            print('not game')
+            continue
+        cursor = conn.cursor()
+        gametoInsert = []
+        categoriestoInsert = None
+        requirementsToInsert = []
+        platformstoInsert = None
+        genrestoInsert = None
+        screenshotsToInsert = None
+        supportInfoToInsert = None
+        dlcToInsert = None
+        if isinstance(innerJson, bool):
+            continue
+        gameId = data[x]
+        gametoInsert.append(gameId)
+        requirementsToInsert.append(gameId)
+        currentGame = 0
+        for x in jsonValues:
+            currentGame += 1
+            if x == 'steam_appid':
+                continue
+            try:
+                value = getValue(innerJson['data'], x, gameId)
+            except Exception as e:
+                value = None
+            if currentGame < 13:
+                gametoInsert.append(value)
+            else:
+                if x == 'categories':
+                    categoriestoInsert = value
+                elif x == 'genres':
+                    genrestoInsert = value
+                elif x == 'pc_requirements' or x == 'mac_requirements' or x == 'linux_requirements':
+                    if value == [] or value == None:
+                        requirementsToInsert.append('')
+                    else:
+                        requirementsToInsert.append(value['minimum'])
+                elif x == 'platforms':
+                    platformstoInsert = value
+                elif x == 'screenshots':
+                    screenshotsToInsert = value
+                elif x == 'support_info':
+                    supportInfoToInsert = value
+
         try:
-            value = getValue(innerJson, x, gameId)
-        except Exception as e:
-            value = None
-        if currentGame < 13:
-            gametoInsert.append(value)
-        else:
-            if x == 'categories':
-                categoriestoInsert = value
-            elif x == 'genres':
-                genrestoInsert = value
-            elif x == 'pc_requirements' or x == 'mac_requirements' or x == 'linux_requirements':
-                if value == [] or value == None:
-                    requirementsToInsert.append('')
-                else:
-                    requirementsToInsert.append(value['minimum'])
-            elif x == 'platforms':
-                platformstoInsert = value
-            elif x == 'screenshots':
-                screenshotsToInsert = value
-            elif x == 'support_info':
-                supportInfoToInsert = value
-    try:
-        insertGame(gametoInsert)
-        if requirementsToInsert != None:
-            insertRequirements(requirementsToInsert)
-        insertPlatforms(platformstoInsert, gameId)
-        insertSupportinfo(supportInfoToInsert, gameId)
-        if categoriestoInsert != None:
-            for x in categoriestoInsert:
-                insertGameCategory(gameId, x['id'])
-        if genrestoInsert != None:
-            for x in genrestoInsert:
-                insertGameGenre(gameId, x['id'])
-        if screenshotsToInsert != None:
-            for x in screenshotsToInsert:
-                insertScreenshots(x, gameId)
-    except Exception as e:
-        with open ('notGame.txt', 'a') as f:
-            f.write(gameId+'\n')
-        print(e)
-    cursor.close()
-    conn.commit()
+            insertGame(gametoInsert)
+            if requirementsToInsert is not None:
+                insertRequirements(requirementsToInsert)
+            insertPlatforms(platformstoInsert, gameId)
+            insertSupportinfo(supportInfoToInsert, gameId)
+            if categoriestoInsert is not None and categoriestoInsert:
+                for x in categoriestoInsert:
+                    insertGameCategory(gameId, x['id'])
+            if genrestoInsert is not None and genrestoInsert:
+                for x in genrestoInsert:
+                    insertGameGenre(gameId, x['id'])
+            if screenshotsToInsert is not None and screenshotsToInsert:
+                for x in screenshotsToInsert:
+                    insertScreenshots(x, gameId)
+        except:
+            if steamIds is not None:
+                with open ('notGame.txt', 'a') as f:
+                    f.write(gameId+'\n')
+
+            print(e)
+        cursor.close()
+        conn.commit()
+
+if __name__ == "__main__":
+    #games which are previously checked as type not game or not a real game.
+    with open("notGame.txt", 'r') as f:
+        steamids = f.readlines()
+        steamids = [x.replace('\n', '') for x in steamids]
+
+    response = requests.get('http://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=STEAMKEY&format=json')
+    req = response.json()
+    data = []
+    for x in req['applist']['apps']:
+        data.append(str(x['appid']))
+    gameIds = getGameIds()
+    idsToDatabase(data, steamids, gameIds)
