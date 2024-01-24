@@ -1,5 +1,5 @@
-import databaseConnection as db
-import normalDescription
+from . import databaseConnection as db
+from . import normalDescription
 
 def getLibraryGames(steam_id):
     conn = db.connect()
