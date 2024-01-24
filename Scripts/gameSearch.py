@@ -1,4 +1,4 @@
-import databaseConnection as db
+import Scripts.databaseConnection as db
 
 def getGames(name):
     conn = db.connect()

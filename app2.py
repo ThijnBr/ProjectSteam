@@ -1,21 +1,15 @@
 import requests
 from flask import Flask, redirect, url_for, session, render_template, request
 from flask_openid import OpenID
-import os
-
-script_directory = os.path.dirname(os.path.abspath(__file__))
-os.chdir(script_directory)
-
-import sys
-sys.path.append('Scripts')
-import getSteamUserFriends as getDetails
-import gameSearch
-import predictConcurrentPlayers
-import getSales
-import sortPlayTime
-import getSteamUserGameData
 import asyncio
-import getGameFromDatabase
+
+import Scripts.getSteamUserFriends as getDetails
+import Scripts.gameSearch
+import Scripts.predictConcurrentPlayers
+import Scripts.getSales
+import Scripts.sortPlayTime
+import Scripts.getSteamUserGameData
+import Scripts.getGameFromDatabase
 
 app = Flask(__name__)
 app.secret_key = '3f6F9E3cFb4B6aD7c8E5fA2e4D9cB8aF'  # sessie toke
