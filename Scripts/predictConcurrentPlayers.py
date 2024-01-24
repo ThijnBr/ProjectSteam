@@ -46,7 +46,7 @@ def getGamePlayers(appid):
         newTime.append('')
     return newTime, newAmount, predictLine, b
 
-def getConcurrentPlayersFromDatabase(web):
+def getConcurrentPlayersFromDatabase(web, conn):
     cursor = conn.cursor()
     if web == False:
         limit = 100
@@ -58,6 +58,7 @@ def getConcurrentPlayersFromDatabase(web):
                 ORDER BY total_amount DESC LIMIT {limit}"""
     cursor.execute(sql)
     data = cursor.fetchall()
+    cursor.close()
     return data
 
 #returns all chart data used in html. [[time, amount, linepoints, richtingscoeffienct,name, imagelink]]
@@ -73,7 +74,7 @@ def getAllChartData(data):
     return chart_data
 
 #berekend richtingscofficient en startYPositie van lijn.
-def calculateGraph(steamID):
+def calculateGraph(steamID, conn):
     print('calculating')
     yList = getPlayersGame(steamID)[0]
 
