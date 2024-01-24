@@ -1,14 +1,8 @@
-import requests
-import os
 import pandas as pd
-
-script_directory = os.path.dirname(os.path.abspath(__file__))
-os.chdir(script_directory)
-
 import aiohttp
 import asyncio
 
-df = pd.read_csv('..\Api\ApiKeys.csv')
+df = pd.read_csv('Api\ApiKeys.csv')
 api_key = df.iloc[0, 1]
 
 #makes session and tasks for a list of friends_ids. returns all games from friends async.

@@ -1,4 +1,4 @@
-import databaseConnection
+from . import databaseConnection
 from psycopg2.errors import IntegrityError
 conn = databaseConnection.connect()
 

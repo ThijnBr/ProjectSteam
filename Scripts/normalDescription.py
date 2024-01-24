@@ -1,4 +1,3 @@
-import databaseConnection
 from bs4 import BeautifulSoup
 
 def getNormalDescription(data):

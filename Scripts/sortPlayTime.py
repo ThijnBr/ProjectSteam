@@ -1,11 +1,6 @@
-import databaseConnection
-import getSteamUserFriends
-import getSteamUserGameData
-import os
-
-script_directory = os.path.dirname(os.path.abspath(__file__))
-os.chdir(script_directory)
-
+from .  import databaseConnection
+from . import getSteamUserFriends
+from . import getSteamUserGameData
 import asyncio
 
 #returns a gameList [friendid,[gameid,playtime last 2 weeks]]
