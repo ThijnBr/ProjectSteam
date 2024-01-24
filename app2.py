@@ -45,13 +45,14 @@ def library():
     user_info = session.get('user_info')
     if session.get('user_info'):
         steam_id = user_info['steamid']
-        gameCount = asyncio.run(getSteamUserGameData.fetch_friend_games(steam_id, None))["response"]["games"]
+        gameData = asyncio.run(getSteamUserGameData.fetch_friend_games(steam_id, None))["response"]["games"]
         gameList = []
-        for x in gameCount:
+        for x in gameData:
             gameId = x['appid']
+            print(getGameFromDatabase.getLibraryGames(gameId)[0])
             gameList.append(getGameFromDatabase.getLibraryGames(gameId))
-        
-        return render_template('library.html', gameCount=gameCount, gameList=gameList)
+        # print(gameList)
+        return render_template('library.html', gameList=gameList)
     else:
         return redirect(url_for('login'))
     

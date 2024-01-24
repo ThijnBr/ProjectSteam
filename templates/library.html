@@ -63,15 +63,16 @@
         </ul>
     </div>
     <section class="home-section">
-        <div class="text">Popular between friends</div>
+        <div class="text">Games in your library</div>
         <section class="raster-container">
             <!-- description wordt nu niet gebruikt -->
             {%for x in gameList%}
             <div class="image-container">
-                <p>{{x}}</p>
-                <!--<img src="{{x[1]}}" alt="Image Description 1">
-        <div class="image-title">{{x[0]}}</div>
-        <div class="image-description">{{x[2]}}</div>-->
+                <div class="image-container">
+                    <img src="{{x[1]}}" alt="Image Description 1">
+                    <div class="image-title">{{x[0][0]}}</div>
+                </div>
+                
             </div>
             {%endfor%}
 
