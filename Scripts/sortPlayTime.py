@@ -76,4 +76,4 @@ def getGameDatabase(lst):
     cursor.close()
     return game_data
 
-print(getGameDatabase(insertion_sort(combineGamePlaytime(76561198058830724))))
+# print(getGameDatabase(insertion_sort(combineGamePlaytime(76561198058830724))))

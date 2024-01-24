@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>SteamDeck</title>
-    <link rel="stylesheet" href="static\style.css">
+    <link rel="stylesheet" href="static\styleLibrary.css">
     <!-- Boxicons voor iconen -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +28,7 @@
                 <span class="tooltip">Search</span>
             </li>
             <li>
-                <a href="#">
+                <a href="/">
             <li class="active">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Dashboard</span>
@@ -63,16 +63,17 @@
         </ul>
     </div>
     <section class="home-section">
-        <div class="text">Games in your library</div>
+        <div class="text">Games in your library: {{gameCount}}</div>
         <section class="raster-container">
             <!-- description wordt nu niet gebruikt -->
             {%for x in gameList%}
             <div class="image-container">
                 <div class="image-container">
-                    <img src="{{x[1]}}" alt="Image Description 1">
-                    <div class="image-title">{{x[0][0]}}</div>
+                    <a href="https://www.google.com/"><img src="{{x[1]}}" alt="Image Description 1"></a>
+                    <!--<a href="detail.html?id={{x[2]}}"><img src="{{x[1]}}" alt="Image Description 1"></a>-->
+                    <div class="image-title">{{x[0]}}</div>
                 </div>
-                
+
             </div>
             {%endfor%}
 

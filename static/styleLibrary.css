@@ -315,7 +315,7 @@ body {
 /* what friends are playng*/
 .home-section .raster-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(525px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
     gap: 20px;
     padding: 20px;
     background-color: #000000;
@@ -362,10 +362,14 @@ body {
         font-family: 'Arial', sans-serif;
         font-size: 18px;
         font-weight: bold;
+        background-color: black
     }
 
     .home-section .image-container:hover .image-title {
         bottom: 40px;
+        color: white;
+        background-color: black
+
     }
 
     .home-section .image-container:hover .image-description {
