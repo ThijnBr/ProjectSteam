@@ -697,21 +697,32 @@ body {
   position: absolute;
   right: 20px;
   top: 20px;
-  background-color: #1d1b31;
-  padding: 50px;
+  background-color: #11101D;
+  padding-top: 40px;
+  padding-left: 25px;
+  padding-right: 25px;
   overflow-y: auto;
   border-radius: 10px;
 }
 
 .game-tab h4, .game-tab-achievements h4 {
   color: #ffffff;
-  font-size: 30px;
+  font-size: 18px;
   margin-bottom: 20px;
   text-transform: uppercase;
+  text-align: left;
 }
 
 .game-tab p, .game-tab-achievements p {
   color: #ffffff;
-  font-size: 18px;
+  font-size: 14px;
   margin-bottom: 20px;
+  text-align: left;
+}
+
+.game-tab-text {
+  color: #ffffff;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: left;
 }

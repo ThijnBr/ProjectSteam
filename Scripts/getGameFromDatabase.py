@@ -5,7 +5,7 @@ def getLibraryGames(steam_id):
     conn = db.connect()
     cursor = conn.cursor()
 
-    sql = f"SELECT name, header_image, detailed_description FROM game WHERE steam_appid = %s"
+    sql = f"SELECT name, header_image, detailed_description release_date FROM game WHERE steam_appid = %s"
     values = (steam_id,)
     cursor.execute(sql, values)
     LibraryGames = cursor.fetchall()

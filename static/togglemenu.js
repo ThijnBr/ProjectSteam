@@ -9,3 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+
+// toggle button voor news
+document.addEventListener("DOMContentLoaded", function() {
+  var toggleBtn = document.getElementById("toggle-news-button");
+  var gameTab = document.getElementById("game-tab");
+
+  toggleBtn.addEventListener("click", function() {
+    gameTab.classList.toggle("hidden");
+
+    // Update button text based on the state
+    toggleBtn.textContent = gameTab.classList.contains("hidden") ? "⮞" : "⮜";
+  });
+});
