@@ -1,5 +1,5 @@
 import requests
-import databaseConnection
+from . import databaseConnection
 
 conn = databaseConnection.connect()
 
