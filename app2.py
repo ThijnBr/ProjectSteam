@@ -4,12 +4,12 @@ from flask_openid import OpenID
 import asyncio
 
 import Scripts.getSteamUserFriends as getDetails
-import Scripts.gameSearch
-import Scripts.predictConcurrentPlayers
-import Scripts.getSales
-import Scripts.sortPlayTime
-import Scripts.getSteamUserGameData
-import Scripts.getGameFromDatabase
+import Scripts.gameSearch as gameSearch
+import Scripts.predictConcurrentPlayers as predictConcurrentPlayers
+import Scripts.getSales as getSales
+import Scripts.sortPlayTime as sortPlayTime
+import Scripts.getSteamUserGameData as getSteamUserGameData
+import Scripts.getGameFromDatabase as getGameFromDatabase
 
 app = Flask(__name__)
 app.secret_key = '3f6F9E3cFb4B6aD7c8E5fA2e4D9cB8aF'  # sessie toke
