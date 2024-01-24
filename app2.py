@@ -54,7 +54,7 @@ def library():
 
 @app.route('/gameinfo')
 def gameinfo():
-    steam_id = 271590                        #request.args.get('steam_id', default = 1, type = int)
+    steam_id = request.args.get('steam_id', default = 1, type = int) #271590            
     games = getGameFromDatabase.getLibraryGames(steam_id)
     return render_template('gameinfo.html', games=games)
 
