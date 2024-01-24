@@ -3,6 +3,7 @@ from flask import Flask, redirect, url_for, session, render_template, request
 from flask_openid import OpenID
 import asyncio
 
+#script imports
 import Scripts.getSteamUserFriends as getDetails
 import Scripts.gameSearch as gameSearch
 import Scripts.predictConcurrentPlayers as predictConcurrentPlayers
@@ -53,7 +54,10 @@ def library():
 
 @app.route('/gameinfo')
 def gameinfo():
-    return render_template('gameinfo.html')
+    steam_id = 271590                        #request.args.get('steam_id', default = 1, type = int)
+    games = getGameFromDatabase.getLibraryGames(steam_id)
+    return render_template('gameinfo.html', games=games)
+
 
 @app.route('/auth/steam')
 @oid.loginhandler

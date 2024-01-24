@@ -87,8 +87,8 @@
       <!-- Game Information Section -->
       <div class="game-tab">
           <div class="game-tab-text">
-              <h4>Game title</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <h4>{{ games[0] }}</h4>
+              <p>{{ games[2] }}</p>
           </div>
           <div class="game-tab-achievements">
               <h4>Achievements</h4>
@@ -119,9 +119,6 @@
           </div>
       </div>
   </section>
-  
-    
-      
 
     <script> //sidebar functie met anim
         let sidebar = document.querySelector(".sidebar");
@@ -170,5 +167,8 @@
               });
           });
       </script>
+
+      <script src="Scripts\getGameFromDatabase.py"></script>
+
       
   

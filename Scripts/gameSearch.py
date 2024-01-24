@@ -1,4 +1,4 @@
-import Scripts.databaseConnection as db
+from . import databaseConnection as db
 
 def getGames(name):
     conn = db.connect()
@@ -13,3 +13,9 @@ def getGames(name):
     conn.close()
 
     return names
+
+conn = db.connect()
+def getGames():
+    cursor = conn.cursor()
+
+    sql = f"SELECT name FROM game"
