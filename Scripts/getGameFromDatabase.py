@@ -5,10 +5,7 @@ def getLibraryGames(steam_id):
     conn = db.connect()
     cursor = conn.cursor()
 
-    sql = """SELECT name, header_image, detailed_description, release_date, price, developer FROM game WHERE steam_appid = %s;
-            SELECT pc, mac, linux FROM requirements WHERE gamesteam_appid = %s;
-            SELECT path_full FROM Screenshot WHERE gamesteam_appid = %s;
-            SELECT Windows, Mac, Linux FROM Platforms WHERE gamesteam_appid = %s;"""
+    sql = """SELECT name, header_image, detailed_description FROM game WHERE steam_appid = %s;"""
 
     values = (steam_id,)
     cursor.execute(sql, values)
