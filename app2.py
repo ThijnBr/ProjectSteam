@@ -10,6 +10,7 @@ import Scripts.getSales
 import Scripts.sortPlayTime
 import Scripts.getSteamUserGameData
 import Scripts.getGameFromDatabase
+import Scripts.getGameFromDatabase
 
 app = Flask(__name__)
 app.secret_key = '3f6F9E3cFb4B6aD7c8E5fA2e4D9cB8aF'  # sessie toke
@@ -52,7 +53,10 @@ def library():
 
 @app.route('/gameinfo')
 def gameinfo():
-    return render_template('gameinfo.html')
+    steam_id = 271590                        #request.args.get('steam_id', default = 1, type = int)
+    games = getGameFromDatabase.getLibraryGames(steam_id)
+    return render_template('gameinfo.html', games=games)
+
 
 @app.route('/auth/steam')
 @oid.loginhandler
