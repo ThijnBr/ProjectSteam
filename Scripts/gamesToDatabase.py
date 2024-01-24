@@ -1,5 +1,8 @@
 import json
-from . import databaseConnection
+if __name__ != "__main__":
+    from . import databaseConnection
+else:
+    import databaseConnection
 import requests
 import time
 
