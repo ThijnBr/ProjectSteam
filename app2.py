@@ -25,7 +25,7 @@ def index():
         online_friends = [x for x in friends_details if x['info'] != 'Offline']
         print(online_friends)
         offline_friends = [x for x in friends_details if x['info'] == 'Offline']
-        chart_data = predictConcurrentPlayers.getAllChartData(predictConcurrentPlayers.getConcurrentPlayersFromDatabase(True))
+        chart_data = predictConcurrentPlayers.getAllChartData(predictConcurrentPlayers.getConcurrentPlayersFromDatabase(True, None))
         popfriends = sortPlayTime.getGameDatabase(sortPlayTime.insertion_sort(sortPlayTime.combineGamePlaytime(steam_id)))
         return render_template('index.html', user_info=user_info, online_friends=online_friends, offline_friends=offline_friends, chart_data=chart_data, popfriends=popfriends)
     else:
@@ -40,21 +40,29 @@ def library():
     user_info = session.get('user_info')
     if session.get('user_info'):
         steam_id = user_info['steamid']
-        gameCount = asyncio.run(getSteamUserGameData.fetch_friend_games(steam_id, None))["response"]["games"]
+        friends_details = getDetails.getFriendsData(steam_id)
+        online_friends = [x for x in friends_details if x['info'] != 'Offline']
+        offline_friends = [x for x in friends_details if x['info'] == 'Offline']
+        gameData = asyncio.run(getSteamUserGameData.fetch_friend_games(steam_id, None))["response"]["games"]
         gameList = []
-        for x in gameCount:
+        for x in gameData:
             gameId = x['appid']
-            gameList.append(getGameFromDatabase.getLibraryGames(gameId))
-        
-        return render_template('library.html', gameCount=gameCount, gameList=gameList)
+            data = asyncio.run(getGameFromDatabase.getLibraryGames(gameId))
+            gameList.append(data)
+        return render_template('library.html', gameList=gameList, gameCount = len(gameList), online_friends = online_friends, offline_friends = offline_friends)
     else:
         return redirect(url_for('login'))
     
 
 @app.route('/gameinfo')
 def gameinfo():
+<<<<<<< HEAD
     steam_id = 271590                        #request.args.get('steam_id', default = 1, type = int)
     games = getGameFromDatabase.getDetailedGames(steam_id)
+=======
+    steam_id = request.args.get('steam_id', default = 1, type = int) #271590            
+    games = getGameFromDatabase.getLibraryGames(steam_id)
+>>>>>>> 309b0ce103709f2c841df235ce9b696c60579802
     return render_template('gameinfo.html', games=games)
 
 
@@ -95,5 +103,14 @@ def sales():
         return redirect(url_for('login'))
     return render_template('Sales.html', sales=salesData, popular=popularSales)
 
+@app.route('/detail/<game_id>')
+def detail(game_id):
+    user_info = session.get('user_info')
+    if user_info:
+        steam_id = user_info['steamid']
+        game_data = getGameFromDatabase.getDetailedGames(game_id)
+        
+    return render_template('detail.html', steam_id = steam_id, game_id = game_id, game_data = game_data)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)

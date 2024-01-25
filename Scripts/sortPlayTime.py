@@ -75,3 +75,5 @@ def getGameDatabase(lst):
         game_data.append([data[0][0], data[0][1]])
     cursor.close()
     return game_data
+
+# print(getGameDatabase(insertion_sort(combineGamePlaytime(76561198058830724))))

@@ -1,5 +1,8 @@
 import json
-from . import databaseConnection
+if __name__ != "__main__":
+    from . import databaseConnection
+else:
+    import databaseConnection
 import requests
 import time
 
@@ -185,12 +188,12 @@ def idsToDatabase(data, steamIds, gameIds):
         time.sleep(1.5)
         if innerJson['success'] == False:
             with open ('notGame.txt', 'a') as f:
-                f.write(data[x]+'\n')
+                f.write(f"{data[x]}\n")
             print('no succes')
             continue
         if innerJson['data']['type'] != 'game':
             with open ('notGame.txt', 'a') as f:
-                f.write(data[x]+'\n')
+                f.write(f"{data[x]}\n")
             print('not game')
             continue
         cursor = conn.cursor()

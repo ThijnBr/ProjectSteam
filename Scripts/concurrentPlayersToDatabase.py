@@ -2,9 +2,7 @@ import requests
 from datetime import datetime
 import time
 import databaseConnection
-import predictConcurrentPlayers
-
-conn = databaseConnection.connect()
+from predictConcurrentPlayers import getConcurrentPlayersFromDatabase, calculateGraph
 
 #get current game players top 100
 def concurrentPlayersRequest():
@@ -17,7 +15,7 @@ def stringtodatetime(time_str):
     return datetime.strptime(time_str, "%m/%d/%y:%H:%M:%S")
 
 #insert return from concurrentPlayersRequest by given appid.
-def insertConcurrentPlayers(appid, amount, time):
+def insertConcurrentPlayers(appid, amount, time, conn):
     cursor = conn.cursor()
     checkSQL = 'SELECT time FROM concurrentPlayers WHERE gamesteam_appid = %s'
     cursor.execute(checkSQL, (appid,))
@@ -49,15 +47,15 @@ def insertConcurrentPlayers(appid, amount, time):
     cursor.close()
 
 #loop through appids and execute other functions.
-def getConcurrentPlayers():
+def getConcurrentPlayers(conn):
     data = concurrentPlayersRequest()
     now = datetime.now()
 
-    current_time = now.strftime("%D:%H:%M:%S")
+    current_time = now.strftime("%D:%H:%M:%Sz")
     for x in data:
         appid = x['appid']
         currentPlayers = x['concurrent_in_game']
-        insertConcurrentPlayers(appid, currentPlayers, current_time)
+        insertConcurrentPlayers(appid, currentPlayers, current_time, conn)
 
     
 #every hour there is a check if getConcurrentPlayers need to be executed. Runs on server.
@@ -65,11 +63,13 @@ def executeFunction():
     while True:
         now = datetime.now()
         if now.hour in list(range(0,24)) and now.minute == 0:
-            getConcurrentPlayers()
-            data = predictConcurrentPlayers.getConcurrentPlayersFromDatabase()
+            conn = databaseConnection.connect()
+            getConcurrentPlayers(conn)
+            data = getConcurrentPlayersFromDatabase(False, conn)
             for x in data:
-                predictConcurrentPlayers.calculateGraph(x[0])
+                calculateGraph(x[0], conn)
             print('executed')
+            conn.close()
 
         time.sleep(60)
 

@@ -75,30 +75,29 @@
               <p>{{ games[3] }}</p>
           </article>
           <article class="news-item">
-            <h3>System Requirements</h3>
+            <h3>Achievements</h3>
             <p>{{ games[4] }}</p>
         </article>
         <article class="news-item">
-          <h3>Platforms</h3>
+          <h3>Developer</h3>
           <p>{{ games[5] }}</p>
         </article>
         <article class="news-item">
-          <h3>Achievements</h3>
-          <p>{{ games[6] }}</p>
+          <h3>Platforms</h3> <!-- 10: windows 11: mac 12: linux -->
+          <p>
+            {% if games[10] %}Windows{% endif %}
+            {% if games[11] %}{% if games[10] %}, {% endif %}Mac{% endif %}
+            {% if games[12] %}{% if games[10] or games[11] %}, {% endif %}Linux{% endif %}
+        </p>
         </article>
         <article class="news-item">
-          <h3>Developer</h3>
-          <p>{{ games[7] }}</p>
+          <h3>System requirements</h3>
+          <p>{{ games[6] }}</p>
         </article>
         <article class="news-item">
           <h3>Price</h3>
           <p>{{ games[8] }}</p>
         </article>
-        <article class="news-item">
-          <h3>Platforms</h3>
-          <p>{{ games[9] }}</p>
-        </article>
-        </div>
 
 
       <!-- news Information Section -->
@@ -127,7 +126,7 @@
           <div class="text">Screenshots</div>
           <div class="screenshots-grid">
               <div class="screenshot-item">
-                  <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Screenshot 1">
+                  <img src="{{ games[9] }}" alt="Screenshot 1">
                   <div class="screenshot-description">image desc.</div>
               </div>
               <div class="screenshot-item">

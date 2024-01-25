@@ -29,13 +29,13 @@
             </li>
             <li>
                 <a href="/">
-            <li>
+            <li class="active">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Dashboard</span>
                 </a>
                 <span class="tooltip">Dashboard</span>
-            </li >
-            <li class="active">
+            </li>
+            <li>
                 <a href="library">
                     <i class='bx bx-library'></i>
                     <span class="links_name">Library</span>
@@ -63,13 +63,15 @@
         </ul>
     </div>
     <section class="home-section">
-        <div class="text">Games in your library: {{gameCount}}</div>
+        <div class="text">
+            {{game_id}}
+        </div>
         <section class="raster-container">
             <!-- description wordt nu niet gebruikt -->
             {%for x in gameList%}
             <div class="image-container">
                 <div class="image-container">
-                    <a href="detail/{{x[3]}}"><img src="{{x[1]}}" alt="Image Description"></a>
+                    <a href="detail?id={{x[3]}}"><img src="{{x[1]}}" alt="Image Description"></a>
                     <div class="image-title">{{x[0]}}</div>
                 </div>
 
@@ -169,3 +171,5 @@
             });
         });
     </script>
+</body>
+</html>
