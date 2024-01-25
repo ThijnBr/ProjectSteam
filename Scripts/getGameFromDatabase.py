@@ -7,8 +7,6 @@ async def getLibraryGames(steam_id, time=0):
     conn = db.connect()
     cursor = conn.cursor()
 
-    print(steam_id)
-
     sql = """SELECT name, header_image, detailed_description, steam_appid FROM game WHERE steam_appid = %s;"""
 
     values = (steam_id,)

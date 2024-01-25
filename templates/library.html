@@ -29,13 +29,13 @@
             </li>
             <li>
                 <a href="/">
-            <li class="active">
+            <li>
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Dashboard</span>
                 </a>
                 <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
+            </li >
+            <li class="active">
                 <a href="library">
                     <i class='bx bx-library'></i>
                     <span class="links_name">Library</span>
@@ -69,8 +69,7 @@
             {%for x in gameList%}
             <div class="image-container">
                 <div class="image-container">
-                    <a href="https://www.google.com/"><img src="{{x[1]}}" alt="Image Description 1"></a>
-                    <!--<a href="detail.html?id={{x[2]}}"><img src="{{x[1]}}" alt="Image Description 1"></a>-->
+                    <a href="detail/{{x[3]}}"><img src="{{x[1]}}" alt="Image Description"></a>
                     <div class="image-title">{{x[0]}}</div>
                 </div>
 
@@ -170,4 +169,3 @@
             });
         });
     </script>
-

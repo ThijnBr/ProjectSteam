@@ -40,13 +40,16 @@ def library():
     user_info = session.get('user_info')
     if session.get('user_info'):
         steam_id = user_info['steamid']
+        friends_details = getDetails.getFriendsData(steam_id)
+        online_friends = [x for x in friends_details if x['info'] != 'Offline']
+        offline_friends = [x for x in friends_details if x['info'] == 'Offline']
         gameData = asyncio.run(getSteamUserGameData.fetch_friend_games(steam_id, None))["response"]["games"]
         gameList = []
         for x in gameData:
             gameId = x['appid']
             data = asyncio.run(getGameFromDatabase.getLibraryGames(gameId))
             gameList.append(data)
-        return render_template('library.html', gameList=gameList)
+        return render_template('library.html', gameList=gameList, gameCount = len(gameList), online_friends = online_friends, offline_friends = offline_friends)
     else:
         return redirect(url_for('login'))
     
@@ -94,6 +97,15 @@ def sales():
     else:
         return redirect(url_for('login'))
     return render_template('Sales.html', sales=salesData, popular=popularSales)
+
+@app.route('/detail/<game_id>')
+def detail(game_id):
+    user_info = session.get('user_info')
+    if user_info:
+        steam_id = user_info['steamid']
+        game_data = getGameFromDatabase.getDetailedGames(game_id)
+        
+    return render_template('detail.html', steam_id = steam_id, game_id = game_id, game_data = game_data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
