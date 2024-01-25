@@ -332,11 +332,6 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.gameimage-container {
-    z-index: 1;
-}
-
-
     .home-section .image-container img {
         width: 100%;
         height: 100%;
@@ -356,6 +351,14 @@ body {
         background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
         border-radius: 10px;
         transition: opacity 0.3s ease;
+    }
+
+    #gameinfo-container {
+        z-index: 2;
+    }
+
+    .gameimage-container {
+        z-index: 1;
     }
 
     .home-section .image-container .image-title {
@@ -720,6 +723,8 @@ body {
         transform: translateY(-5px);
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
     }
+
+    
 
 .screenshot-description {
     position: absolute;

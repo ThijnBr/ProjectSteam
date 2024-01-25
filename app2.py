@@ -47,8 +47,9 @@ def library():
         gameList = []
         for x in gameData:
             gameId = x['appid']
-            data = asyncio.run(getGameFromDatabase.getLibraryGames(gameId))
-            gameList.append(data)
+            if asyncio.run(getGameFromDatabase.getLibraryGames(gameId)):
+                data = asyncio.run(getGameFromDatabase.getLibraryGames(gameId))
+                gameList.append(data)
         return render_template('library.html', gameList=gameList, gameCount = len(gameList), online_friends = online_friends, offline_friends = offline_friends)
     else:
         return redirect(url_for('login'))
@@ -77,7 +78,6 @@ def search():
     query = request.form.get('search').lower()
     if query == '':
         return html
-    
     results = gameSearch.getGames(query)
     
     html = ''
@@ -96,15 +96,6 @@ def sales():
     else:
         return redirect(url_for('login'))
     return render_template('Sales.html', sales=salesData, popular=popularSales)
-
-@app.route('/detail/<game_id>')
-def detail(game_id):
-    user_info = session.get('user_info')
-    if user_info:
-        steam_id = user_info['steamid']
-        game_data = getGameFromDatabase.getDetailedGames(game_id)
-        
-    return render_template('detail.html', steam_id = steam_id, game_id = game_id, game_data = game_data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
