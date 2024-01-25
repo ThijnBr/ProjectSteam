@@ -354,7 +354,7 @@ body {
     }
 
     #gameinfo-container {
-        z-index: 2;
+        z-index: 999;
     }
 
     .gameimage-container {

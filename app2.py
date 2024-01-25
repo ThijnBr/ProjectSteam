@@ -21,7 +21,7 @@ def index():
     user_info = session.get('user_info')
     if user_info:
         steam_id = user_info['steamid']
-        friends_details = getDetails.getFriendsData(steam_id)
+        friends_details =getSteamUserFriends.getFriendsData(steam_id)
         online_friends = [x for x in friends_details if x['info'] != 'Offline']
         print(online_friends)
         offline_friends = [x for x in friends_details if x['info'] == 'Offline']
@@ -69,7 +69,7 @@ def auth_steam():
 @oid.after_login
 def create_or_login(resp):
     steam_id = resp.identity_url.split('/')[-1]
-    user_info = getDetails.getUserInfo(steam_id)
+    user_info = getSteamUserFriends.getUserInfo(steam_id)
     session['user_info'] = user_info
     return redirect(url_for('index'))
 
