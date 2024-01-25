@@ -332,6 +332,10 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.gameimage-container {
+    z-index: 1;
+}
+
 
     .home-section .image-container img {
         width: 100%;

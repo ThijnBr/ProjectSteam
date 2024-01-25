@@ -54,15 +54,9 @@ def library():
         return redirect(url_for('login'))
     
 
-@app.route('/gameinfo')
-def gameinfo():
-<<<<<<< HEAD
-    steam_id = 271590                        #request.args.get('steam_id', default = 1, type = int)
+@app.route('/gameinfo/<steam_id>')
+def gameinfo(steam_id):        
     games = getGameFromDatabase.getDetailedGames(steam_id)
-=======
-    steam_id = request.args.get('steam_id', default = 1, type = int) #271590            
-    games = getGameFromDatabase.getLibraryGames(steam_id)
->>>>>>> 309b0ce103709f2c841df235ce9b696c60579802
     return render_template('gameinfo.html', games=games)
 
 

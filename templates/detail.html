@@ -1,175 +1,192 @@
 ﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>SteamDeck</title>
-    <link rel="stylesheet" href="static\styleLibrary.css">
+    <link rel="stylesheet" href="static\style.css">
     <!-- Boxicons voor iconen -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
 <body>
-    <div class="sidebar">
-        <div class="logo-details">
-            <i class='bx bxl-steam'></i>
-            <div class="logo_name">Steam</div>
-            <i class='bx bx-menu' id="btn"></i>
-            <div class="friends-toggle">⮞</div>
-        </div>
-        <ul class="nav-list">
-            <li>
-                <i class='bx bx-search'></i>
-                <input type="text" id="search" placeholder="Search by title">
-                <div class="overlay" id="overlay">
-                    <div class="overlay-content" id="overlay-content">
-                        <!--hier komen plaatjes-->
-                    </div>
-                </div>
-                <span class="tooltip">Search</span>
-            </li>
-            <li>
-                <a href="/">
-            <li class="active">
-                <i class='bx bx-grid-alt'></i>
-                <span class="links_name">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <a href="library">
-                    <i class='bx bx-library'></i>
-                    <span class="links_name">Library</span>
-                </a>
-                <span class="tooltip">Library</span>
-            </li>
-            <li>
-                <a href="sales">
-                    <i class='bx bxs-discount'></i>
-                    <span class="links_name">Sales</span>
-                </a>
-                <span class="tooltip">Sales</span>
-            <li class="profile">
-                <div class="profile-details">
-                    <!-- Dynamic Profile Image -->
-                    <img src="{{ session['user_info'].get('avatar', 'static/profile.jpg') }}" alt="Profile Image">
-                    <div class="name_job">
-                        <!-- Dynamic Username -->
-                        <div class="name">{{ session['user_info'].get('personaname', 'Myguy24') }}</div>
-                        <div class="job">Online</div>
-                    </div>
-                </div>
-                <i class='bx bx-log-out' id="log_out"></i>
-            </li>
-        </ul>
+  <div class="sidebar">
+    <div class="logo-details">
+        <i class='bx bxl-steam' ></i>
+        <div class="logo_name">Steam</div>
+        <i class='bx bx-menu' id="btn" ></i>
+        <div class="friends-toggle">⮞</div>
     </div>
-    <section class="home-section">
-        <div class="text">
-            {{game_id}}
-        </div>
-        <section class="raster-container">
-            <!-- description wordt nu niet gebruikt -->
-            {%for x in gameList%}
-            <div class="image-container">
-                <div class="image-container">
-                    <a href="detail?id={{x[3]}}"><img src="{{x[1]}}" alt="Image Description"></a>
-                    <div class="image-title">{{x[0]}}</div>
-                </div>
-
-            </div>
-            {%endfor%}
-
-        </section>
-
-    </section>
-    <div class="friends-section">
-        <div class="friends-title">Friends</div>
-
-        <!-- Online Friends Group -->
-        <div class="friends-group">
-            <div class="friends-group-title">
-                <span>{{ online_friends|length if online_friends else '0' }} Online</span>
-                <i class='bx bx-chevron-down'></i>
-            </div>
-            <div class="friends-list" style="display: none;">
-                {% for friend in online_friends %}
-                <div class="friend">
-                    <img src="{{ friend['avatar'] }}" alt="{{ friend['name'] }}">
-                    <div class="friend-info">
-                        <div class="friend-name">{{ friend['name'] }}</div>
-                        <div class="friend-status">{{ friend['gameextrainfo'] or 'Idle' }}</div>
-                    </div>
-                </div>
-                {% endfor %}
+    <ul class="nav-list">
+      <li>
+          <i class='bx bx-search' ></i>
+          <input type="text" id="search" placeholder="Search by title">
+          <div class="overlay" id="overlay">
+            <div class="overlay-content" id="overlay-content">
+                <!--hier komen plaatjes-->
             </div>
         </div>
-
-        <!-- Offline Friends Group -->
-        <div class="friends-group">
-            <div class="friends-group-title">
-                <span>{{ offline_friends|length if offline_friends else '0' }} Offline</span>
-                <i class='bx bx-chevron-down'></i>
-            </div>
-            <div class="friends-list" style="display: none;">
-                {% for friend in offline_friends %}
-                <div class="friend">
-                    <img src="{{ friend['avatar'] }}" alt="{{ friend['name'] }}">
-                    <div class="friend-info">
-                        <div class="friend-name">{{ friend['name'] }}</div>
-                        <div class="friend-status">Offline</div>
-                    </div>
-                </div>
-                {% endfor %}
+         <span class="tooltip">Search</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+         <span class="tooltip">Dashboard</span>
+      </li>
+      <li>
+       <a href="library">
+         <i class='bx bx-library' ></i>
+         <span class="links_name">Games</span>
+       </a>
+       <span class="tooltip">Ganes</span>
+     </li>
+     <li>
+       <a href="sales">
+         <i class='bx bxs-discount'></i>
+         <span class="links_name">Sales</span>
+       </a>
+       <span class="tooltip">Sales</span>
+       <li class="profile">
+        <div class="profile-details">
+            <!-- Dynamic Profile Image -->
+            <img src="{{ session['user_info'].get('avatar', 'static/profile.jpg') }}" alt="Profile Image">
+            <div class="name_job">
+                <!-- Dynamic Username -->
+                <div class="name">{{ session['user_info'].get('personaname', 'Myguy24') }}</div>
+                <div class="job">Online</div>
             </div>
         </div>
+        <i class='bx bx-log-out' id="log_out" ></i>
+    </li>    
+    </ul>
     </div>
 
-    <script>
- //sidebar functie met anim
-      let sidebar = document.querySelector(".sidebar");
-  let closeBtn = document.querySelector("#btn");
-  let searchBtn = document.querySelector(".bx-search");
+    <section class="game-section">
+      <!-- News Section -->
+      <div class="text">{{ games[0] }}</div>
+      <div class="news-grid">
+          <article class="news-item">
+              <h3>Description</h3>
+              <p>{{ games[2] }}</p>
+          </article>
+          <article class="news-item">
+              <h3>Release Date</h3>
+              <p>{{ games[3] }}</p>
+          </article>
+          <article class="news-item">
+            <h3>Achievements</h3>
+            <p>{{ games[4] }}</p>
+        </article>
+        <article class="news-item">
+          <h3>Developer</h3>
+          <p>{{ games[5] }}</p>
+        </article>
+        <article class="news-item">
+          <h3>Platforms</h3> <!-- 10: windows 11: mac 12: linux -->
+          <p>
+            {% if games[10] %}Windows{% endif %}
+            {% if games[11] %}{% if games[10] %}, {% endif %}Mac{% endif %}
+            {% if games[12] %}{% if games[10] or games[11] %}, {% endif %}Linux{% endif %}
+        </p>
+        </article>
+        <article class="news-item">
+          <h3>System requirements</h3>
+          <p>{{ games[6] }}</p>
+        </article>
+        <article class="news-item">
+          <h3>Price</h3>
+          <p>{{ games[8] }}</p>
+        </article>
 
-  closeBtn.addEventListener("click", ()=>{
-    sidebar.classList.toggle("open");
-    menuBtnChange();
-  });
 
-  searchBtn.addEventListener("click", ()=>{
-    sidebar.classList.toggle("open");
-    menuBtnChange();
-  });
+      <!-- news Information Section -->
+      <div class="game-tab" id="game-tab">
 
+          <div class="game-tab-text">
+              <h4>Title news</h4>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+          <div class="game-tab-text">
+            <h4>Title news</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+        <div class="game-tab-text">
+          <h4>Title news</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+      <div class="game-tab-text">
+        <h4>Title news</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+      </div>
+  
+      <!-- Screenshots Section -->
+      <div class="game-screenshots">
+          <div class="text">Screenshots</div>
+          <div class="screenshots-grid">
+              <div class="screenshot-item">
+                  <img src="{{ games[9] }}" alt="Screenshot 1">
+                  <div class="screenshot-description">image desc.</div>
+              </div>
+              <div class="screenshot-item">
+                  <img src="https://www.datocms-assets.com/56706/1701878796-gta-6.png?auto=format&fit=max&w=1200" alt="Screenshot 2">
+                  <div class="screenshot-description">image desc.</div>
+              </div>
+          </div>
+      </div>
+  </section>
 
-  function menuBtnChange() {
-   if(sidebar.classList.contains("open")){
-     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-   }else {
-     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//
-   }
-  }
+    <script> //sidebar functie met anim
+        let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
+  
+    closeBtn.addEventListener("click", ()=>{
+      sidebar.classList.toggle("open");
+      menuBtnChange();
+    });
+  
+    searchBtn.addEventListener("click", ()=>{ 
+      sidebar.classList.toggle("open");
+      menuBtnChange(); 
+    });
+  
+   
+    function menuBtnChange() {
+     if(sidebar.classList.contains("open")){
+       closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+     }else {
+       closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//
+     }
+    }
     </script>
     <script src="/static/togglemenu.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('#search').on('input', function(){
-                let query = $(this).val().trim(); // Trim leading/trailing spaces
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+          $(document).ready(function(){
+              $('#search').on('input', function(){
+                  let query = $(this).val().trim(); // Trim leading/trailing spaces
+                  
+                  if (query !== '') {
+                      $.ajax({
+                          type: 'POST',
+                          url: '/search',
+                          data: {'search': query},
+                          success: function(response) {
+                              $('#overlay').show();
+                              $('#overlay-content').html(response);
+                          }
+                      });
+                  } else {
+                      $('#overlay').hide(); // Hide the overlay when query is empty
+                  }
+              });
+          });
+      </script>
 
-                if (query !== '') {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/search',
-                        data: {'search': query},
-                        success: function(response) {
-                            $('#overlay').show();
-                            $('#overlay-content').html(response);
-                        }
-                    });
-                } else {
-                    $('#overlay').hide(); // Hide the overlay when query is empty
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+      <script src="Scripts\getGameFromDatabase.py"></script>
+      <script src="static\togglemenu.js"></script>
+
+      
+  
