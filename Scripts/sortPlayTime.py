@@ -53,15 +53,48 @@ def combineGamePlaytime(steamID):
 
     return [[playTime, duplicatesdictSum[playTime]] for playTime in duplicatesdictSum]
 
-#sort playtime from high to low with insertion sort. returns a max of 6 games.
-def insertion_sort(arr):
-    for i in range(1, len(arr)):
-        j = i
+#sort playtime from high to low with merge sort. returns a max of 6 games.
+def mergeSort(arr):
+    if len(arr) <= 1:
+        return arr
 
-        while arr[j - 1][1] < arr[j][1] and j > 0:
-            arr[j - 1], arr[j] = arr[j], arr[j - 1]
-            j -= 1
-    return arr[0:6]
+    leftArray = arr[:len(arr)//2]
+    rightArray = arr[len(arr)//2:]
+
+    leftArray = mergeSort(leftArray)
+    rightArray = mergeSort(rightArray)
+
+    sortedArray = []
+
+    i = 0 
+    j = 0 
+
+    while i < len(leftArray) and j < len(rightArray):
+        if leftArray[i][1] > rightArray[j][1]:
+            sortedArray.append(leftArray[i])
+            i += 1
+        else:
+            sortedArray.append(rightArray[j])
+            j += 1
+    
+    while i < len(leftArray):
+        sortedArray.append(leftArray[i])
+        i += 1
+
+    while j < len(rightArray):
+        sortedArray.append(rightArray[j])
+        j += 1
+
+    return sortedArray[0:6]
+    # print(arr)
+    # for i in range(1, len(arr)):
+    #     j = i
+
+    #     while arr[j - 1][1] < arr[j][1] and j > 0:
+    #         arr[j - 1], arr[j] = arr[j], arr[j - 1]
+    #         j -= 1
+    
+    
 
 #get name image link and description from database
 def getGameDatabase(lst):
@@ -76,4 +109,4 @@ def getGameDatabase(lst):
     cursor.close()
     return game_data
 
-# print(getGameDatabase(insertion_sort(combineGamePlaytime(76561198058830724))))
+# print(mergeSort(combineGamePlaytime(76561198058830724)))
