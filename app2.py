@@ -44,13 +44,11 @@ def library():
         online_friends = [x for x in friends_details if x['info'] != 'Offline']
         offline_friends = [x for x in friends_details if x['info'] == 'Offline']
         gameData = asyncio.run(getSteamUserGameData.fetch_friend_games(steam_id, None))["response"]["games"]
-        gameList = []
+        appids = []
         for x in gameData:
-            gameId = x['appid']
-            if asyncio.run(getGameFromDatabase.getLibraryGames(gameId)):
-                data = asyncio.run(getGameFromDatabase.getLibraryGames(gameId))
-                gameList.append(data)
-        return render_template('library.html', gameList=gameList, gameCount = len(gameList), online_friends = online_friends, offline_friends = offline_friends)
+            appids.append(x['appid'])
+        libraryGames = asyncio.run(getGameFromDatabase.getLibraryGames(appids))
+        return render_template('library.html', gameList=libraryGames, gameCount = len(libraryGames), online_friends = online_friends, offline_friends = offline_friends)
     else:
         return redirect(url_for('login'))
     

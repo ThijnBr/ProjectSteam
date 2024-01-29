@@ -30,7 +30,6 @@ def getSalesInPopular():
     cursor = conn.cursor()
     sql = """SELECT gamesteam_appid, SUM(amount) AS total_amount
                 FROM concurrentPlayers
-                GROUP BY gamesteam_appid
                 ORDER BY total_amount DESC"""
     cursor.execute(sql)
     data = cursor.fetchall()
