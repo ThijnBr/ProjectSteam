@@ -69,7 +69,7 @@ def auth_steam():
 @oid.after_login
 def create_or_login(resp):
     steam_id = resp.identity_url.split('/')[-1]
-    user_info = getDetails.getSteamUserFriends.getUserInfo(steam_id)
+    user_info = getDetails.getUserInfo(steam_id)
     session['user_info'] = user_info
     return redirect(url_for('index'))
 
