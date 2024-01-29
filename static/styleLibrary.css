@@ -351,15 +351,9 @@ body {
         background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
         border-radius: 10px;
         transition: opacity 0.3s ease;
+        pointer-events: none; /* Add this line to allow clicks to pass through */
     }
 
-    #gameinfo-container {
-        z-index: 999;
-    }
-
-    .gameimage-container {
-        z-index: 1;
-    }
 
     .home-section .image-container .image-title {
         position: absolute;

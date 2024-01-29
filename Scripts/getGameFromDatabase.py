@@ -3,27 +3,31 @@ from . import normalDescription
 from . import gamesToDatabase
 import asyncio
 
-async def getLibraryGames(steam_id, time=0):
+async def getLibraryGames(steam_ids):
     conn = db.connect()
     cursor = conn.cursor()
 
-    sql = """SELECT name, header_image, detailed_description, steam_appid FROM game WHERE steam_appid = %s;"""
+    # Dynamically create placeholders for steam_ids in the SQL query
+    placeholders = ', '.join(['%s'] * len(steam_ids))
+    sql = f"""SELECT name, header_image, detailed_description, steam_appid 
+              FROM game 
+              WHERE steam_appid IN ({placeholders});"""
 
-    values = (steam_id,)
+    # Use the steam_ids directly as values
+    values = tuple(steam_ids)
     cursor.execute(sql, values)
-    LibraryGames = cursor.fetchall()
+    library_games = cursor.fetchall()
 
     data = []
-    if LibraryGames:
-        for x in range(len(LibraryGames[0])):
-            if x == 2:
-                html = normalDescription.getNormalDescription(LibraryGames[0][x])
-                data.append(html)
+    if library_games:
+        for game in library_games:
+            # Check if normalDescription is working correctly
+            if len(game) > 2:
+                html_description = normalDescription.getNormalDescription(game[2])
+                game_data = (game[0], game[1], html_description, game[3])
+                data.append(game_data)
             else:
-                data.append(LibraryGames[0][x])
-    elif time==0:
-        gamesToDatabase.idsToDatabase([steam_id], None, None)
-        return await getLibraryGames(steam_id, 1)       
+                data.append(game)
 
     cursor.close()
     conn.close()

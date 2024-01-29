@@ -68,11 +68,24 @@
         <!-- description wordt nu niet gebruikt -->
     {%for x in popfriends%}
         <div class="image-container">
-          <img src="{{x[1]}}" alt="Image Description 1">
+            <a href="/gameinfo/{{ x[1].split('/')[-2] }}">
+              <img src="{{x[1]}}" alt="Image Description 1">
+            </a>
           <div class="image-title">{{x[0]}}</div>
           <div class="image-description">{{x[2]}}</div>
         </div>
     {%endfor%}
+
+    {%for x in gameList%}
+    <div class="image-container">
+        <a href="/gameinfo/{{ x[1].split('/')[-2] }}" class="gameinfo-container">
+            <img src="{{x[1]}}" alt="{{x[0]}}" class="gameimage-container">
+        </a>
+        <div class="image-title">{{x[0]}}</div>
+    </div>
+    {%endfor%}
+    
+
       
       </section>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

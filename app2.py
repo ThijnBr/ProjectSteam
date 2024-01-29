@@ -44,21 +44,22 @@ def library():
         online_friends = [x for x in friends_details if x['info'] != 'Offline']
         offline_friends = [x for x in friends_details if x['info'] == 'Offline']
         gameData = asyncio.run(getSteamUserGameData.fetch_friend_games(steam_id, None))["response"]["games"]
-        gameList = []
+        appids = []
         for x in gameData:
-            gameId = x['appid']
-            if asyncio.run(getGameFromDatabase.getLibraryGames(gameId)):
-                data = asyncio.run(getGameFromDatabase.getLibraryGames(gameId))
-                gameList.append(data)
-        return render_template('library.html', gameList=gameList, gameCount = len(gameList), online_friends = online_friends, offline_friends = offline_friends)
+            appids.append(x['appid'])
+        libraryGames = asyncio.run(getGameFromDatabase.getLibraryGames(appids))
+        return render_template('library.html', gameList=libraryGames, gameCount = len(libraryGames), online_friends = online_friends, offline_friends = offline_friends)
     else:
         return redirect(url_for('login'))
     
 
-@app.route('/gameinfo/<steam_id>')
-def gameinfo(steam_id):        
-    games = getGameFromDatabase.getDetailedGames(steam_id)
-    return render_template('gameinfo.html', games=games)
+@app.route('/gameinfo/<game_id>')
+def game_info(game_id):
+    # Use game_id to fetch data from the database
+    game_data = getGameFromDatabase.getDetailedGames(game_id)
+    print('data', game_data)
+    # Pass the fetched data to the gameinfo.html template
+    return render_template('gameinfo.html', games=game_data)
 
 
 @app.route('/auth/steam')
@@ -69,7 +70,7 @@ def auth_steam():
 @oid.after_login
 def create_or_login(resp):
     steam_id = resp.identity_url.split('/')[-1]
-    user_info = getDetails.getSteamUserFriends.getUserInfo(steam_id)
+    user_info = getDetails.getUserInfo(steam_id)
     session['user_info'] = user_info
     return redirect(url_for('index'))
 

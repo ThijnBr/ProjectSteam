@@ -23,3 +23,4 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleBtn.textContent = gameTab.classList.contains("hidden") ? "⮞" : "⮜";
   });
 });
+

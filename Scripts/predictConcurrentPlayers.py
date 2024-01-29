@@ -6,6 +6,7 @@ conn = databaseConnection.connect()
 def predict(a, b, x):
     return a + b * x
 
+#a = startpoint, b = richtingscoefficient
 def getAB(appid):
     sql = f"SELECT a,b FROM graphRC WHERE GameSteam_appid = {appid}"
     cursor = conn.cursor()
@@ -15,9 +16,10 @@ def getAB(appid):
     b = data[0][1]
     return a, b
 
+#returns list of points x = timedate, y = amount of players
 def getPlayersGame(appid):
     sql = f"SELECT time FROM concurrentPlayers WHERE gamesteam_appid = {appid} ORDER BY time ASC LIMIT 96"
-    sql2 = f"SELECT amount FROM concurrentPlayers WHERE gamesteam_appid = {appid} LIMIT 96"
+    sql2 = f"SELECT amount FROM concurrentPlayers WHERE gamesteam_appid = {appid} ORDER BY time ASC LIMIT 96"
 
     cursor = conn.cursor()
     cursor.execute(sql)
@@ -108,10 +110,6 @@ def calculateGraph(steamID, conn):
     finally:
         cursor.close()
         conn.commit()
-
-# data = getConcurrentPlayersFromDatabase()
-# for x in data:
-#     calculateGraph(x[0])
 
 
 

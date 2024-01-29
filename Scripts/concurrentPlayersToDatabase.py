@@ -51,7 +51,7 @@ def getConcurrentPlayers(conn):
     data = concurrentPlayersRequest()
     now = datetime.now()
 
-    current_time = now.strftime("%D:%H:%M:%Sz")
+    current_time = now.strftime("%D:%H:%M:%S")
     for x in data:
         appid = x['appid']
         currentPlayers = x['concurrent_in_game']
