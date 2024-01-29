@@ -68,13 +68,18 @@
             <!-- description wordt nu niet gebruikt -->
             {%for x in gameList%}
             <div class="image-container">
-                <div class="image-container">
-                    <a href="gameinfo/{{x[3]}}" id="gameinfo-container"><img src="{{x[1]}}" alt="{{x[0]}}" class="gameimage-container"></a>
-                    <div class="image-title">{{x[0]}}</div>
-                </div>
-
+                <a href="/gameinfo/{{ x[1].split('/')[-2] }}" class="gameinfo-container">
+                    <img src="{{x[1]}}" alt="{{x[0]}}" class="gameimage-container">
+                </a>
+                <div class="image-title">{{x[0]}}</div>
             </div>
             {%endfor%}
+            
+
+
+          
+  
+            
 
         </section>
 

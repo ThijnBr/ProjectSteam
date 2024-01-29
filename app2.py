@@ -53,10 +53,13 @@ def library():
         return redirect(url_for('login'))
     
 
-@app.route('/gameinfo/<steam_id>')
-def gameinfo(steam_id):        
-    games = getGameFromDatabase.getDetailedGames(steam_id)
-    return render_template('gameinfo.html', games=games)
+@app.route('/gameinfo/<game_id>')
+def game_info(game_id):
+    # Use game_id to fetch data from the database
+    game_data = getGameFromDatabase.getDetailedGames(game_id)
+    print('data', game_data)
+    # Pass the fetched data to the gameinfo.html template
+    return render_template('gameinfo.html', games=game_data)
 
 
 @app.route('/auth/steam')
