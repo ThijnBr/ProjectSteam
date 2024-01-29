@@ -317,6 +317,7 @@ body {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); 
   border-radius: 10px; 
   transition: opacity 0.3s ease;
+  pointer-events: none; 
 }
 
 .home-section .image-container .image-title {
