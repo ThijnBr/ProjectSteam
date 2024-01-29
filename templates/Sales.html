@@ -45,6 +45,17 @@
      <li  class="active">
        <a href="sales">
          <i class='bx bxs-discount'></i>
+       <a href="library">
+        
+         <i class='bx bx-library' ></i>
+         <span class="links_name">Library</span>
+       </a>
+       <span class="tooltip">Library</span>
+     </li>
+     <li>
+       <a href="sales">
+        <li class="active">
+         <i class='bx bxs-discount'></i>
          <span class="links_name">Sales</span>
        </a>
        <span class="tooltip">Sales</span>
@@ -65,17 +76,19 @@
     <section class="home-section">
       <div class="text">Sales on your wishlist</div>
       <section class="raster-container">
-        {%for x in sales%}
-        <section>
-            <div class="image-container">
-                <img src="{{x[2][0]}}" alt="Image Description 1">
-                <div class="image-title">{{x[2][1]}}</div>
-                <div class="image-description">Korte uitleg over dit spel.</div>
-            </div>
-            <div class="image-discount">{{x[1]}}% Discount</div>
-        </section>
-            
-        {%endfor%}
+        {% for x in sales %}
+        <a href="/gameinfo/{{ x[2][0].split('/')[-2] }}" class="sales-item-link">
+            <section class="sales-item">
+                <div class="image-container">
+                    <img src="{{ x[2][0] }}" alt="Image Description 1">
+                    <div class="image-title">{{ x[2][1] }}</div>
+                    <div class="image-description">Korte uitleg over dit spel.</div>
+                </div>
+                <div class="image-discount">{{ x[1] }}% Discount</div>
+            </section>
+        </a>
+        {% endfor %}
+        
       </section>
       <div class="text">Popular Game in Sale</div>
       <section class="raster-container">
