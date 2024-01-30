@@ -83,14 +83,16 @@
       <div class="text">Popular Game in Sale</div>
       <section class="raster-container">
         {%for x in popular%}
-        <section>
+        <a href="/gameinfo/{{ x[2].split('/')[-2] }}" class="sales-item-link">
+          <section class="sales-item">
             <div class="image-container">
                 <img src="{{x[2]}}" alt="Image Description 1">
                 <div class="image-title">{{x[1]}}</div>
                 <div class="image-description">Korte uitleg over dit spel.</div>
             </div>
             <div class="image-discount">{{x[0]}}% Discount</div>
-        </section>
+          </section>
+        </a>
             
         {%endfor%}
       </section>

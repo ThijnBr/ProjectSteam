@@ -388,6 +388,14 @@ body {
   }
 }
 
+.image-discount{
+  background: #161616; 
+  border-radius: 5px;
+  padding: 8px;
+  color: #FFF;
+  width: 150px; 
+  max-height: 45vh; 
+}
 
 /* Friends */
 .friends-section {
