@@ -5,8 +5,6 @@ CREATE TABLE Platforms (Windows bool NOT NULL, Mac bool NOT NULL, Linux bool NOT
 CREATE TABLE Requirements (GameSteam_appid int4 NOT NULL, Pc varchar(1000), Mac varchar(1000), linux varchar(1000), PRIMARY KEY (GameSteam_appid));
 CREATE TABLE Screenshot (ID int4 NOT NULL, path_thumbnail varchar(5000) NOT NULL, path_full varchar(5000) NOT NULL, GameSteam_appid int4 NOT NULL, PRIMARY KEY (ID, GameSteam_appid));
 CREATE TABLE Support_info (Url varchar(5000), email varchar(5000), GameSteam_appid int4 NOT NULL, PRIMARY KEY (GameSteam_appid));
-CREATE TABLE Playtime (Playtime_forever int4 NOT NULL, rtime_last_played int4 NOT NULL, GameSteam_appid int4 NOT NULL, SteamusersteamID varchar(255) NOT NULL, PRIMARY KEY (GameSteam_appid, SteamusersteamID));
-CREATE TABLE Steamuser (steamID varchar(255) NOT NULL, PRIMARY KEY (steamID));
 CREATE TABLE game_genre (GenreID int4 NOT NULL, GameSteam_appid int4 NOT NULL, PRIMARY KEY (GenreID, GameSteam_appid));
 CREATE TABLE game_categorie (GameSteam_appid int4 NOT NULL, CategorieId int4 NOT NULL, PRIMARY KEY (GameSteam_appid, CategorieId));
 CREATE TABLE concurrentPlayers (id SERIAL NOT NULL, GameSteam_appid int4 NOT NULL, amount int4, time varchar(255), PRIMARY KEY (id));
@@ -14,8 +12,6 @@ ALTER TABLE Platforms ADD CONSTRAINT FKPlatforms991726 FOREIGN KEY (GameSteam_ap
 ALTER TABLE Requirements ADD CONSTRAINT FKRequiremen194630 FOREIGN KEY (GameSteam_appid) REFERENCES Game (Steam_appid);
 ALTER TABLE Screenshot ADD CONSTRAINT FKScreenshot380520 FOREIGN KEY (GameSteam_appid) REFERENCES Game (Steam_appid);
 ALTER TABLE Support_info ADD CONSTRAINT FKSupport_in124461 FOREIGN KEY (GameSteam_appid) REFERENCES Game (Steam_appid);
-ALTER TABLE Playtime ADD CONSTRAINT FKPlaytime251540 FOREIGN KEY (GameSteam_appid) REFERENCES Game (Steam_appid);
-ALTER TABLE Playtime ADD CONSTRAINT FKPlaytime15979 FOREIGN KEY (SteamusersteamID) REFERENCES Steamuser (steamID);
 ALTER TABLE game_genre ADD CONSTRAINT FKgame_genre510688 FOREIGN KEY (GenreID) REFERENCES Genre (ID);
 ALTER TABLE game_genre ADD CONSTRAINT FKgame_genre250862 FOREIGN KEY (GameSteam_appid) REFERENCES Game (Steam_appid);
 ALTER TABLE game_categorie ADD CONSTRAINT FKgame_categ694641 FOREIGN KEY (GameSteam_appid) REFERENCES Game (Steam_appid);

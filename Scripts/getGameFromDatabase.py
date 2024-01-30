@@ -35,12 +35,13 @@ async def getLibraryGames(steam_ids):
     return data
 
 def getDetailedGames(steam_id):
+    if steam_id == 'True':
+        return
     conn = db.connect()
     cursor = conn.cursor()
 
-    sql = """SELECT name, header_image, detailed_description, release_date, price, developer, requirements.pc, requirements.mac, requirements.linux, path_full, Windows, platforms.Mac, platforms.Linux FROM game
+    sql = """SELECT name, header_image, detailed_description, release_date, price, developer, requirements.pc, requirements.mac, requirements.linux, Windows, platforms.Mac, platforms.Linux FROM game
             JOIN requirements ON steam_appid = gamesteam_appid
-            JOIN screenshot ON steam_appid = screenshot.gamesteam_appid
             JOIN platforms on steam_appid = platforms.gamesteam_appid
             WHERE steam_appid = %s"""
 
@@ -49,12 +50,21 @@ def getDetailedGames(steam_id):
 
     data = []
     if LibraryGames:
+        sql2 = "SELECT path_full FROM screenshot WHERE gamesteam_appid = %s"
+        cursor.execute(sql2, (steam_id,))
+        screenshot = cursor.fetchall()
+
+        screenshots = []
+        for x in screenshot:
+            screenshots.append(x[0])
         for x in range(len(LibraryGames[0])):
             if x == 2 or x==6 or x==7 or x==8:
                 html = normalDescription.getNormalDescription(LibraryGames[0][x])
                 data.append(html)
             else:
                 data.append(LibraryGames[0][x])
+        data.append(screenshots)
+        data.append(f'https://store.steampowered.com/app/{steam_id}/')
     else:
         gamesToDatabase.idsToDatabase([steam_id], None, None) 
 

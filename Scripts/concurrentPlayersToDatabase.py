@@ -12,7 +12,7 @@ def concurrentPlayersRequest():
 
 #sets string to datetime
 def stringtodatetime(time_str):
-    return datetime.strptime(time_str, "%m/%d/%y:%H:%M:%S")
+    return datetime.strptime(time_str, "%m/%d/%y:%H:%M")
 
 #insert return from concurrentPlayersRequest by given appid.
 def insertConcurrentPlayers(appid, amount, time, conn):
@@ -38,7 +38,7 @@ def insertConcurrentPlayers(appid, amount, time, conn):
             if earliest_time > stringtodatetime(x[0]):
                 earliest_time = stringtodatetime(x[0])
 
-        earliest_time = earliest_time.strftime("%m/%d/%y:%H:%M:%S")
+        earliest_time = earliest_time.strftime("%m/%d/%y:%H:%M")
         deleteSQL = 'DELETE FROM concurrentPlayers WHERE gamesteam_appid = %s AND time = %s'
 
         cursor.execute(deleteSQL, (appid, str(earliest_time)))
@@ -51,7 +51,7 @@ def getConcurrentPlayers(conn):
     data = concurrentPlayersRequest()
     now = datetime.now()
 
-    current_time = now.strftime("%D:%H:%M:%S")
+    current_time = now.strftime("%D:%H:%M")
     for x in data:
         appid = x['appid']
         currentPlayers = x['concurrent_in_game']

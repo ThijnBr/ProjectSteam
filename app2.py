@@ -3,6 +3,10 @@ from flask import Flask, redirect, url_for, session, render_template, request
 from flask_openid import OpenID
 import asyncio
 
+import os
+script_directory = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_directory)
+
 #script imports
 import Scripts.getSteamUserFriends as getDetails
 import Scripts.gameSearch as gameSearch
@@ -23,7 +27,6 @@ def index():
         steam_id = user_info['steamid']
         friends_details = getDetails.getFriendsData(steam_id)
         online_friends = [x for x in friends_details if x['info'] != 'Offline']
-        # print(online_friends)
         offline_friends = [x for x in friends_details if x['info'] == 'Offline']
         chart_data = predictConcurrentPlayers.getAllChartData(predictConcurrentPlayers.getConcurrentPlayersFromDatabase(True, None))
         popfriends = sortPlayTime.getGameDatabase(sortPlayTime.mergeSort(sortPlayTime.combineGamePlaytime(steam_id)))
@@ -57,7 +60,6 @@ def library():
 def game_info(game_id):
     # Use game_id to fetch data from the database
     game_data = getGameFromDatabase.getDetailedGames(game_id)
-    print('data', game_data)
     # Pass the fetched data to the gameinfo.html template
     return render_template('gameinfo.html', games=game_data)
 
