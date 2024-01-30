@@ -1,6 +1,7 @@
 from .  import databaseConnection
 from . import getSteamUserFriends
 from . import getSteamUserGameData
+from . import normalDescription
 import asyncio
 
 #returns a gameList [friendid,[gameid,playtime last 2 weeks]]
@@ -102,10 +103,10 @@ def getGameDatabase(lst):
     cursor = conn.cursor()
     game_data = []
     for x in lst:
-        sql = f"SELECT name, header_image FROM game WHERE steam_appid = %s"
+        sql = f"SELECT name, header_image, detailed_description FROM game WHERE steam_appid = %s"
         cursor.execute(sql, (x[0], ))
         data = cursor.fetchall()
-        game_data.append([data[0][0], data[0][1]])
+        game_data.append([data[0][0], data[0][1], normalDescription.getNormalDescription(data[0][2])])
     cursor.close()
     return game_data
 

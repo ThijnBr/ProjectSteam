@@ -1,5 +1,8 @@
 import requests
+import asyncio
 from . import databaseConnection
+from . import getGameFromDatabase
+from . import normalDescription
 
 conn = databaseConnection.connect()
 
@@ -17,11 +20,8 @@ def getSalesOnWishlist(steamID):
         except:
             continue
         if discountPct != 0 and discountPct != None:
-            query = f'SELECT header_image, name FROM game WHERE steam_appid = {x}'
-            cursor.execute(query)
-            image = cursor.fetchone()
-            wishlist.append((x,discountPct, image))
-
+            details = asyncio.run(getGameFromDatabase.getLibraryGames([x]))
+            wishlist.append((discountPct, details[0]))
     cursor.close()
     return wishlist
 
@@ -35,16 +35,24 @@ def getSalesInPopular():
     cursor.execute(sql)
     data = cursor.fetchall()
 
-    popular = []
+    list = []
     for x in data:
-        sql2 = f"SELECT discount, name, header_image FROM game WHERE steam_appid = {x[0]} AND CAST(discount AS INT) > CAST(0 AS INT);"
+        sql2 = f"SELECT discount, name, header_image, detailed_description FROM game WHERE steam_appid = {x[0]} AND CAST(discount AS INT) > CAST(0 AS INT);"
 
         cursor.execute(sql2)
         name = cursor.fetchall()
+        innerList = []
         if name == []:
             continue
-        else:
-            popular.append(name[0])
+        
+        for x in range(len(name[0])):
+            if x == 3:
+                innerList.append(normalDescription.getNormalDescription(name[0][x]))
+            else:
+                innerList.append(name[0][x])
+        if innerList != []:
+            list.append(innerList)
+
     cursor.close()
-    return popular
+    return list
     

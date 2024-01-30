@@ -21,7 +21,6 @@ async def getLibraryGames(steam_ids):
     data = []
     if library_games:
         for game in library_games:
-            # Check if normalDescription is working correctly
             if len(game) > 2:
                 html_description = normalDescription.getNormalDescription(game[2])
                 game_data = (game[0], game[1], html_description, game[3])

@@ -15,6 +15,7 @@ import Scripts.getSales as getSales
 import Scripts.sortPlayTime as sortPlayTime
 import Scripts.getSteamUserGameData as getSteamUserGameData
 import Scripts.getGameFromDatabase as getGameFromDatabase
+import Scripts.getGameNews as getNews
 
 app = Flask(__name__)
 app.secret_key = '3f6F9E3cFb4B6aD7c8E5fA2e4D9cB8aF'  # sessie toke
@@ -60,8 +61,9 @@ def library():
 def game_info(game_id):
     # Use game_id to fetch data from the database
     game_data = getGameFromDatabase.getDetailedGames(game_id)
+    news = getNews.getGameNews(game_id)
     # Pass the fetched data to the gameinfo.html template
-    return render_template('gameinfo.html', games=game_data)
+    return render_template('gameinfo.html', games=game_data, news=news)
 
 
 @app.route('/auth/steam')

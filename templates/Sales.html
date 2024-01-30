@@ -67,20 +67,20 @@
       <div class="text">Sales on your wishlist</div>
       <section class="raster-container">
         {% for x in sales %}
-        <a href="/gameinfo/{{ x[2][0].split('/')[-2] }}" class="sales-item-link">
+        <a href="/gameinfo/{{ x[1][1].split('/')[-2] }}" class="sales-item-link">
             <section class="sales-item">
                 <div class="image-container">
-                    <img src="{{ x[2][0] }}" alt="Image Description 1">
-                    <div class="image-title">{{ x[2][1] }}</div>
-                    <div class="image-description">Korte uitleg over dit spel.</div>
+                    <img src="{{ x[1][1] }}" alt="Image Description 1">
+                    <div class="image-title">{{ x[1][0] }}</div>
+                    <div class="image-description">{{x[1][2]}}</div>
                 </div>
-                <div class="image-discount">{{ x[1] }}% Discount</div>
+                <div class="image-discount">{{ x[0] }}% Discount</div>
             </section>
         </a>
         {% endfor %}
         
       </section>
-      <div class="text">Popular Game in Sale</div>
+      <div class="text">Popular Games in Sale</div>
       <section class="raster-container">
         {%for x in popular%}
         <a href="/gameinfo/{{ x[2].split('/')[-2] }}" class="sales-item-link">
@@ -88,7 +88,7 @@
             <div class="image-container">
                 <img src="{{x[2]}}" alt="Image Description 1">
                 <div class="image-title">{{x[1]}}</div>
-                <div class="image-description">Korte uitleg over dit spel.</div>
+                <div class="image-description">{{x[3]}}</div>
             </div>
             <div class="image-discount">{{x[0]}}% Discount</div>
           </section>

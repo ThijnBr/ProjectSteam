@@ -107,30 +107,19 @@
 
       <!-- news Information Section -->
       <div class="game-tab" id="game-tab">
-
+          {%for x in news%}
           <div class="game-tab-text">
-              <h4>Title news</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <h4>{{x[0]}}</h4>
+              {{x[1] | safe}}
           </div>
-          <div class="game-tab-text">
-            <h4>Title news</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </div>
-        <div class="game-tab-text">
-          <h4>Title news</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      </div>
-      <div class="game-tab-text">
-        <h4>Title news</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
+          {%endfor%}
       </div>
   
       <!-- Screenshots Section -->
       <div class="game-screenshots">
           <div class="text">Screenshots</div>
           <div class="screenshots-grid">
-            {% for screenshot in games[12] %}
+            {%for screenshot in games[12]%}
               <div class="screenshot-item">
                   <img src="{{ screenshot }}" alt="Screenshot 1">
               </div>
