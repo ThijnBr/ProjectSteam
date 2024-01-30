@@ -69,10 +69,10 @@
     {%for x in popfriends%}
         <div class="image-container">
             <a href="/gameinfo/{{ x[1].split('/')[-2] }}">
-              <img src="{{x[1]}}" alt="Image Description 1">
+              <img src="{{x[1]}}" alt="image-description">
             </a>
           <div class="image-title">{{x[0]}}</div>
-          <div class="image-description">{{x[2]}}</div>
+          <div class="image-description"> {{x[3]}} </div>
         </div>
     {%endfor%}
 
@@ -94,7 +94,9 @@
         {% for chart in chart_data %}
         <div class="content-container">
           <div class="image-container-predict">
-            <img src="{{chart[2]}}" alt="Game Image">           <!--{{ chart[2] }}-->
+            <a href="/gameinfo/{{ chart[2].split('/')[-2] }}" class="gameinfo-container">
+              <img src="{{chart[2]}}" alt="{{chart[1]}}">
+            </a>
             <div class="image-title">{{ chart[1] }}</div>
             <div class="image-description">Short description of the game.</div>
           </div>
