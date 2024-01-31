@@ -352,7 +352,14 @@ body {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  transition: all 0.3s ease, max-height 0.3s cubic-bezier(0, 1, 0, 1);
+  transition: all 0.3s ease, max-height 0.3s cubic-bezier(0, 1, 0, 1) 0,3s !important; 
+  line-height: 1.2em !important; 
+}
+
+/* Hover effect for the description */
+.home-section .image-container:hover .image-description {
+  max-height: 2.8em !important;  /* Enough height to show two lines of text */
+  transition: all 0.3s ease, max-height 0s cubic-bezier(0, 1, 0, 1) !important; 
 }
 
 /* Hover effect for the container */
