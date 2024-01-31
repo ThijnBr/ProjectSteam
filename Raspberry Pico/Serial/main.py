@@ -27,49 +27,50 @@ sensor = machine.ADC(adcpin)
 
 
 
-def status(t):
+def status(t, name):
+    lcd.clear()
     scroll_position = 0
 
     if t == '0':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
-        lcd.putstr('jouw vriend is:')
+        lcd.putstr(f'{name} is:')
         lcd.move_to(0, 1)
         lcd.putstr('Offline')
     elif t == '1':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
-        lcd.putstr('jouw vriend is:')
+        lcd.putstr(f'{name} is:')
         lcd.move_to(0, 1)
         lcd.putstr('online')
     elif t == '2':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
-        lcd.putstr('jouw vriend is:')
+        lcd.putstr(f'{name} is:')
         lcd.move_to(0, 1)
         lcd.putstr('Busy')
     elif t == '3':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
-        lcd.putstr('jouw vriend is:')
+        lcd.putstr(f'{name} is:')
         lcd.move_to(0, 1)
         lcd.putstr('Away')
     elif t == '4':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
-        lcd.putstr('jouw vriend is:')
+        lcd.putstr(f'{name} is:')
         lcd.move_to(0, 1)
         lcd.putstr('Snooze')
-    # elif t == '5':
+    elif t == '5':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
-        lcd.putstr('jouw vriend is:')
+        lcd.putstr(f'{name} is:')
         lcd.move_to(0, 1)
         lcd.putstr('Looking to trade')
     elif t == '6':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
-        lcd.putstr('jouw vriend is:')
+        lcd.putstr(f'{name} is:')
         lcd.move_to(0, 1)
         lcd.putstr('Looking to play')
     else:
@@ -82,5 +83,6 @@ def status(t):
 
 while True:
     t = input()
+    st, name = t.split(';')
     print(t)
-    status(t)
+    status(st, name)

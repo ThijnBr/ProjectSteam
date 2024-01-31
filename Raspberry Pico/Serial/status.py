@@ -4,9 +4,9 @@ import serial
 import requests
 
 
-#steamid = '76561198058830724'
-steamid = '76561198219094895' #Dieu
-# steamid = '76561198263305780'
+#steamid = '76561198058830724' #glenn
+#steamid = '76561198219094895' #Dieu
+steamid = '76561198401205997'
 
 def getUserProfileState(steamid):
     apikey = '14B0152189C811A5DE80FE50EB4DA7CC'
@@ -17,14 +17,14 @@ def getUserProfileState(steamid):
 
     return data['response']['players'][0]['personastate']
 
-# def getUserProfilename(steamid):
-#     apikey = '14B0152189C811A5DE80FE50EB4DA7CC'
-#     url = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={apikey}&steamids={steamid}"
-#
-#     response = requests.get(url)
-#     data = response.json()
-#
-#     return data['response']['players'][0]['personaname']
+def getUserProfilename(steamid):
+    apikey = '14B0152189C811A5DE80FE50EB4DA7CC'
+    url = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={apikey}&steamids={steamid}"
+
+    response = requests.get(url)
+    data = response.json()
+
+    return data['response']['players'][0]['personaname']
 
 
 
@@ -59,13 +59,15 @@ with serial.Serial(port=pico_port, baudrate=115200, bytesize=8, parity='N', stop
         # commands = ['off', 'on', 'exit', 'temp']
         while True:
             choice = input(" yes? [" + ", ".join(commands) + "] ")
-            state = getUserProfileState((steamid))
-            if choice=="yes" and state in range(6):
-                data = f"{state}\r"
+            state = getUserProfileState(steamid)
+            name = getUserProfilename(steamid)
+            if choice == "yes" and state in range(6):
+                data = f"{state};{name}\r"
                 serial_port.write(data.encode())
                 pico_output = read_serial(serial_port)
                 pico_output = pico_output.replace('\r\n', ' ')
-                print("[PICO] " + str(state))
+                print("[PICO] " + str(state) +' '+ str(name))
+
 
             else:
                 print("[WARN] Unknown command.")
@@ -73,7 +75,3 @@ with serial.Serial(port=pico_port, baudrate=115200, bytesize=8, parity='N', stop
     except KeyboardInterrupt:
 
         print("[INFO] Ctrl+C detected. Terminating.")
-    # finally:
-    #     # Close connection to Pico
-    #     serial_port.close()
-    #     print("[INFO] Serial port closed. Bye.")
