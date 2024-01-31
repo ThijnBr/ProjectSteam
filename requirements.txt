@@ -1,0 +1,10 @@
+Flask==2.2.5
+Werkzeug==2.3.8
+Flask-OpenID
+psycopg2
+bs4
+requests
+DateTime
+asyncio
+pandas
+aiohttp

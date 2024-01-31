@@ -16,18 +16,25 @@ Planboard
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
-pip install flask==2.2.5
-pip install werkzeug==2.3.8
-pip install flask_openid
+Flask==2.2.5
+Werkzeug==2.3.8
+Flask-OpenID
+psycopg2
+bs4
+requests
+DateTime
+asyncio
+pandas
+aiohttp
 
 ### Installation
-By running app2.py.
+Inside the requirements.txt you can find all the needed packages.
 ## Usage
 After installing the dependecies you can run app2.py. A development server is run on localhost. You can open the website at ip: 127.0.0.1:5000 in your browser.
 ## Built With
 
-* [Tool1](https://flask.palletsprojects.com/en/3.0.x/) - The web framework used
-* [Tool2](postgresql.org) - Database
+* [Flask](https://flask.palletsprojects.com/en/3.0.x/) - The web framework used
+* [PostgreSQL](postgresql.org) - Database
 
 ## Authors
 
