@@ -26,9 +26,12 @@ def index():
     user_info = session.get('user_info')
     if user_info:
         steam_id = user_info['steamid']
-        friends_details = getDetails.getFriendsData(steam_id)
-        online_friends = [x for x in friends_details if x['info'] != 'Offline']
-        offline_friends = [x for x in friends_details if x['info'] == 'Offline']
+        try:
+            friends_details = getDetails.getFriendsData(steam_id)
+            online_friends = [x for x in friends_details if x['info'] != 'Offline']
+            offline_friends = [x for x in friends_details if x['info'] == 'Offline']
+        except:
+            return render_template('error.html')
         chart_data = predictConcurrentPlayers.getAllChartData(predictConcurrentPlayers.getConcurrentPlayersFromDatabase(True, None))
         popfriends = sortPlayTime.getGameDatabase(sortPlayTime.mergeSort(sortPlayTime.combineGamePlaytime(steam_id)))
         return render_template('index.html', user_info=user_info, online_friends=online_friends, offline_friends=offline_friends, chart_data=chart_data, popfriends=popfriends)
@@ -92,7 +95,7 @@ def search():
     
     html = ''
     for x in results:
-        html += f'<img src="{x[0]}">'
+        html += f'<a href="/gameinfo/{x[0].split("/")[-2] }" class="gameinfo-container"><img src="{x[0]}"></a>'
     
     return html
 

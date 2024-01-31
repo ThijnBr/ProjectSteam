@@ -5,28 +5,22 @@ import requests
 
 
 #steamid = '76561198058830724' #glenn
-#steamid = '76561198219094895' #Dieu
-steamid = '76561198401205997'
+steamid = '76561198219094895' #Dieu
+# steamid = '76561198401205997'
 
 def getUserProfileState(steamid):
     apikey = '14B0152189C811A5DE80FE50EB4DA7CC'
     url = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={apikey}&steamids={steamid}"
 
     response = requests.get(url)
-    data = response.json()
+    data = response.json()['response']['players'][0]
 
-    return data['response']['players'][0]['personastate']
+    try:
+        info = 'Plays ' + data['gameextrainfo']
+    except KeyError:
+        info = None
 
-def getUserProfilename(steamid):
-    apikey = '14B0152189C811A5DE80FE50EB4DA7CC'
-    url = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={apikey}&steamids={steamid}"
-
-    response = requests.get(url)
-    data = response.json()
-
-    return data['response']['players'][0]['personaname']
-
-
+    return data['personastate'], data['personaname'], info
 
 def read_serial(port):
     """Read data from serial port and return as string."""
@@ -59,14 +53,15 @@ with serial.Serial(port=pico_port, baudrate=115200, bytesize=8, parity='N', stop
         # commands = ['off', 'on', 'exit', 'temp']
         while True:
             choice = input(" yes? [" + ", ".join(commands) + "] ")
-            state = getUserProfileState(steamid)
-            name = getUserProfilename(steamid)
+            state = getUserProfileState(steamid)[0]
+            name = getUserProfileState(steamid)[1]
+            game = getUserProfileState(steamid)[2]
             if choice == "yes" and state in range(6):
-                data = f"{state};{name}\r"
+                data = f"{state};{name};{game}\r"
                 serial_port.write(data.encode())
                 pico_output = read_serial(serial_port)
                 pico_output = pico_output.replace('\r\n', ' ')
-                print("[PICO] " + str(state) +' '+ str(name))
+                print("[PICO] " + str(state) +' '+ str(name) + ' ' + str(game))
 
 
             else:

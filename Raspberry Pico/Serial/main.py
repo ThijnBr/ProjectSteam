@@ -3,6 +3,9 @@ from pico_i2c_lcd import I2cLcd
 from machine import Pin
 import machine
 import utime
+import neopixel
+import time
+np = neopixel.NeoPixel(machine.Pin(15),8)
 
 """
 From the 1602A LCD Datasheet. The I2C 1602 LCD module is a 2 line by 16 character display interfaced to an I2C daughter board.
@@ -25,12 +28,9 @@ lcd = I2cLcd(i2c, I2C_ADDR, 2, 16)
 adcpin = 4
 sensor = machine.ADC(adcpin)
 
-
-
-def status(t, name):
+def status(t, name, game):
     lcd.clear()
     scroll_position = 0
-
     if t == '0':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
@@ -40,9 +40,15 @@ def status(t, name):
     elif t == '1':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
-        lcd.putstr(f'{name} is:')
-        lcd.move_to(0, 1)
-        lcd.putstr('online')
+
+        if game == 'None':
+            lcd.putstr(f'{name} is:')
+            lcd.move_to(0, 1)
+            lcd.putstr(f'online')
+        else:
+            lcd.putstr(f'{name}  ')
+            lcd.putstr(f'{game}')
+
     elif t == '2':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
@@ -80,9 +86,25 @@ def status(t, name):
         lcd.move_to(0, 1)
         lcd.putstr('Prive')
 
+def neoPixel(st):
+    if st == '0':
+        for x in range(8):
+            np[x] = [255, 0, 0]
+    elif st == '1':
+        for x in range(8):
+            np[x] = [0, 255, 0]
+    else:
+        for x in range(8):
+            np[x] = [255,255,0]
+    np.write()
 
 while True:
     t = input()
-    st, name = t.split(';')
-    print(t)
-    status(st, name)
+    st, name, game = t.split(';')
+    # neoPixel(st, name, game)
+    status(st,name,game)
+
+
+
+   
+

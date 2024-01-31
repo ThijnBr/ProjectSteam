@@ -35,7 +35,7 @@ After installing the dependecies you can run app2.py. A development server is ru
 * Thijn Broekhuizen (Artificial Intelligence)
 * Dieu-Merci Tandu (Cybersecurity & Cloud)
 * Yverdon Boei (Technische Informatica)
-* Glenn Jacobs (Bedrijven, Organisaties en ICT (BIM))
+* Glenn Jacobs (Software Development)
 * Daan Hessen (Software Development)
 ```
 
