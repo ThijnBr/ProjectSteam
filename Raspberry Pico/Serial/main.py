@@ -27,7 +27,7 @@ sensor = machine.ADC(adcpin)
 
 
 
-def status(t, name):
+def status(t, name, game):
     lcd.clear()
     scroll_position = 0
 
@@ -42,7 +42,7 @@ def status(t, name):
         lcd.move_to(0, 0)
         lcd.putstr(f'{name} is:')
         lcd.move_to(0, 1)
-        lcd.putstr('online')
+        lcd.putstr(f'online is {game}')
     elif t == '2':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
@@ -83,6 +83,6 @@ def status(t, name):
 
 while True:
     t = input()
-    st, name = t.split(';')
+    st, name, game = t.split(';')
     print(t)
-    status(st, name)
+    status(st, name, game)
