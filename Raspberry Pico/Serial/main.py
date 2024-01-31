@@ -5,8 +5,7 @@ import machine
 import utime
 import neopixel
 import time
-np = neopixel.NeoPixel(machine.Pin(13),8)
-np[1] = [0,0,255]
+np = neopixel.NeoPixel(machine.Pin(15),8)
 
 """
 From the 1602A LCD Datasheet. The I2C 1602 LCD module is a 2 line by 16 character display interfaced to an I2C daughter board.
@@ -29,12 +28,9 @@ lcd = I2cLcd(i2c, I2C_ADDR, 2, 16)
 adcpin = 4
 sensor = machine.ADC(adcpin)
 
-
-
 def status(t, name, game):
     lcd.clear()
     scroll_position = 0
-
     if t == '0':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
@@ -86,9 +82,14 @@ def status(t, name, game):
 
 def neoPixel(st):
     if st == '0':
-        np[0] = [255, 0, 0]
+        for x in range(8):
+            np[x] = [255, 0, 0]
     elif st == '1':
-        np[0] = [0,255,0]
+        for x in range(8):
+            np[x] = [0, 255, 0]
+    else:
+        for x in range(8):
+            np[x] = [255,255,0]
     np.write()
     time.sleep(1)
 
@@ -96,6 +97,8 @@ while True:
     t = input()
     st, name, game = t.split(';')
     print(t)
-    status(st, name, game)
+    neoPixel(st, name, game)
+
+
    
 
