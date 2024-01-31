@@ -56,47 +56,47 @@ def combineGamePlaytime(steamID):
 
 #sort playtime from high to low with merge sort. returns a max of 6 games.
 def mergeSort(arr):
+    # Check if the length of the array is less than or equal to 1
+    # If so, it's already sorted, so return the array
     if len(arr) <= 1:
         return arr
 
-    leftArray = arr[:len(arr)//2]
-    rightArray = arr[len(arr)//2:]
+    # Split the array into two halves
+    leftArray = arr[:len(arr)//2]  # Left half
+    rightArray = arr[len(arr)//2:]  # Right half
 
+    # Recursively call mergeSort on each half
     leftArray = mergeSort(leftArray)
     rightArray = mergeSort(rightArray)
 
     sortedArray = []
 
-    i = 0 
-    j = 0 
+    # checks index for the left and right arrays
+    i = 0
+    j = 0
 
+    # Compare elements from left and right arrays and merge them in sorted order
     while i < len(leftArray) and j < len(rightArray):
-        if leftArray[i][1] > rightArray[j][1]:
+        if leftArray[i][1] > rightArray[j][1]:  # Compare based on the second element of each item
             sortedArray.append(leftArray[i])
             i += 1
         else:
             sortedArray.append(rightArray[j])
             j += 1
     
+    # Append remaining elements from left array, if any are left
     while i < len(leftArray):
         sortedArray.append(leftArray[i])
         i += 1
 
+    # Append remaining elements from right array, if any are left
     while j < len(rightArray):
         sortedArray.append(rightArray[j])
         j += 1
 
+    # Return the sorted array with a limit of 6 elements
     return sortedArray[0:6]
-    # print(arr)
-    # for i in range(1, len(arr)):
-    #     j = i
-
-    #     while arr[j - 1][1] < arr[j][1] and j > 0:
-    #         arr[j - 1], arr[j] = arr[j], arr[j - 1]
-    #         j -= 1
     
-    
-
 #get name image link and description from database
 def getGameDatabase(lst):
     conn = databaseConnection.connect()
@@ -109,5 +109,3 @@ def getGameDatabase(lst):
         game_data.append([data[0][0], data[0][1], normalDescription.getNormalDescription(data[0][2])])
     cursor.close()
     return game_data
-
-# print(mergeSort(combineGamePlaytime(76561198058830724)))
