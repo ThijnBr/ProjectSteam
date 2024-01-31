@@ -39,6 +39,11 @@ def index():
 def login():
     return render_template('login.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('user_info', None)
+    return redirect(url_for('index'))
+
 @app.route('/library')
 def library():
     user_info = session.get('user_info')
