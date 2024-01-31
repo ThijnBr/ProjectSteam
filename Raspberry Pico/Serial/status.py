@@ -5,8 +5,8 @@ import requests
 
 
 #steamid = '76561198058830724' #glenn
-#steamid = '76561198219094895' #Dieu
-steamid = '76561198401205997'
+steamid = '76561198219094895' #Dieu
+# steamid = '76561198401205997'
 
 def getUserProfileState(steamid):
     apikey = '14B0152189C811A5DE80FE50EB4DA7CC'
@@ -16,7 +16,7 @@ def getUserProfileState(steamid):
     data = response.json()['response']['players'][0]
 
     try:
-        info = 'Playing ' + data['gameextrainfo']
+        info = 'Plays ' + data['gameextrainfo']
     except KeyError:
         info = None
 

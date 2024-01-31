@@ -40,9 +40,15 @@ def status(t, name, game):
     elif t == '1':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
-        lcd.putstr(f'{name} is:')
-        lcd.move_to(0, 1)
-        lcd.putstr(f'online is {game}')
+
+        if game == 'None':
+            lcd.putstr(f'{name} is:')
+            lcd.move_to(0, 1)
+            lcd.putstr(f'online')
+        else:
+            lcd.putstr(f'{name}  ')
+            lcd.putstr(f'{game}')
+
     elif t == '2':
         print(I2C_ADDR, "| Hex:", hex(I2C_ADDR))
         lcd.move_to(0, 0)
@@ -91,13 +97,13 @@ def neoPixel(st):
         for x in range(8):
             np[x] = [255,255,0]
     np.write()
-    time.sleep(1)
 
 while True:
     t = input()
     st, name, game = t.split(';')
-    print(t)
-    neoPixel(st, name, game)
+    # neoPixel(st, name, game)
+    status(st,name,game)
+
 
 
    
