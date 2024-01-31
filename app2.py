@@ -95,7 +95,7 @@ def search():
     
     html = ''
     for x in results:
-        html += f'<img src="{x[0]}">'
+        html += f'<a href="/gameinfo/{x[0].split("/")[-2] }" class="gameinfo-container"><img src="{x[0]}"></a>'
     
     return html
 
